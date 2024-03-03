@@ -13,4 +13,9 @@ class SportFieldRepositoryImpl implements SportFieldRepository {
     public SportField findById(Long sportFieldId) {
         return sportFieldRepositoryJPA.findById(sportFieldId).map(SportFieldMapper::toModel).orElseThrow();
     }
+
+    @Override
+    public void save(SportField sportField) {
+        sportFieldRepositoryJPA.save(SportFieldMapper.toEntity(sportField));
+    }
 }

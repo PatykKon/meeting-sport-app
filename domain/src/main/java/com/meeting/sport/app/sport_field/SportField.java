@@ -8,14 +8,22 @@ import lombok.Getter;
 public class SportField {
 
     private final Long id;
-    FieldType fieldType;
-    FieldSpace fieldSpace;
+    private FieldType fieldType;
+    private FieldSpace fieldSpace;
+    private Address address;
 
 
-    public SportField(Long id,FieldType fieldType, FieldSpace fieldSpace) {
+    private SportField(Long id,FieldType fieldType, FieldSpace fieldSpace,Address address) {
         this.id = id;
         this.fieldType = fieldType;
         this.fieldSpace = fieldSpace;
+        this.address = address;
+    }
+
+    public static SportField addSportField(FieldType fieldType, FieldSpace fieldSpace,String city,String street, String number){
+        Address fieldAddress = new Address(city,street,number);
+
+        return new SportField(builder().id, fieldType,fieldSpace,fieldAddress);
     }
 }
 

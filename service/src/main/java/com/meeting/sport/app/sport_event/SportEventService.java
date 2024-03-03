@@ -11,12 +11,26 @@ class SportEventService {
     private final SportEventRepository sportEventRepository;
     private final SportFieldRepository sportFieldRepository;
 
-    public void makeSportEvent(Long sportFieldId, SportEventRequest sportEventRequest) {
+    void makeSportEvent(Long sportFieldId, SportEventRequest sportEventRequest) {
 
         SportField sportField = sportFieldRepository.findById(sportFieldId);
 
-        SportEvent sportEvent = SportEvent.create(sportEventRequest.title(), sportEventRequest.description(), sportEventRequest.players(), sportEventRequest.minAge(), sportField);
+        SportEvent sportEvent = SportEvent.create(
+                sportEventRequest.title(),
+                sportEventRequest.description(),
+                sportEventRequest.players(),
+                sportEventRequest.minAge(),
+                sportField,
+                sportEventRequest.startTime(),
+                sportEventRequest.gameTime()
+        );
         sportEventRepository.save(sportEvent);
+    }
+
+    SportEventResponse getEvent(Long eventId) {
+        return sportEventRepository.getSportEvent(eventId)
+                .map(SportEventMapper::toResponse)
+                .orElseThrow();
     }
 }
 

@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 class BookingService {
 
     private final BookingRepository bookingRepository;
-    public void makeBooking(BookingRequest bookingRequest) {
+
+    void makeBooking(BookingRequest bookingRequest) {
 
         Booking booking = Booking.createBooking(
                 bookingRequest.startDateGame(),
                 bookingRequest.gameTime(),
                 bookingRequest.sportField());
 
-       bookingRepository.save(booking);
+        bookingRepository.save(booking);
     }
 }

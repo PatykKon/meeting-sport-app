@@ -10,18 +10,21 @@ import java.util.List;
 @Table(name = "SPORT_FIELD")
 @Entity
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
+@Builder
 public class SportFieldEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     @Enumerated(EnumType.STRING)
-    private FieldSpace fieldSpace;
+    private FieldSpace spaceField;
     @Enumerated(EnumType.STRING)
     private FieldType fieldType;
+    private String city;
+    private String street;
+    private String number;
     @OneToMany(mappedBy = "sportFieldEntity", cascade = CascadeType.ALL)
     private List<SportEventEntity> sportEventEntities = new ArrayList<>();
 }

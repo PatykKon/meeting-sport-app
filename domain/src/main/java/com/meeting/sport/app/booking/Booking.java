@@ -22,7 +22,6 @@ public class Booking {
         BookingGameTime bookingGameTime = new BookingGameTime(gameTime);
         LocalDateTime endTime = gameStartTime.plusHours(gameTime);
 
-
         BookingTime bookingTime = new BookingTime(gameStartTime, endTime);
 
         return new Booking(bookingTime, bookingGameTime, sportField);

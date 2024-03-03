@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 public interface SportFieldRepository {
 
     SportField findById(Long sportFieldId);
+
+    void save(SportField sportField);
 }

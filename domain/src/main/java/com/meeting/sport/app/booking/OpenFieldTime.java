@@ -1,11 +1,6 @@
 package com.meeting.sport.app.booking;
 
-import lombok.Getter;
-
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 
 enum OpenFieldTime {
     WEEK(LocalTime.of(8, 0), LocalTime.of(18, 0)),

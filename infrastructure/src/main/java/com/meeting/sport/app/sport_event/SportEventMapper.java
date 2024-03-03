@@ -15,6 +15,22 @@ public class SportEventMapper {
                 .minAge(sportEvent.getRequiredAge().getAge())
                 .players(sportEvent.getTeamSize().getTeamSize())
                 .sportFieldEntity(sportField)
+                .startTime(sportEvent.getEventTime().getStartTime())
+                .endTime(sportEvent.getEventTime().getEndTime())
+                .gameTime(sportEvent.getEventTime().getGameTime())
+                .build();
+    }
+
+    public static SportEventResponse toResponse(SportEventEntity entity){
+        return SportEventResponse.builder()
+                .gameTime(entity.getGameTime())
+                .startTime(entity.getStartTime())
+                .endTime(entity.getEndTime())
+                .description(entity.getDescription())
+                .title(entity.getTitle())
+                .minAge(entity.getMinAge())
+                .maxPlayers(entity.getPlayers())
+                .sportField(SportFieldMapper.toResponse(entity.getSportFieldEntity()))
                 .build();
     }
 }

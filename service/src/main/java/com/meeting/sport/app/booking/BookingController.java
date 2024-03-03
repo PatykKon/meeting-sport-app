@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/booking")
-public class BookingController {
+class BookingController {
 
     private final BookingService bookingService;
 
