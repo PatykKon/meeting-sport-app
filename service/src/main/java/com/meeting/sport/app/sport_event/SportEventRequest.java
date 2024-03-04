@@ -1,6 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 record SportEventRequest(
         String title,
@@ -8,6 +9,8 @@ record SportEventRequest(
         int players,
         int minAge,
         LocalDateTime startTime,
-        Integer gameTime
+        Integer gameTime,
+
+        List<GameRole> gameRoles
 ) {
 }

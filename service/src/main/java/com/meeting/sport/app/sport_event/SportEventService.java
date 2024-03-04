@@ -4,6 +4,8 @@ import com.meeting.sport.app.sport_field.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 class SportEventService {
@@ -22,15 +24,27 @@ class SportEventService {
                 sportEventRequest.minAge(),
                 sportField,
                 sportEventRequest.startTime(),
-                sportEventRequest.gameTime()
-        );
+                sportEventRequest.gameTime());
+
+        sportEventRepository.save(sportEvent);
+
+
+        List<GameUser> gameUsers = GameUser.crateGameUsers(sportEventRequest.gameRoles(),sportEvent);
+
+        sportEvent.addGameUsers(gameUsers);
+
         sportEventRepository.save(sportEvent);
     }
 
     SportEventResponse getEvent(Long eventId) {
-        return sportEventRepository.getSportEvent(eventId)
-                .map(SportEventMapper::toResponse)
-                .orElseThrow();
+        return sportEventRepository.getSportEvent(eventId);
+    }
+
+    void joinEvent(JoinEventRequest request,Long eventId){
+
+        SportEvent sportEvent = sportEventRepository.findById(eventId);
+        sportEvent.join(request.gamer(),request.gameRole());
+
     }
 }
 

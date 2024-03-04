@@ -5,6 +5,7 @@ import com.meeting.sport.app.sport_field.SportFieldResponse;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 public record SportEventResponse(
@@ -15,7 +16,9 @@ public record SportEventResponse(
         Integer gameTime,
         int maxPlayers,
         int minAge,
-        SportFieldResponse sportField
+        SportFieldResponse sportField,
+
+        List<GameUserResponse> gameUserResponses
 ) {
 
 }
