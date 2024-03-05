@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 public interface SportEventRepository {
     void save(SportEvent sportEvent);
 
-    void saveGameUser(GameUser gameUser);
-
-    SportEventResponse getSportEvent(Long eventId);
-
+//    SportEventResponse getSportEvent(Long eventId);
+//
     SportEvent findById(Long eventId);
 }

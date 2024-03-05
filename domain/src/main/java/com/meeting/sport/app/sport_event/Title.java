@@ -22,7 +22,7 @@ class Title {
         return title;
     }
 
-    String getTitle() {
+     public String getTitle() {
         return title;
     }
 }

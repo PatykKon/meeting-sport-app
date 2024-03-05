@@ -1,18 +1,20 @@
 package com.meeting.sport.app.sport_event;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-@Getter
+
 @Builder
-class GameUser {
+public class GameUser {
 
     private Long id;
-    private final GameRole gameRole;
-    private final boolean isAvailable;
+    private GameRole gameRole;
+    private boolean isAvailable;
     private SportEvent sportEvent;
 
 
@@ -23,17 +25,46 @@ class GameUser {
         this.sportEvent = sportEvent;
     }
 
-    GameUser(GameRole gameRole, SportEvent sportEvent) {
+    GameUser(GameRole gameRole) {
         this.gameRole = gameRole;
         this.isAvailable = true;
+    }
+
+    public void addSportEvent(SportEvent sportEvent){
         this.sportEvent = sportEvent;
     }
 
-    public static List<GameUser> crateGameUsers(List<GameRole> gameRoles,SportEvent sportEvent) {
+    public static List<GameUser> crateGameUsers(List<GameRole> gameRoles) {
         List<GameUser> gameRoleList = new ArrayList<>();
 
-        gameRoles.forEach(gameRole -> gameRoleList.add(new GameUser(gameRole,sportEvent)));
+        gameRoles.forEach(gameRole -> gameRoleList.add(new GameUser(gameRole)));
         return gameRoleList;
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public GameRole getGameRole() {
+        return gameRole;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public SportEvent getSportEvent() {
+        return sportEvent;
+    }
+    //    private GameUser submitRole(GameRole gameRole, List<GameUser> gameUsers) {
+//        return gameUsers.stream()
+//                .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable())
+//                .findFirst()
+//                .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
+//    }
+
+    public void changeAvailability(){
+        this.isAvailable = !isAvailable;
     }
 }

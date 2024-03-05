@@ -2,10 +2,10 @@ package com.meeting.sport.app.sport_event;
 
 class RequiredAge {
 
-    private final int Age;
+    private final int age;
 
     RequiredAge(int age) {
-        Age = checkAge(age);
+        this.age = checkAge(age);
     }
 
     private int checkAge(int age) {
@@ -15,8 +15,14 @@ class RequiredAge {
         return age;
     }
 
+    void isUserAgeCorrect(int userAge) {
+        if (age > userAge) {
+            throw new RuntimeException("user is too young to join this sport event");
+        }
+    }
+
     int getAge() {
-        return Age;
+        return age;
     }
 
 }

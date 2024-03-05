@@ -25,6 +25,6 @@ public class SportFieldEntity {
     private String city;
     private String street;
     private String number;
-    @OneToMany(mappedBy = "sportFieldEntity", cascade = CascadeType.ALL)
-    private List<SportEventEntity> sportEventEntities = new ArrayList<>();
+    @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL)
+    private List<SportEventEntity> sportEvents = new ArrayList<>();
 }

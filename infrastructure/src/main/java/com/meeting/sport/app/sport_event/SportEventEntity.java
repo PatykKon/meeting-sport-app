@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.gamer.GamerEntity;
 import com.meeting.sport.app.sport_field.SportFieldEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,7 +30,7 @@ public class SportEventEntity {
     private List<GameUserEntity> gameUsers = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "sport_field_entity_id")
-    private SportFieldEntity sportFieldEntity;
+    private SportFieldEntity sportField;
     @ManyToMany(mappedBy = "sportEventEntities",cascade = CascadeType.ALL)
     private List<GamerEntity> gamers = new ArrayList<>();
 }
