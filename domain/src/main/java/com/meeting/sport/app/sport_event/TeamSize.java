@@ -1,5 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
+import lombok.Value;
+
 class TeamSize {
 
     private final int teamSize;
@@ -18,7 +20,7 @@ class TeamSize {
         return players;
     }
 
-    int getTeamSize() {
+    public int getTeamSize() {
         return teamSize;
     }
 

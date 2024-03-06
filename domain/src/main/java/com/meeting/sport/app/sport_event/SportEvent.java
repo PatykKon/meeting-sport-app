@@ -2,8 +2,7 @@ package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_field.SportField;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,14 +10,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Getter
-@Builder
 public class SportEvent {
 
-    private final static int MAX_DESCRIPTION = 200;
-    private final static int MAX_TITLE = 60;
-
     private Long id;
-
     private Title title;
     private Description description;
     private TeamSize teamSize;
@@ -29,6 +23,18 @@ public class SportEvent {
     private List<Gamer> gamers;
 
     public SportEvent() {
+    }
+
+    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<GameUser> gameUsers, EventTime eventTime, List<Gamer> gamers) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.teamSize = teamSize;
+        this.requiredAge = requiredAge;
+        this.sportField = sportField;
+        this.gameUsers = gameUsers;
+        this.eventTime = eventTime;
+        this.gamers = gamers;
     }
 
     private SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<GameUser> gameUsers, EventTime eventTime, List<Gamer> gamers) {

@@ -21,6 +21,14 @@ public class SportField {
     public SportField() {
     }
 
+    public SportField(Long id, FieldType fieldType, FieldSpace fieldSpace, Address address, List<SportEvent> sportEvents) {
+        this.id = id;
+        this.fieldType = fieldType;
+        this.fieldSpace = fieldSpace;
+        this.address = address;
+        this.sportEvents = sportEvents;
+    }
+
     private SportField(Long id, FieldType fieldType, FieldSpace fieldSpace, Address address) {
         this.id = id;
         this.fieldType = fieldType;

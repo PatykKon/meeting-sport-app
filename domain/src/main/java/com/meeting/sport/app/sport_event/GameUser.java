@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 
 
 @Builder
+@Getter
 public class GameUser {
 
     private Long id;
@@ -17,6 +18,8 @@ public class GameUser {
     private boolean isAvailable;
     private SportEvent sportEvent;
 
+    public GameUser() {
+    }
 
     public GameUser(Long id, GameRole gameRole, boolean isAvailable, SportEvent sportEvent) {
         this.id = id;
@@ -42,21 +45,6 @@ public class GameUser {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public GameRole getGameRole() {
-        return gameRole;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public SportEvent getSportEvent() {
-        return sportEvent;
-    }
     //    private GameUser submitRole(GameRole gameRole, List<GameUser> gameUsers) {
 //        return gameUsers.stream()
 //                .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable())

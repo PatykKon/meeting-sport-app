@@ -21,7 +21,7 @@ class RequiredAge {
         }
     }
 
-    int getAge() {
+    public int getAge() {
         return age;
     }
 

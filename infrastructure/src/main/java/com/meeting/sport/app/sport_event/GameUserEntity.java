@@ -7,7 +7,6 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @Builder
-@AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
 public class GameUserEntity {
 
@@ -19,4 +18,11 @@ public class GameUserEntity {
     @ManyToOne
     @JoinColumn(name = "sport_event_entity_id")
     SportEventEntity sportEventEntity;
+
+    public GameUserEntity(Long id, GameRole gameRole, boolean isAvailable, SportEventEntity sportEventEntity) {
+        this.id = id;
+        this.gameRole = gameRole;
+        this.isAvailable = isAvailable;
+        this.sportEventEntity = sportEventEntity;
+    }
 }

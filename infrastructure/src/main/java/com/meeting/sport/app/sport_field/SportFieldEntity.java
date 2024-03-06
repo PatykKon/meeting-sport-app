@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "SPORT_FIELD")
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
 @Builder
 public class SportFieldEntity {
@@ -27,4 +26,14 @@ public class SportFieldEntity {
     private String number;
     @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL)
     private List<SportEventEntity> sportEvents = new ArrayList<>();
+
+    public SportFieldEntity(Long id, FieldSpace spaceField, FieldType fieldType, String city, String street, String number, List<SportEventEntity> sportEvents) {
+        this.id = id;
+        this.spaceField = spaceField;
+        this.fieldType = fieldType;
+        this.city = city;
+        this.street = street;
+        this.number = number;
+        this.sportEvents = sportEvents;
+    }
 }
