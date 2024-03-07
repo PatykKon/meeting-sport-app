@@ -7,13 +7,12 @@ import java.time.LocalDateTime;
 @Getter
 public class EventTime {
 
+    private static final int MAX_PLAY_HOUR = 2;
+    private static final int MIN_PLAY_HOUR = 1;
 
     LocalDateTime startTime;
     LocalDateTime endTime;
     Integer gameTime;
-
-    private static final int MAX_PLAY_HOUR = 2;
-    private static final int MIN_PLAY_HOUR = 1;
 
     EventTime(Integer gameTime,LocalDateTime startTime) {
         this.gameTime = checkGameTime(gameTime);

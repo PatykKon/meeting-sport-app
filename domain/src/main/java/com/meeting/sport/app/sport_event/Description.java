@@ -4,9 +4,11 @@ import lombok.Getter;
 
 @Getter
 class Description {
-    private final String description;
 
     private final static int MAX_DESCRIPTION = 250;
+
+    private final String description;
+
 
     public Description(String description) {
         this.description = checkDescription(description);
