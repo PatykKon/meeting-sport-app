@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Getter
+
 public class EventTime {
 
     private static final int MAX_PLAY_HOUR = 2;
@@ -18,6 +18,18 @@ public class EventTime {
         this.gameTime = checkGameTime(gameTime);
         this.startTime = startTime;
         this.endTime = startTime.plusHours(gameTime);
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public Integer getGameTime() {
+        return gameTime;
     }
 
     private Integer checkGameTime(Integer gameTime){

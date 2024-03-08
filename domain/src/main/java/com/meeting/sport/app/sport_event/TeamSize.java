@@ -23,5 +23,4 @@ class TeamSize {
     public int getTeamSize() {
         return teamSize;
     }
-
 }

@@ -3,6 +3,7 @@ package com.meeting.sport.app.event.handler;
 import com.meeting.sport.app.event.command.CreateSportEventCommand;
 import com.meeting.sport.app.event.CommandHandler;
 import com.meeting.sport.app.sport_event.SportEvent;
+import com.meeting.sport.app.sport_event.SportEventMapper;
 import com.meeting.sport.app.sport_event.SportEventRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Component;
 class CreateSportEventHandler implements CommandHandler<CreateSportEventCommand> {
 
     private final SportEventRepository sportEventRepository;
+    private final SportEventMapper sportEventMapper;
 
     @Autowired
-    CreateSportEventHandler(SportEventRepository sportEventRepository) {
+    CreateSportEventHandler(SportEventRepository sportEventRepository, SportEventMapper sportEventMapper) {
         this.sportEventRepository = sportEventRepository;
+        this.sportEventMapper = sportEventMapper;
     }
 
     @Override
@@ -30,6 +33,6 @@ class CreateSportEventHandler implements CommandHandler<CreateSportEventCommand>
                 command.startTime(),
                 command.gameTime());
 
-        sportEventRepository.save(sportEvent);
+        sportEventRepository.save(sportEventMapper.modelToDTO(sportEvent));
     }
 }

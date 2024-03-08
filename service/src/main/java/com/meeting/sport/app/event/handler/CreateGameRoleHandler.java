@@ -1,12 +1,9 @@
 package com.meeting.sport.app.event.handler;
 
+import com.meeting.sport.app.dto.SportEventDTO;
 import com.meeting.sport.app.event.command.CreateGameRoleCommand;
 import com.meeting.sport.app.event.CommandHandler;
-import com.meeting.sport.app.sport_event.GameUser;
-import com.meeting.sport.app.sport_event.SportEvent;
-import com.meeting.sport.app.sport_event.SportEventRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.meeting.sport.app.sport_event.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,21 +13,24 @@ import java.util.List;
 class CreateGameRoleHandler implements CommandHandler<CreateGameRoleCommand> {
 
     private final SportEventRepository sportEventRepository;
+    private final SportEventMapper sportEventMapper;
 
     @Autowired
-    CreateGameRoleHandler(SportEventRepository sportEventRepository) {
+    CreateGameRoleHandler(SportEventRepository sportEventRepository, SportEventMapper sportEventMapper) {
         this.sportEventRepository = sportEventRepository;
+        this.sportEventMapper = sportEventMapper;
     }
 
     @Override
     public void handle(CreateGameRoleCommand command) {
 
-        SportEvent sportEvent= sportEventRepository.findById(command.sportEventId());
+        SportEventDTO sportEventDTO= sportEventRepository.findById(command.sportEventId());
+        SportEvent sportEvent = sportEventMapper.DTOToModel(sportEventDTO);
 
-        List<GameUser> gameUsers = GameUser.crateGameUsers(command.gameRoles());
+        List<GameUser> gameUsers = GameUser.crateGameUsers(command.gameRoles(),sportEvent);
 
         gameUsers.forEach(sportEvent::addGameUser);
 
-        sportEventRepository.save(sportEvent);
+        sportEventRepository.save(sportEventMapper.modelToDTO(sportEvent));
     }
 }

@@ -2,16 +2,14 @@ package com.meeting.sport.app.sport_event;
 
 import lombok.Getter;
 
-@Getter
+
 class Description {
 
     private final static int MAX_DESCRIPTION = 250;
+    private final String value;
 
-    private final String description;
-
-
-    public Description(String description) {
-        this.description = checkDescription(description);
+    public Description(String value) {
+        this.value = checkDescription(value);
     }
 
     private String checkDescription(String title) {
@@ -23,5 +21,7 @@ class Description {
         }
         return title;
     }
-
+    public String getValue() {
+        return value;
+    }
 }

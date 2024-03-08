@@ -10,7 +10,9 @@ import java.util.List;
 
 @Table(name = "SPORT_EVENT")
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 public class SportEventEntity {
 
@@ -24,7 +26,7 @@ public class SportEventEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Integer gameTime;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "sportEventEntity",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sportEventEntity",cascade = CascadeType.ALL)
     private List<GameUserEntity> gameUsersEntities = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "sport_field_entity_id")
@@ -32,17 +34,4 @@ public class SportEventEntity {
     @ManyToMany(mappedBy = "sportEventEntities",cascade = CascadeType.ALL)
     private List<GamerEntity> gamerEntities = new ArrayList<>();
 
-    public SportEventEntity(Long id, String title, String description, int players, int minAge, LocalDateTime startTime, LocalDateTime endTime, Integer gameTime, List<GameUserEntity> gameUsersEntities, SportFieldEntity sportField, List<GamerEntity> gamerEntities) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.players = players;
-        this.minAge = minAge;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.gameTime = gameTime;
-        this.gameUsersEntities = gameUsersEntities;
-        this.sportField = sportField;
-        this.gamerEntities = gamerEntities;
-    }
 }

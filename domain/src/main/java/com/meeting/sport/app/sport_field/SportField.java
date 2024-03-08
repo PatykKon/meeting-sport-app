@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -45,6 +46,9 @@ public class SportField {
     public void addEventToSportField(SportEvent sportEvent) {
         if (sportEvent == null) {
             throw new RuntimeException("can not add empty event");
+        }
+        if(this.sportEvents == null){
+            sportEvents = new ArrayList<>();
         }
         this.sportEvents.add(sportEvent);
     }

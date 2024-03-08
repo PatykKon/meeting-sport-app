@@ -1,45 +1,39 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_field.SportFieldMapper;
-import org.mapstruct.InheritInverseConfiguration;
+import com.meeting.sport.app.dto.SportEventDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {GameUserMapper.class})
 public interface SportEventMapper {
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "title.title", target = "title")
-    @Mapping(source = "description.description", target = "description")
+
+    @Mapping(source = "gameUsersEntities", target = "gameUserDTOS")
+    @Mapping(source = "sportField", target = "sportFieldDTO")
+    SportEventDTO entityToDTO(SportEventEntity sportEvent);
+
+    @Mapping(source = "gameUserDTOS", target = "gameUsersEntities")
+    @Mapping(source = "sportFieldDTO", target = "sportField")
+    SportEventEntity DTOToEntity(SportEventDTO sportEventDTO);
+
+    @Mapping(source = "sportFieldDTO", target = "sportField")
+    @Mapping(source = "title", target = "title.value")
+    @Mapping(source = "description", target = "description.value")
+    @Mapping(source = "players", target = "teamSize.teamSize")
+    @Mapping(source = "minAge", target = "requiredAge.age")
+    @Mapping(source = "startTime", target = "eventTime.startTime")
+    @Mapping(source = "gameTime", target = "eventTime.gameTime")
+    @Mapping(source = "gameUserDTOS", target = "gameUsers")
+    SportEvent DTOToModel(SportEventDTO sportEventDTO);
+
+    @Mapping(source = "sportField", target = "sportFieldDTO")
+    @Mapping(source = "title.value", target = "title")
+    @Mapping(source = "description.value", target = "description")
     @Mapping(source = "teamSize.teamSize", target = "players")
     @Mapping(source = "requiredAge.age", target = "minAge")
     @Mapping(source = "eventTime.startTime", target = "startTime")
     @Mapping(source = "eventTime.endTime", target = "endTime")
     @Mapping(source = "eventTime.gameTime", target = "gameTime")
-    @Mapping(source = "sportField", target = "sportField")
-    @Mapping(source = "gameUsers", target = "gameUsersEntities")
-//    @Mapping(source = "gamers", target = "gamerEntities")
-
-    SportEventEntity sportEventToEntity(SportEvent sportEvent);
-
-
-    @InheritInverseConfiguration
-    @Mapping(target = "gameTime", ignore = true)
-    SportEvent sportEventToEntity(SportEventEntity entity);
-
-
-//    @Mapping(source = "id", target = "id")
-//    @Mapping(source = "title", target = "title.title")
-//    @Mapping(source = "description", target = "description.description")
-//    @Mapping(source = "players", target = "teamSize.teamSize")
-//    @Mapping(source = "minAge", target = "requiredAge.age")
-//    @Mapping(source = "startTime", target = "eventTime.startTime")
-//    @Mapping(source = "endTime", target = "eventTime.endTime")
-//    @Mapping(source = "gameTime", target = "eventTime.gameTime")
-//    @Mapping(source = "sportField", target = "sportField")
-//    @Mapping(source = "gameUsers", target = "gameUsers")
-//    @Mapping(source = "gamers", target = "gamers")
-//    SportEvent sportEventToModel(SportEventEntity sportEvent);
-
-
+    @Mapping(source = "gameUsers", target = "gameUserDTOS")
+    SportEventDTO modelToDTO(SportEvent sportEvent);
 }

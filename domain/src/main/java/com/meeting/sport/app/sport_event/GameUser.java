@@ -1,6 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,7 +11,7 @@ import java.util.NoSuchElementException;
 
 
 @Builder
-@Getter
+@AllArgsConstructor
 public class GameUser {
 
     private Long id;
@@ -18,29 +19,27 @@ public class GameUser {
     private boolean isAvailable;
     private SportEvent sportEvent;
 
-    public GameUser() {
-    }
-
-    public GameUser(Long id, GameRole gameRole, boolean isAvailable, SportEvent sportEvent) {
-        this.id = id;
-        this.gameRole = gameRole;
-        this.isAvailable = isAvailable;
-        this.sportEvent = sportEvent;
-    }
-
-    GameUser(GameRole gameRole) {
+    GameUser(GameRole gameRole, SportEvent sportEvent) {
         this.gameRole = gameRole;
         this.isAvailable = true;
-    }
-
-    public void addSportEvent(SportEvent sportEvent){
         this.sportEvent = sportEvent;
     }
 
-    public static List<GameUser> crateGameUsers(List<GameRole> gameRoles) {
+    public void addSportEvent(SportEvent sportEvent) {
+        this.sportEvent = sportEvent;
+    }
+
+    public static List<GameUser> crateGameUsers(List<GameRole> gameRoles, SportEvent sportEvent) {
+
+
+        if (!sportEvent.getGameUsers().isEmpty()) {
+            throw new RuntimeException("this have already user role list");
+        }
+
         List<GameUser> gameRoleList = new ArrayList<>();
 
-        gameRoles.forEach(gameRole -> gameRoleList.add(new GameUser(gameRole)));
+
+        gameRoles.forEach(gameRole -> gameRoleList.add(new GameUser(gameRole, sportEvent)));
         return gameRoleList;
 
     }
@@ -52,7 +51,23 @@ public class GameUser {
 //                .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
 //    }
 
-    public void changeAvailability(){
+    public void changeAvailability() {
         this.isAvailable = !isAvailable;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public GameRole getGameRole() {
+        return gameRole;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public SportEvent getSportEvent() {
+        return sportEvent;
     }
 }

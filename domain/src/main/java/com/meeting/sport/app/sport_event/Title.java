@@ -1,15 +1,19 @@
 package com.meeting.sport.app.sport_event;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.Objects;
 
 
 class Title {
 
-    private final String title;
     private final static int MAX_TITLE = 60;
+    private final String value;
 
-    Title(String title) {
-        this.title = checkTitle(title);
+    Title(String value) {
+        this.value = checkTitle(value);
     }
 
     private String checkTitle(String title) {
@@ -22,8 +26,8 @@ class Title {
         return title;
     }
 
-     public String getTitle() {
-        return title;
+     public String getValue() {
+        return value;
     }
 }
 

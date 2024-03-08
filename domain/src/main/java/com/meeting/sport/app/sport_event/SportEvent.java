@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Getter
+
 public class SportEvent {
 
     private Long id;
@@ -22,8 +22,6 @@ public class SportEvent {
     private EventTime eventTime;
     private List<Gamer> gamers;
 
-    public SportEvent() {
-    }
 
     public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<GameUser> gameUsers, EventTime eventTime, List<Gamer> gamers) {
         this.id = id;
@@ -84,22 +82,63 @@ public class SportEvent {
         addGamer(gamer);
     }
 
-    private GameUser submitRole( GameRole gameRole) {
+    public void submitSportField(SportField sportField) {
+        this.sportField = sportField;
+    }
+
+    private GameUser submitRole(GameRole gameRole) {
         return gameUsers.stream()
                 .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable())
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
     }
-    private void checkGamerAge(Gamer gamer){
+
+    private void checkGamerAge(Gamer gamer) {
         this.requiredAge.isUserAgeCorrect(gamer.getAge());
     }
 
 
-    private void addGamer(Gamer gamer){
-        if(this.gamers == null){
+    private void addGamer(Gamer gamer) {
+        if (this.gamers == null) {
             this.gamers = new ArrayList<>();
         }
         this.gamers.add(gamer);
         gamer.addSportEvent(this);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public TeamSize getTeamSize() {
+        return teamSize;
+    }
+
+    public RequiredAge getRequiredAge() {
+        return requiredAge;
+    }
+
+    public SportField getSportField() {
+        return sportField;
+    }
+
+    public List<GameUser> getGameUsers() {
+        return gameUsers;
+    }
+
+    public EventTime getEventTime() {
+        return eventTime;
+    }
+
+    public List<Gamer> getGamers() {
+        return gamers;
     }
 }

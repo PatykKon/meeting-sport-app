@@ -3,6 +3,7 @@ package com.meeting.sport.app.event.handler;
 import com.meeting.sport.app.event.command.AddSportFieldCommand;
 import com.meeting.sport.app.event.CommandHandler;
 import com.meeting.sport.app.sport_field.SportField;
+import com.meeting.sport.app.sport_field.SportFieldMapper;
 import com.meeting.sport.app.sport_field.SportFieldRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Component;
 class AddSportFieldHandler implements CommandHandler<AddSportFieldCommand> {
 
     private final SportFieldRepository sportFieldRepository;
+    private final SportFieldMapper sportFieldMapper;
 
     @Autowired
-    AddSportFieldHandler(SportFieldRepository sportFieldRepository) {
+    AddSportFieldHandler(SportFieldRepository sportFieldRepository, SportFieldMapper sportFieldMapper) {
         this.sportFieldRepository = sportFieldRepository;
+        this.sportFieldMapper = sportFieldMapper;
     }
 
     @Override
@@ -30,7 +33,7 @@ class AddSportFieldHandler implements CommandHandler<AddSportFieldCommand> {
                 command.street(),
                 command.number());
 
-        sportFieldRepository.save(sportField);
+        sportFieldRepository.save(sportFieldMapper.modelToDTO(sportField));
 
     }
 }

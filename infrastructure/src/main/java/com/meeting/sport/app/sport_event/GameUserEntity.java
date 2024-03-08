@@ -5,9 +5,10 @@ import lombok.*;
 
 @Table(name = "GAME_USER")
 @Entity
-@NoArgsConstructor
+@Getter
 @Builder
-@Getter(AccessLevel.PACKAGE)
+@AllArgsConstructor
+@NoArgsConstructor
 public class GameUserEntity {
 
     @Id
@@ -19,10 +20,4 @@ public class GameUserEntity {
     @JoinColumn(name = "sport_event_entity_id")
     SportEventEntity sportEventEntity;
 
-    public GameUserEntity(Long id, GameRole gameRole, boolean isAvailable, SportEventEntity sportEventEntity) {
-        this.id = id;
-        this.gameRole = gameRole;
-        this.isAvailable = isAvailable;
-        this.sportEventEntity = sportEventEntity;
-    }
 }
