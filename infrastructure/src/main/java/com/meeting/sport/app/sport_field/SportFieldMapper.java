@@ -9,8 +9,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring",uses = {SportEventMapper.class})
 public interface SportFieldMapper {
 
-
+    @Mapping(target = "sportEvents", source = "sportEventDTOS")
     SportFieldEntity DTOToEntity(SportFieldDTO sportFieldDTO);
+    @Mapping(target = "sportEvents", source = "sportEventDTOS")
     SportFieldDTO entityToDTO(SportFieldEntity sportFieldEntity);
 
     @Mapping(target = "fieldSpace", source = "fieldSpace")
