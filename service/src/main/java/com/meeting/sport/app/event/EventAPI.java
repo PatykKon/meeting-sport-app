@@ -1,11 +1,15 @@
 package com.meeting.sport.app.event;
 
 
+import com.meeting.sport.app.dto.SportEventDTO;
 import com.meeting.sport.app.event.command.*;
 import com.meeting.sport.app.event.handler.EventFacade;
+import com.meeting.sport.app.sport_event.SportEventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -13,9 +17,11 @@ import org.springframework.web.bind.annotation.*;
 class EventAPI {
 
     private final EventFacade eventFacade;
+    private final SportEventRepository sportEventRepository;
     @Autowired
-    EventAPI(EventFacade eventFacade) {
+    EventAPI(EventFacade eventFacade, SportEventRepository sportEventRepository) {
         this.eventFacade = eventFacade;
+        this.sportEventRepository = sportEventRepository;
     }
 
     @PostMapping("/create")
@@ -41,6 +47,13 @@ class EventAPI {
     @PostMapping("/join")
     void createEvent(@RequestBody JoinEventCommand command) {
         eventFacade.joinEvent(command);
+    }
+
+
+    //for test
+    @GetMapping
+    List<SportEventDTO> getEvents(){
+        return sportEventRepository.getAll();
     }
 
 }

@@ -1,0 +1,17 @@
+.flex-container {
+  display: flex;
+}
+
+.right-section {
+  flex: 1;
+  padding: 10px; /* Dodaj padding według potrzeb */
+  background-color: silver;
+}
+
+.left-section {
+  flex: 0 0 auto;
+  width: 200px;
+  margin-left: 20px;
+  padding: 10px; /* Dodaj padding według potrzeb */
+  background-color: darkseagreen;
+}

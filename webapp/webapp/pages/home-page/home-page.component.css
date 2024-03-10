@@ -1,0 +1,15 @@
+/*.flex-container {*/
+/*  display: flex;*/
+/*}*/
+
+/*.left-section {*/
+/*  flex: 1;*/
+/*  padding: 10px; !* Dodaj padding według potrzeb *!*/
+/*}*/
+
+/*.right-section {*/
+/*  flex: 0 0 auto;*/
+/*  width: 200px;*/
+/*  margin-left: 20px;*/
+/*  padding: 10px; !* Dodaj padding według potrzeb *!*/
+/*}*/

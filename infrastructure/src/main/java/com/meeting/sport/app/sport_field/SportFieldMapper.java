@@ -11,7 +11,7 @@ public interface SportFieldMapper {
 
     @Mapping(target = "sportEvents", source = "sportEventDTOS")
     SportFieldEntity DTOToEntity(SportFieldDTO sportFieldDTO);
-    @Mapping(target = "sportEvents", source = "sportEventDTOS")
+    @Mapping(target = "sportEventDTOS", source = "sportEvents")
     SportFieldDTO entityToDTO(SportFieldEntity sportFieldEntity);
 
     @Mapping(target = "fieldSpace", source = "fieldSpace")
