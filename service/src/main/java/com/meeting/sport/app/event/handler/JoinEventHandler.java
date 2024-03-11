@@ -29,5 +29,6 @@ class JoinEventHandler implements CommandHandler<JoinEventCommand> {
         sportEventRepository.save(sportEventMapper.modelToDTO(sportEvent));
 
 
+
     }
 }

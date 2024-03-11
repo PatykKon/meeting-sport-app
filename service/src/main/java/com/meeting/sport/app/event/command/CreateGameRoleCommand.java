@@ -7,7 +7,7 @@ import java.util.List;
 
 public record CreateGameRoleCommand(
         Long sportEventId,
-        List<GameRole> gameRoles
+        List<GameRole> playerTypes
 ) implements Command {
 
 

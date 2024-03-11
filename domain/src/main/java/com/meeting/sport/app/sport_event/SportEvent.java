@@ -88,9 +88,10 @@ public class SportEvent {
 
     private GameUser submitRole(GameRole gameRole) {
         return gameUsers.stream()
-                .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable())
+                .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable() == true)
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
+
     }
 
     private void checkGamerAge(Gamer gamer) {

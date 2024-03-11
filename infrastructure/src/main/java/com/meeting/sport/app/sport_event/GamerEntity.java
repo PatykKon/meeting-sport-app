@@ -9,21 +9,16 @@ import java.util.List;
 
 @Table(name = "GAMER")
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@AllArgsConstructor
-@Getter(AccessLevel.PACKAGE)
+@Getter
 public class GamerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int age;
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "GAMER_SPORT_EVENT",
-            joinColumns = { @JoinColumn(name = "gamer_id") },
-            inverseJoinColumns = { @JoinColumn(name = "sport_event_id") }
-    )
+    @ManyToMany(mappedBy = "gamerEntities",cascade = CascadeType.ALL)
     private List<SportEventEntity> sportEventEntities = new ArrayList<>();
 }

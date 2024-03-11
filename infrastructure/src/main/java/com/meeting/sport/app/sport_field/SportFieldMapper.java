@@ -1,6 +1,7 @@
 package com.meeting.sport.app.sport_field;
 
 import com.meeting.sport.app.dto.SportFieldDTO;
+import com.meeting.sport.app.dto.SportFieldResponse;
 import com.meeting.sport.app.sport_event.SportEventMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,5 +28,7 @@ public interface SportFieldMapper {
     @Mapping(target = "number", source = "address.number")
     @Mapping(target = "sportEventDTOS", source = "sportEvents")
     SportFieldDTO modelToDTO(SportField sportField);
+
+    SportFieldResponse entityToResponse(SportFieldEntity sportFieldEntity);
 
 }

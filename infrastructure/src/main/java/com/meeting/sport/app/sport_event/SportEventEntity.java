@@ -26,12 +26,17 @@ public class SportEventEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Integer gameTime;
-    @OneToMany(mappedBy = "sportEventEntity",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sportEventEntity", cascade = CascadeType.ALL)
     private List<GameUserEntity> gameUsersEntities = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "sport_field_entity_id")
     private SportFieldEntity sportField;
-    @ManyToMany(mappedBy = "sportEventEntities",cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "GAMER_SPORT_EVENT",
+            joinColumns = {@JoinColumn(name = "sport_event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "gamer_id")}
+    )
     private List<GamerEntity> gamerEntities = new ArrayList<>();
 
 }

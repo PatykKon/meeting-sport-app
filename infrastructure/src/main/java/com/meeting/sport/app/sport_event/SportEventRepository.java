@@ -14,5 +14,5 @@ public interface SportEventRepository {
 //
     SportEventDTO findById(Long eventId);
 
-    List<SportEventDTO> getAll();
+    List<SportEventEntity> getAll();
 }

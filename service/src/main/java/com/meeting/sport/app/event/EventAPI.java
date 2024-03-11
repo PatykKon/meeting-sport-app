@@ -2,8 +2,10 @@ package com.meeting.sport.app.event;
 
 
 import com.meeting.sport.app.dto.SportEventDTO;
+import com.meeting.sport.app.dto.SportEventResponse;
 import com.meeting.sport.app.event.command.*;
 import com.meeting.sport.app.event.handler.EventFacade;
+import com.meeting.sport.app.event.query.GetSportEvent;
 import com.meeting.sport.app.sport_event.SportEventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,12 @@ import java.util.List;
 class EventAPI {
 
     private final EventFacade eventFacade;
+    private final GetSportEvent getSportEvent;
     private final SportEventRepository sportEventRepository;
     @Autowired
-    EventAPI(EventFacade eventFacade, SportEventRepository sportEventRepository) {
+    EventAPI(EventFacade eventFacade, GetSportEvent getSportEvent, SportEventRepository sportEventRepository) {
         this.eventFacade = eventFacade;
+        this.getSportEvent = getSportEvent;
         this.sportEventRepository = sportEventRepository;
     }
 
@@ -52,8 +56,8 @@ class EventAPI {
 
     //for test
     @GetMapping
-    List<SportEventDTO> getEvents(){
-        return sportEventRepository.getAll();
+    List<SportEventResponse> getEvents(){
+        return getSportEvent.getEvent();
     }
 
 }

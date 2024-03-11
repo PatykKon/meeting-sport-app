@@ -20,7 +20,7 @@ public class SportEventDTO {
     private Integer gameTime;
     private SportFieldDTO sportFieldDTO;
     private List<GameUserDTO> gameUserDTOS;
-
+    private List<GamerDTO> gamerDTOS;
     public List<GameUserDTO> getGameUserDTOS() {
         if(gameUserDTOS == null){
             gameUserDTOS = new ArrayList<>();

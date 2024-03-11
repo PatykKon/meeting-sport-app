@@ -40,7 +40,7 @@ public class SportEventRepositoryImpl implements SportEventRepository {
     }
 
     @Override
-    public List<SportEventDTO> getAll() {
-       return sportEventRepositoryJPA.findAll().stream().map(sportEventMapper::entityToDTO).toList();
+    public List<SportEventEntity> getAll() {
+       return sportEventRepositoryJPA.findAll();
     }
 }

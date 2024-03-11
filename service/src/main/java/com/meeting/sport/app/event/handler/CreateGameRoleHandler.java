@@ -27,7 +27,7 @@ class CreateGameRoleHandler implements CommandHandler<CreateGameRoleCommand> {
         SportEventDTO sportEventDTO= sportEventRepository.findById(command.sportEventId());
         SportEvent sportEvent = sportEventMapper.DTOToModel(sportEventDTO);
 
-        List<GameUser> gameUsers = GameUser.crateGameUsers(command.gameRoles(),sportEvent);
+        List<GameUser> gameUsers = GameUser.crateGameUsers(command.playerTypes(),sportEvent);
 
         gameUsers.forEach(sportEvent::addGameUser);
 

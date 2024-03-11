@@ -16,9 +16,15 @@ public record SportEventResponse(
         Integer gameTime,
         int maxPlayers,
         int minAge,
-        SportFieldResponse sportField,
-
-        List<GameUserResponse> gameUserResponses
+        ActivePlayers activePlayers,
+        SportFieldResponse sportFieldResponse,
+        List<GameUserResponse> gameUserResponse,
+        List<GamerResponse> gamerResponse
 ) {
+
+    public ActivePlayers activePlayers(){
+        int activePlayers = gameUserResponse().stream().filter(s -> !s.isAvailable()).toList().size();
+        return new ActivePlayers(activePlayers);
+    }
 
 }

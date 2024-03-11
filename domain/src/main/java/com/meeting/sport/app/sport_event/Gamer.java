@@ -7,8 +7,11 @@ import java.util.List;
 public class Gamer {
 
     private Long id;
-    private final int age;
+    private int age;
     private List<SportEvent> events;
+
+    public Gamer() {
+    }
 
     public Gamer(int age) {
         this.age = age;
