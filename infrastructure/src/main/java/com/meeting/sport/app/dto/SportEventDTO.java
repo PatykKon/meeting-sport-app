@@ -1,5 +1,6 @@
 package com.meeting.sport.app.dto;
 
+import com.meeting.sport.app.user.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,13 +20,13 @@ public class SportEventDTO {
     private LocalDateTime endTime;
     private Integer gameTime;
     private SportFieldDTO sportFieldDTO;
-    private List<GameUserDTO> gameUserDTOS;
-    private List<GamerDTO> gamerDTOS;
-    public List<GameUserDTO> getGameUserDTOS() {
-        if(gameUserDTOS == null){
-            gameUserDTOS = new ArrayList<>();
+    private List<EventRoleDTO> eventRoleDTOS;
+    private List<UserDTO> userDTOS;
+    public List<EventRoleDTO> getEventRoleDTOS() {
+        if(eventRoleDTOS == null){
+            eventRoleDTOS = new ArrayList<>();
         }
-        return gameUserDTOS;
+        return eventRoleDTOS;
     }
 
 }

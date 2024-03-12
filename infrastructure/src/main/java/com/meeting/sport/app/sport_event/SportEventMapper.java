@@ -5,18 +5,18 @@ import com.meeting.sport.app.dto.SportEventResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {GameUserMapper.class})
+@Mapper(componentModel = "spring", uses = {EventRoleMapper.class})
 public interface SportEventMapper {
 
 
-    @Mapping(source = "gameUsersEntities", target = "gameUserDTOS")
+    @Mapping(source = "eventRoleEntities", target = "eventRoleDTOS")
     @Mapping(source = "sportField", target = "sportFieldDTO")
-    @Mapping(source = "gamerEntities", target = "gamerDTOS")
+    @Mapping(source = "userEntities", target = "userDTOS")
     SportEventDTO entityToDTO(SportEventEntity sportEvent);
 
-    @Mapping(source = "gameUserDTOS", target = "gameUsersEntities")
+    @Mapping(source = "eventRoleDTOS", target = "eventRoleEntities")
     @Mapping(source = "sportFieldDTO", target = "sportField")
-    @Mapping(source = "gamerDTOS", target = "gamerEntities")
+    @Mapping(source = "userDTOS", target = "userEntities")
     SportEventEntity DTOToEntity(SportEventDTO sportEventDTO);
 
     @Mapping(source = "sportFieldDTO", target = "sportField")
@@ -26,8 +26,8 @@ public interface SportEventMapper {
     @Mapping(source = "minAge", target = "requiredAge.age")
     @Mapping(source = "startTime", target = "eventTime.startTime")
     @Mapping(source = "gameTime", target = "eventTime.gameTime")
-    @Mapping(source = "gameUserDTOS", target = "gameUsers")
-    @Mapping(source = "gamerDTOS", target = "gamers")
+    @Mapping(source = "eventRoleDTOS", target = "eventRoles")
+    @Mapping(source = "userDTOS", target = "users")
     SportEvent DTOToModel(SportEventDTO sportEventDTO);
 
     @Mapping(source = "sportField", target = "sportFieldDTO")
@@ -38,13 +38,13 @@ public interface SportEventMapper {
     @Mapping(source = "eventTime.startTime", target = "startTime")
     @Mapping(source = "eventTime.endTime", target = "endTime")
     @Mapping(source = "eventTime.gameTime", target = "gameTime")
-    @Mapping(source = "gameUsers", target = "gameUserDTOS")
-    @Mapping(source = "gamers", target = "gamerDTOS")
+    @Mapping(source = "eventRoles", target = "eventRoleDTOS")
+    @Mapping(source = "users", target = "userDTOS")
     SportEventDTO modelToDTO(SportEvent sportEvent);
 
 
-    @Mapping(source = "gameUsersEntities", target = "gameUserResponse")
+    @Mapping(source = "eventRoleEntities", target = "eventRoleResponse")
     @Mapping(source = "sportField", target = "sportFieldResponse")
-    @Mapping(source = "gamerEntities", target = "gamerResponse")
+    @Mapping(source = "userEntities", target = "userResponse")
     SportEventResponse entityToResponse(SportEventEntity sportEvent);
 }

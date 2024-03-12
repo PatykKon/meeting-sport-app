@@ -1,8 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_field.SportField;
-
-import lombok.*;
+import com.meeting.sport.app.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,32 +17,32 @@ public class SportEvent {
     private TeamSize teamSize;
     private RequiredAge requiredAge;
     private SportField sportField;
-    private List<GameUser> gameUsers;
+    private List<EventRole> eventRoles;
     private EventTime eventTime;
-    private List<Gamer> gamers;
+    private List<User> users;
 
 
-    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<GameUser> gameUsers, EventTime eventTime, List<Gamer> gamers) {
+    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<EventRole> eventRoles, EventTime eventTime, List<User> users) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.teamSize = teamSize;
         this.requiredAge = requiredAge;
         this.sportField = sportField;
-        this.gameUsers = gameUsers;
+        this.eventRoles = eventRoles;
         this.eventTime = eventTime;
-        this.gamers = gamers;
+        this.users = users;
     }
 
-    private SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<GameUser> gameUsers, EventTime eventTime, List<Gamer> gamers) {
+    private SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, List<User> users) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.teamSize = teamSize;
         this.requiredAge = requiredAge;
-        this.gameUsers = gameUsers;
+        this.eventRoles = eventRoles;
         this.eventTime = eventTime;
-        this.gamers = gamers;
+        this.users = users;
     }
 
     public static SportEvent create(String title,
@@ -58,53 +57,56 @@ public class SportEvent {
         TeamSize gameTeamSize = new TeamSize(players);
         RequiredAge requiredAge = new RequiredAge(minAge);
         EventTime eventTime = new EventTime(gameTime, startEvent);
-        List<Gamer> gamerList = new ArrayList<>();
-        List<GameUser> gameUserList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
+        List<EventRole> eventRoleList = new ArrayList<>();
 
 
-        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, gameUserList, eventTime, gamerList);
+        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime, userList);
     }
 
-    public void addGameUser(GameUser gameUser) {
-        if (gameUsers == null) {
-            gameUsers = new ArrayList<>();
+    public void addGameUser(EventRole eventRole) {
+        if (eventRoles == null) {
+            eventRoles = new ArrayList<>();
         }
-        this.gameUsers.add(gameUser);
-        gameUser.addSportEvent(this);
+        this.eventRoles.add(eventRole);
+        eventRole.addSportEvent(this);
 
     }
 
-    public void joinToEvent(Gamer gamer, GameRole gameRole) {
+    public void joinToEvent(User user, GameRole gameRole) {
 
-        GameUser gameUser = submitRole(gameRole);
-        gameUser.changeAvailability();
-        checkGamerAge(gamer);
-        addGamer(gamer);
+        EventRole eventRole = submitRole(gameRole);
+        eventRole.changeAvailability();
+        eventRole.addGamer(user);
+        checkGamerAge(user);
+        addGamer(user);
+
+
     }
 
     public void submitSportField(SportField sportField) {
         this.sportField = sportField;
     }
 
-    private GameUser submitRole(GameRole gameRole) {
-        return gameUsers.stream()
+    private EventRole submitRole(GameRole gameRole) {
+        return eventRoles.stream()
                 .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable() == true)
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
 
     }
 
-    private void checkGamerAge(Gamer gamer) {
-        this.requiredAge.isUserAgeCorrect(gamer.getAge());
+    private void checkGamerAge(User user) {
+        this.requiredAge.isUserAgeCorrect(user.getAge());
     }
 
 
-    private void addGamer(Gamer gamer) {
-        if (this.gamers == null) {
-            this.gamers = new ArrayList<>();
+    private void addGamer(User user) {
+        if (this.users == null) {
+            this.users = new ArrayList<>();
         }
-        this.gamers.add(gamer);
-        gamer.addSportEvent(this);
+        this.users.add(user);
+        user.addSportEvent(this);
     }
 
     public Long getId() {
@@ -131,15 +133,19 @@ public class SportEvent {
         return sportField;
     }
 
-    public List<GameUser> getGameUsers() {
-        return gameUsers;
+    public List<EventRole> getGameUsers() {
+        return eventRoles;
     }
 
     public EventTime getEventTime() {
         return eventTime;
     }
 
-    public List<Gamer> getGamers() {
-        return gamers;
+    public List<EventRole> getEventRoles() {
+        return eventRoles;
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 }

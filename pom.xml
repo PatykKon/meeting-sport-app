@@ -9,7 +9,6 @@
         <module>application</module>
         <module>infrastructure</module>
         <module>service</module>
-        <module>webapp</module>
         <module>configuration</module>
     </modules>
     <parent>
