@@ -9,6 +9,4 @@ public record CreateGameRoleCommand(
         Long sportEventId,
         List<GameRole> playerTypes
 ) implements Command {
-
-
 }

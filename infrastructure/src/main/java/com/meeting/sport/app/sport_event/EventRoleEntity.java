@@ -23,5 +23,4 @@ public class EventRoleEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gamer_id")
     private UserEntity userEntity;
-
 }

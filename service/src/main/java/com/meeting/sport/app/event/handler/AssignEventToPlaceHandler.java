@@ -40,9 +40,5 @@ class AssignEventToPlaceHandler implements CommandHandler<AssignEventToPlaceComm
 
         sportEvent.submitSportField(sportField);
         sportEventRepository.save(sportEventMapper.modelToDTO(sportEvent));
-
-//        sportField.addEventToSportField(sportEvent);
-//        sportFieldRepository.save(sportField);
-
     }
 }

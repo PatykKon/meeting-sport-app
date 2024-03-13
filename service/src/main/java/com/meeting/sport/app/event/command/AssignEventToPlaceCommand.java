@@ -7,5 +7,4 @@ public record AssignEventToPlaceCommand(
         Long sportEventId,
         Long sportFieldId
 ) implements Command {
-
 }

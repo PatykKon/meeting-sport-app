@@ -8,6 +8,4 @@ public record JoinEventCommand(
         Long eventId,
         GameRole gameRole
 ) implements Command {
-
-
 }

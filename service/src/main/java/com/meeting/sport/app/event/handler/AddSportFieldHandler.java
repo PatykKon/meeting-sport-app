@@ -5,8 +5,6 @@ import com.meeting.sport.app.event.CommandHandler;
 import com.meeting.sport.app.sport_field.SportField;
 import com.meeting.sport.app.sport_field.SportFieldMapper;
 import com.meeting.sport.app.sport_field.SportFieldRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +32,5 @@ class AddSportFieldHandler implements CommandHandler<AddSportFieldCommand> {
                 command.number());
 
         sportFieldRepository.save(sportFieldMapper.modelToDTO(sportField));
-
     }
 }

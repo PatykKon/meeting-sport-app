@@ -1,7 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_field.SportFieldEntity;
-import com.meeting.sport.app.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,12 +31,4 @@ public class SportEventEntity {
     @ManyToOne
     @JoinColumn(name = "sport_field_entity_id")
     private SportFieldEntity sportField;
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "GAMER_SPORT_EVENT",
-            joinColumns = {@JoinColumn(name = "sport_event_id")},
-            inverseJoinColumns = {@JoinColumn(name = "gamer_id")}
-    )
-    private List<UserEntity> userEntities = new ArrayList<>();
-
 }

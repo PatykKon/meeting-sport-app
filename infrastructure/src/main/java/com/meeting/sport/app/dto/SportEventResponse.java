@@ -1,8 +1,5 @@
 package com.meeting.sport.app.dto;
 
-
-
-import com.meeting.sport.app.user.UserResponse;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
@@ -19,8 +16,8 @@ public record SportEventResponse(
         int minAge,
         int activePlayers,
         SportFieldResponse sportFieldResponse,
-        List<EventRoleResponse> eventRoleResponse,
-        List<UserResponse> userResponse
+        List<EventRoleResponse> eventRoleResponse
+//        List<UserResponse> userResponse
 ) {
 
     public int activePlayers(){

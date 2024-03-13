@@ -41,5 +41,6 @@ public interface EventRoleMapper {
     @Mapping(source = "available", target = "isAvailable")
     EventRoleDTO modelToDTO(EventRole eventRole);
     @Mapping(source = "available", target = "isAvailable")
+    @Mapping(source = "userEntity", target = "userResponse")
     EventRoleResponse entityToResponse(EventRoleEntity eventRoleEntity);
 }

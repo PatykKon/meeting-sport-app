@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
 
-    public UserDTO findById(long id);
+    UserDTO findById(long id);
 }

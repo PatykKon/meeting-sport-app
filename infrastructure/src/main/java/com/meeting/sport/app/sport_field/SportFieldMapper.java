@@ -30,5 +30,4 @@ public interface SportFieldMapper {
     SportFieldDTO modelToDTO(SportField sportField);
 
     SportFieldResponse entityToResponse(SportFieldEntity sportFieldEntity);
-
 }

@@ -1,8 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import lombok.Getter;
-
-
 class Description {
 
     private final static int MAX_DESCRIPTION = 250;

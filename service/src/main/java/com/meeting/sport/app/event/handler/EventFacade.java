@@ -1,8 +1,6 @@
 package com.meeting.sport.app.event.handler;
 
 import com.meeting.sport.app.event.command.*;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,5 +31,4 @@ public class EventFacade {
     public void assignEventToPlace(AssignEventToPlaceCommand command){assignEventToPlaceHandler.handle(command);}
     public void createGameRole(CreateGameRoleCommand command){createGameRoleHandler.handle(command);}
     public void joinEvent(JoinEventCommand command){joinEventHandler.handle(command);}
-
 }

@@ -16,7 +16,7 @@ class RequiredAge {
     }
 
     void isUserAgeCorrect(int userAge) {
-        if (age < userAge) {
+        if (age > userAge) {
             throw new RuntimeException("user is too young to join this sport event");
         }
     }

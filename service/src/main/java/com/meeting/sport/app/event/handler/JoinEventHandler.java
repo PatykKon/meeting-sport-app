@@ -17,7 +17,6 @@ class JoinEventHandler implements CommandHandler<JoinEventCommand> {
 
     private final SportEventRepository sportEventRepository;
     private final SportEventMapper sportEventMapper;
-
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
@@ -40,8 +39,5 @@ class JoinEventHandler implements CommandHandler<JoinEventCommand> {
 
         sportEvent.joinToEvent(user,command.gameRole());
         sportEventRepository.save(sportEventMapper.modelToDTO(sportEvent));
-
-
-
     }
 }

@@ -13,5 +13,4 @@ public record CreateSportEventCommand(
         LocalDateTime startTime,
         Integer gameTime
 ) implements Command {
-
 }

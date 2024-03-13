@@ -1,8 +1,6 @@
 package com.meeting.sport.app.sport_field;
 
-import lombok.Getter;
 
-@Getter
 public class Address {
     String city;
     String street;
@@ -12,5 +10,17 @@ public class Address {
         this.city = city;
         this.street = street;
         this.number = number;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getNumber() {
+        return number;
     }
 }

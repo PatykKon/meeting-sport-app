@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+import java.util.Optional;
 
 public class SportEvent {
 
@@ -19,10 +19,8 @@ public class SportEvent {
     private SportField sportField;
     private List<EventRole> eventRoles;
     private EventTime eventTime;
-    private List<User> users;
 
-
-    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<EventRole> eventRoles, EventTime eventTime, List<User> users) {
+    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<EventRole> eventRoles, EventTime eventTime) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,18 +29,6 @@ public class SportEvent {
         this.sportField = sportField;
         this.eventRoles = eventRoles;
         this.eventTime = eventTime;
-        this.users = users;
-    }
-
-    private SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, List<User> users) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.teamSize = teamSize;
-        this.requiredAge = requiredAge;
-        this.eventRoles = eventRoles;
-        this.eventTime = eventTime;
-        this.users = users;
     }
 
     public static SportEvent create(String title,
@@ -57,56 +43,46 @@ public class SportEvent {
         TeamSize gameTeamSize = new TeamSize(players);
         RequiredAge requiredAge = new RequiredAge(minAge);
         EventTime eventTime = new EventTime(gameTime, startEvent);
-        List<User> userList = new ArrayList<>();
         List<EventRole> eventRoleList = new ArrayList<>();
 
-
-        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime, userList);
+        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, null, eventRoleList, eventTime);
     }
 
-    public void addGameUser(EventRole eventRole) {
+    public void addGameRoles(EventRole eventRole) {
         if (eventRoles == null) {
             eventRoles = new ArrayList<>();
         }
         this.eventRoles.add(eventRole);
         eventRole.addSportEvent(this);
-
     }
 
     public void joinToEvent(User user, GameRole gameRole) {
 
-        EventRole eventRole = submitRole(gameRole);
-        eventRole.changeAvailability();
-        eventRole.addGamer(user);
+        EventRole eventRole = submitRole(gameRole, user);
+        user.assignSportEvent(eventRole);
         checkGamerAge(user);
-        addGamer(user);
-
-
     }
 
     public void submitSportField(SportField sportField) {
         this.sportField = sportField;
     }
 
-    private EventRole submitRole(GameRole gameRole) {
-        return eventRoles.stream()
-                .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable() == true)
-                .findFirst()
+    private EventRole submitRole(GameRole gameRole, User user) {
+        EventRole availableRole = findAvailableRole(gameRole)
                 .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
 
+        availableRole.assignUser(user);
+        return availableRole;
+    }
+
+    private Optional<EventRole> findAvailableRole(GameRole gameRole) {
+        return eventRoles.stream()
+                .filter(eventRole -> eventRole.getGameRole() == gameRole && eventRole.isAvailable())
+                .findFirst();
     }
 
     private void checkGamerAge(User user) {
         this.requiredAge.isUserAgeCorrect(user.getAge());
-    }
-
-
-    private void addGamer(User user) {
-        if (this.users == null) {
-            this.users = new ArrayList<>();
-        }
-        this.users.add(user);
-        user.addSportEvent(this);
     }
 
     public Long getId() {
@@ -145,7 +121,4 @@ public class SportEvent {
         return eventRoles;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
 }

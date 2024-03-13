@@ -6,10 +6,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EventRoleRepositoryImpl implements EventRoleRepository {
 
-
     private final EventRoleRepositoryJPA eventRoleRepositoryJPA;
     private final EventRoleMapper eventRoleMapper;
-
 
     public EventRoleRepositoryImpl(EventRoleRepositoryJPA eventRoleRepositoryJPA, EventRoleMapper eventRoleMapper) {
         this.eventRoleRepositoryJPA = eventRoleRepositoryJPA;
@@ -20,5 +18,4 @@ public class EventRoleRepositoryImpl implements EventRoleRepository {
         EventRoleEntity eventRoleEntity =  eventRoleRepositoryJPA.findById(gameUserId).orElseThrow();
         return eventRoleMapper.entityToDTO(eventRoleEntity);
     }
-
 }

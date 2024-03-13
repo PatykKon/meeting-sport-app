@@ -1,64 +1,53 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Builder
-@AllArgsConstructor
 public class EventRole {
 
     private Long id;
     private GameRole gameRole;
-    private boolean isAvailable;
     private SportEvent sportEvent;
     private User user;
+    private boolean isAvailable;
 
-    EventRole(GameRole gameRole, SportEvent sportEvent, User user) {
+    public EventRole(Long id, GameRole gameRole, SportEvent sportEvent, User user, boolean isAvailable) {
+        this.id = id;
         this.gameRole = gameRole;
-        this.isAvailable = true;
         this.sportEvent = sportEvent;
         this.user = user;
+        this.isAvailable = isAvailable;
     }
 
-
-
-    public void addSportEvent(SportEvent sportEvent) {
-        this.sportEvent = sportEvent;
-    }
-
-    public static List<EventRole> crateGameUsers(List<GameRole> gameRoles, SportEvent sportEvent) {
-
+    public static List<EventRole> crateAvailableRoleForUsers(List<GameRole> gameRoles, SportEvent sportEvent) {
 
         if (!sportEvent.getGameUsers().isEmpty()) {
             throw new RuntimeException("this have already user role list");
         }
-
         List<EventRole> gameRoleList = new ArrayList<>();
 
-
-
-        gameRoles.forEach(gameRole -> gameRoleList.add(new EventRole(gameRole, sportEvent,null)));
+        gameRoles.forEach(gameRole -> gameRoleList.add(crateAvailableEventRole(gameRole, sportEvent)));
         return gameRoleList;
-
     }
 
-    //    private GameUser submitRole(GameRole gameRole, List<GameUser> gameUsers) {
-//        return gameUsers.stream()
-//                .filter(gameUser -> gameUser.getGameRole() == gameRole && gameUser.isAvailable())
-//                .findFirst()
-//                .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
-//    }
+    public EventRole assignUser(User user) {
+        changeRoleAvailability();
+        this.user = user;
+        return this;
+    }
 
-    public void changeAvailability() {
+    void addSportEvent(SportEvent sportEvent) {
+        this.sportEvent = sportEvent;
+    }
+
+    private void changeRoleAvailability() {
         this.isAvailable = !isAvailable;
     }
-    public void addGamer(User user){
-        this.user = user;
+
+    private static EventRole crateAvailableEventRole(GameRole gameRole, SportEvent sportEvent) {
+        return new EventRole(null, gameRole, sportEvent, null, true);
     }
 
     public Long getId() {

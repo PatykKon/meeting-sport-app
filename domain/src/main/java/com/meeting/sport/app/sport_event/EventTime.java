@@ -1,18 +1,15 @@
 package com.meeting.sport.app.sport_event;
 
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 
-
-public class EventTime {
+class EventTime {
 
     private static final int MAX_PLAY_HOUR = 2;
     private static final int MIN_PLAY_HOUR = 1;
 
-    LocalDateTime startTime;
-    LocalDateTime endTime;
-    Integer gameTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    private final Integer gameTime;
 
     EventTime(Integer gameTime,LocalDateTime startTime) {
         this.gameTime = checkGameTime(gameTime);
