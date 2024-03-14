@@ -15,6 +15,7 @@ public class EventRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
     private GameRole gameRole;
     private boolean isAvailable;
     @ManyToOne

@@ -3,6 +3,9 @@ package com.meeting.sport.app.sport_event;
 import com.meeting.sport.app.dto.EventRoleDTO;
 import org.springframework.stereotype.Repository;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @Repository
 public class EventRoleRepositoryImpl implements EventRoleRepository {
 
@@ -14,8 +17,22 @@ public class EventRoleRepositoryImpl implements EventRoleRepository {
         this.eventRoleMapper = eventRoleMapper;
     }
 
-    public EventRoleDTO getGameUser(long gameUserId){
-        EventRoleEntity eventRoleEntity =  eventRoleRepositoryJPA.findById(gameUserId).orElseThrow();
-        return eventRoleMapper.entityToDTO(eventRoleEntity);
+    @Override
+    public EventRoleDTO findAvailableRole(long eventId, GameRole gameRole) {
+        EventRoleEntity entity = eventRoleRepositoryJPA.findBySportEventEntityIdAndGameRoleAndIsAvailableTrue(eventId, gameRole)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
+
+        return eventRoleMapper.entityToDTO(entity);
+    }
+
+    public void save(EventRoleDTO dto){
+        eventRoleRepositoryJPA.save(eventRoleMapper.DTOToEntity(dto));
+    }
+
+    @Override
+    public boolean isUserExistInEvent(long eventId, long userId) {
+        return eventRoleRepositoryJPA.isUserExistInEvent(eventId,userId);
     }
 }

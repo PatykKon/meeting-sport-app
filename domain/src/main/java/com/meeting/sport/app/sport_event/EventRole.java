@@ -4,6 +4,8 @@ import com.meeting.sport.app.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class EventRole {
 
@@ -23,7 +25,7 @@ public class EventRole {
 
     public static List<EventRole> crateAvailableRoleForUsers(List<GameRole> gameRoles, SportEvent sportEvent) {
 
-        if (!sportEvent.getGameUsers().isEmpty()) {
+        if (!sportEvent.getEventRoles().isEmpty()) {
             throw new RuntimeException("this have already user role list");
         }
         List<EventRole> gameRoleList = new ArrayList<>();
@@ -32,10 +34,9 @@ public class EventRole {
         return gameRoleList;
     }
 
-    public EventRole assignUser(User user) {
+    public void assignUser(User user) {
         changeRoleAvailability();
         this.user = user;
-        return this;
     }
 
     void addSportEvent(SportEvent sportEvent) {

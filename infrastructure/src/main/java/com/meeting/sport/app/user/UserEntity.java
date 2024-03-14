@@ -19,6 +19,6 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int age;
-    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userEntity")
     private List<EventRoleEntity> eventRoleEntities = new ArrayList<>();
 }

@@ -22,7 +22,7 @@ public class User {
         this.eventRoles = eventRoles;
     }
 
-        public void assignSportEvent(EventRole eventRole){
+        public void assignSportEventAs(EventRole eventRole){
         if(this.eventRoles == null){
             this.eventRoles = new ArrayList<>();
         }

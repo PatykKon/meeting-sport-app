@@ -6,9 +6,6 @@ import com.meeting.sport.app.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 public class SportEvent {
 
     private Long id;
@@ -56,29 +53,12 @@ public class SportEvent {
         eventRole.addSportEvent(this);
     }
 
-    public void joinToEvent(User user, GameRole gameRole) {
-
-        EventRole eventRole = submitRole(gameRole, user);
-        user.assignSportEvent(eventRole);
+    public void checkRequirements(User user) {
         checkGamerAge(user);
     }
 
     public void submitSportField(SportField sportField) {
         this.sportField = sportField;
-    }
-
-    private EventRole submitRole(GameRole gameRole, User user) {
-        EventRole availableRole = findAvailableRole(gameRole)
-                .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
-
-        availableRole.assignUser(user);
-        return availableRole;
-    }
-
-    private Optional<EventRole> findAvailableRole(GameRole gameRole) {
-        return eventRoles.stream()
-                .filter(eventRole -> eventRole.getGameRole() == gameRole && eventRole.isAvailable())
-                .findFirst();
     }
 
     private void checkGamerAge(User user) {
@@ -107,10 +87,6 @@ public class SportEvent {
 
     public SportField getSportField() {
         return sportField;
-    }
-
-    public List<EventRole> getGameUsers() {
-        return eventRoles;
     }
 
     public EventTime getEventTime() {

@@ -1,7 +1,7 @@
 package com.meeting.sport.app.event.handler;
 
+import com.meeting.sport.app.dto.EventRoleDTO;
 import com.meeting.sport.app.user.UserDTO;
-import com.meeting.sport.app.dto.SportEventDTO;
 import com.meeting.sport.app.sport_event.*;
 import com.meeting.sport.app.event.command.JoinEventCommand;
 import com.meeting.sport.app.event.CommandHandler;
@@ -15,15 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 class JoinEventHandler implements CommandHandler<JoinEventCommand> {
 
-    private final SportEventRepository sportEventRepository;
-    private final SportEventMapper sportEventMapper;
+    private final EventRoleRepository eventRoleRepository;
+    private final EventRoleMapper eventRoleMapper;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
     @Autowired
-    JoinEventHandler(SportEventRepository sportEventRepository, SportEventMapper sportEventMapper, UserRepository userRepository, UserMapper userMapper) {
-        this.sportEventRepository = sportEventRepository;
-        this.sportEventMapper = sportEventMapper;
+    JoinEventHandler(EventRoleRepository eventRoleRepository, EventRoleMapper eventRoleMapper, UserRepository userRepository, UserMapper userMapper) {
+        this.eventRoleRepository = eventRoleRepository;
+        this.eventRoleMapper = eventRoleMapper;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
@@ -31,13 +31,22 @@ class JoinEventHandler implements CommandHandler<JoinEventCommand> {
     @Override
     @Transactional
     public void handle(JoinEventCommand command) {
-        SportEventDTO sportEventDTO = sportEventRepository.findById(command.eventId());
-        SportEvent sportEvent = sportEventMapper.DTOToModel(sportEventDTO);
+
+        EventRoleDTO eventRoleDTO = eventRoleRepository.findAvailableRole(command.eventId(),command.gameRole());
+        EventRole eventRole = eventRoleMapper.DTOToModel(eventRoleDTO);
+        SportEvent sportEvent = eventRole.getSportEvent();
 
         UserDTO userTest = userRepository.findById(56);
         User user = userMapper.DTOToModel(userTest);
 
-        sportEvent.joinToEvent(user,command.gameRole());
-        sportEventRepository.save(sportEventMapper.modelToDTO(sportEvent));
+        boolean isUserExistInEvent = eventRoleRepository.isUserExistInEvent(command.eventId(), user.getId());
+
+        if(isUserExistInEvent){
+            throw new RuntimeException("Użytkownik o id:" + user.getId()+ " bierzę juz w wydarzeniu!");
+        }
+        sportEvent.checkRequirements(user);
+
+        eventRole.assignUser(user);
+        eventRoleRepository.save(eventRoleMapper.modelToDTO(eventRole));
     }
 }
