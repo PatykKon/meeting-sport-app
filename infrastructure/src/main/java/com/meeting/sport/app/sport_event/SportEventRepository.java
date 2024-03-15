@@ -7,7 +7,8 @@ import java.util.List;
 
 @Repository
 public interface SportEventRepository {
-    void save(SportEventDTO sportEvent);
+
+    void save(SportEvent sportEvent);
 
     SportEventDTO findById(Long eventId);
 

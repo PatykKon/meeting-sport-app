@@ -11,10 +11,11 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 class SportEventQuery implements SportEventQueryFacade{
+
     private final SportEventRepository sportEventRepository;
     private final SportEventMapper sportEventMapper;
 
-    public List<SportEventResponse> getEvent(){
+    public List<SportEventResponse> getEvents(){
        return sportEventRepository.getAll().stream().map(sportEventMapper::entityToResponse).toList();
     }
 }

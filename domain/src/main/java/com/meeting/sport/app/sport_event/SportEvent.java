@@ -52,17 +52,16 @@ public class SportEvent {
         this.eventRoles.add(eventRole);
         eventRole.addSportEvent(this);
     }
+    int getNumberOfPlayers(){
+        return getTeamSize().getTeamSize();
+    }
 
     public void checkRequirements(User user) {
-        checkGamerAge(user);
+        this.requiredAge.isUserAgeCorrect(user.getAge());
     }
 
     public void submitSportField(SportField sportField) {
         this.sportField = sportField;
-    }
-
-    private void checkGamerAge(User user) {
-        this.requiredAge.isUserAgeCorrect(user.getAge());
     }
 
     public Long getId() {

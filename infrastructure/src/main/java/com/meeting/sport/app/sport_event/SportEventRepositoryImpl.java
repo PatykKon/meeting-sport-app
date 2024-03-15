@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class SportEventRepositoryImpl implements SportEventRepository {
+class SportEventRepositoryImpl implements SportEventRepository {
 
     private final SportEventRepositoryJPA sportEventRepositoryJPA;
     private final SportEventMapper sportEventMapper;
@@ -19,11 +19,8 @@ public class SportEventRepositoryImpl implements SportEventRepository {
     }
 
     @Override
-    public void save(SportEventDTO dto) {
-
-        SportEventEntity sportEventToSave = sportEventMapper.DTOToEntity(dto);
-
-        sportEventRepositoryJPA.save(sportEventToSave);
+    public void save(SportEvent sportEvent) {
+        sportEventRepositoryJPA.save(sportEventMapper.modelToEntity(sportEvent));
     }
 
     @Override
@@ -33,6 +30,6 @@ public class SportEventRepositoryImpl implements SportEventRepository {
 
     @Override
     public List<SportEventEntity> getAll() {
-       return sportEventRepositoryJPA.findAll();
+        return sportEventRepositoryJPA.findAll();
     }
 }

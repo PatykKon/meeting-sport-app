@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-
 class SportFieldRepositoryImpl implements SportFieldRepository {
 
     private final SportFieldRepositoryJPA sportFieldRepositoryJPA;
@@ -17,14 +16,14 @@ class SportFieldRepositoryImpl implements SportFieldRepository {
         this.sportFieldMapper = sportFieldMapper;
     }
 
-@Override
-public SportFieldDTO findById(Long sportFieldId) {
-    SportFieldEntity sportField = sportFieldRepositoryJPA.findById(sportFieldId).orElseThrow();
-    return sportFieldMapper.entityToDTO(sportField);
-}
+    @Override
+    public SportFieldDTO findById(Long sportFieldId) {
+        SportFieldEntity sportField = sportFieldRepositoryJPA.findById(sportFieldId).orElseThrow();
+        return sportFieldMapper.entityToDTO(sportField);
+    }
 
     @Override
-    public void save(SportFieldDTO sportField) {
-        sportFieldRepositoryJPA.save(sportFieldMapper.DTOToEntity(sportField));
+    public void save(SportField sportField) {
+        sportFieldRepositoryJPA.save(sportFieldMapper.modelToEntity(sportField));
     }
 }

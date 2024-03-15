@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/sport-event")
-public class EventQueryAPI {
+class EventQueryAPI {
 
     private final SportEventQueryFacade sportEventQuery;
 
@@ -22,6 +22,6 @@ public class EventQueryAPI {
 
     @GetMapping
     List<SportEventResponse> getEvents(){
-        return sportEventQuery.getEvent();
+        return sportEventQuery.getEvents();
     }
 }

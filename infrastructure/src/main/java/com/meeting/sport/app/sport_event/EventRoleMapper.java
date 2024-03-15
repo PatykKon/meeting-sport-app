@@ -8,12 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EventRoleMapper {
 
-
-    @Mapping(source = "sportEventDTO", target = "sportEventEntity")
-    @Mapping(source = "available", target = "isAvailable")
-    @Mapping(source = "userDTO", target = "userEntity")
-    EventRoleEntity DTOToEntity(EventRoleDTO eventRoleDTO);
-
     @Mapping(source = "sportEventEntity", target = "sportEventDTO")
     @Mapping(source = "available", target = "isAvailable")
     @Mapping(source = "userEntity", target = "userDTO")
@@ -29,18 +23,18 @@ public interface EventRoleMapper {
     @Mapping(source = "userDTO", target = "user")
     EventRole DTOToModel(EventRoleDTO eventRoleDTO);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "sportEvent.description.value", target = "sportEventDTO.description")
-    @Mapping(source = "sportEvent.title.value", target = "sportEventDTO.title")
-    @Mapping(source = "sportEvent.teamSize.teamSize", target = "sportEventDTO.players")
-    @Mapping(source = "sportEvent.requiredAge.age", target = "sportEventDTO.minAge")
-    @Mapping(source = "sportEvent.eventTime.startTime", target = "sportEventDTO.startTime")
-    @Mapping(source = "sportEvent.eventTime.endTime", target = "sportEventDTO.endTime")
-    @Mapping(source = "sportEvent.eventTime.gameTime", target = "sportEventDTO.gameTime")
-    @Mapping(source = "user", target = "userDTO")
-    @Mapping(source = "available", target = "isAvailable")
-    EventRoleDTO modelToDTO(EventRole eventRole);
     @Mapping(source = "available", target = "isAvailable")
     @Mapping(source = "userEntity", target = "userResponse")
     EventRoleResponse entityToResponse(EventRoleEntity eventRoleEntity);
+
+    @Mapping(source = "sportEvent.description.value", target = "sportEventEntity.description")
+    @Mapping(source = "sportEvent.title.value", target = "sportEventEntity.title")
+    @Mapping(source = "sportEvent.teamSize.teamSize", target = "sportEventEntity.players")
+    @Mapping(source = "sportEvent.requiredAge.age", target = "sportEventEntity.minAge")
+    @Mapping(source = "sportEvent.eventTime.startTime", target = "sportEventEntity.startTime")
+    @Mapping(source = "sportEvent.eventTime.endTime", target = "sportEventEntity.endTime")
+    @Mapping(source = "sportEvent.eventTime.gameTime", target = "sportEventEntity.gameTime")
+    @Mapping(source = "user", target = "userEntity")
+    @Mapping(source = "available", target = "isAvailable")
+    EventRoleEntity modelToEntity(EventRole eventRole);
 }

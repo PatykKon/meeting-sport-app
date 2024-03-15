@@ -13,10 +13,6 @@ public interface SportEventMapper {
     @Mapping(source = "sportField", target = "sportFieldDTO")
     SportEventDTO entityToDTO(SportEventEntity sportEvent);
 
-    @Mapping(source = "eventRoleDTOS", target = "eventRoleEntities")
-    @Mapping(source = "sportFieldDTO", target = "sportField")
-    SportEventEntity DTOToEntity(SportEventDTO sportEventDTO);
-
     @Mapping(source = "sportFieldDTO", target = "sportField")
     @Mapping(source = "title", target = "title.value")
     @Mapping(source = "description", target = "description.value")
@@ -27,7 +23,6 @@ public interface SportEventMapper {
     @Mapping(source = "eventRoleDTOS", target = "eventRoles")
     SportEvent DTOToModel(SportEventDTO sportEventDTO);
 
-    @Mapping(source = "sportField", target = "sportFieldDTO")
     @Mapping(source = "title.value", target = "title")
     @Mapping(source = "description.value", target = "description")
     @Mapping(source = "teamSize.teamSize", target = "players")
@@ -35,8 +30,9 @@ public interface SportEventMapper {
     @Mapping(source = "eventTime.startTime", target = "startTime")
     @Mapping(source = "eventTime.endTime", target = "endTime")
     @Mapping(source = "eventTime.gameTime", target = "gameTime")
-    @Mapping(source = "eventRoles", target = "eventRoleDTOS")
-    SportEventDTO modelToDTO(SportEvent sportEvent);
+    @Mapping(source = "sportField", target = "sportField")
+    @Mapping(source = "eventRoles", target = "eventRoleEntities")
+    SportEventEntity modelToEntity(SportEvent sportEvent);
 
 
     @Mapping(source = "eventRoleEntities", target = "eventRoleResponse")

@@ -4,11 +4,8 @@ import com.meeting.sport.app.sport_event.SportEventMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring",uses = {SportEventMapper.class})
+@Mapper(componentModel = "spring", uses = {SportEventMapper.class})
 public interface UserMapper {
-
-    @Mapping(source = "eventRoleDTOS", target = "eventRoleEntities")
-    UserEntity DTOToEntity(UserDTO dto);
 
     @Mapping(source = "eventRoleEntities", target = "eventRoleDTOS")
     UserDTO entityToDTO(UserEntity userEntity);
@@ -16,8 +13,8 @@ public interface UserMapper {
     @Mapping(source = "eventRoleDTOS", target = "eventRoles")
     User DTOToModel(UserDTO dto);
 
-    @Mapping(source = "eventRoles", target = "eventRoleDTOS")
-    UserDTO modelToDTO(User user);
+    @Mapping(source = "eventRoles", target = "eventRoleEntities")
+    UserEntity modelToEntity(User user);
 
     UserResponse entityToResponse(UserEntity userEntity);
 

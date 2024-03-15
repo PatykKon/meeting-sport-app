@@ -3,7 +3,7 @@ package com.meeting.sport.app.user;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+class UserRepositoryImpl implements UserRepository {
 
     private final UserRepositoryJPA userRepositoryJPA;
     private final UserMapper userMapper;

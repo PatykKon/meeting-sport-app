@@ -8,5 +8,5 @@ public record UserDTO(
         Long id,
         int age,
         List<EventRoleDTO> eventRoleDTOS
-){
+) {
 }

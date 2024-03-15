@@ -4,10 +4,9 @@ import com.meeting.sport.app.dto.EventRoleDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Repository
-public class EventRoleRepositoryImpl implements EventRoleRepository {
+class EventRoleRepositoryImpl implements EventRoleRepository {
 
     private final EventRoleRepositoryJPA eventRoleRepositoryJPA;
     private final EventRoleMapper eventRoleMapper;
@@ -27,12 +26,13 @@ public class EventRoleRepositoryImpl implements EventRoleRepository {
         return eventRoleMapper.entityToDTO(entity);
     }
 
-    public void save(EventRoleDTO dto){
-        eventRoleRepositoryJPA.save(eventRoleMapper.DTOToEntity(dto));
+    @Override
+    public void save(EventRole eventRole) {
+        eventRoleRepositoryJPA.save(eventRoleMapper.modelToEntity(eventRole));
     }
 
     @Override
     public boolean isUserExistInEvent(long eventId, long userId) {
-        return eventRoleRepositoryJPA.isUserExistInEvent(eventId,userId);
+        return eventRoleRepositoryJPA.isUserExistInEvent(eventId, userId);
     }
 }

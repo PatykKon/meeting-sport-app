@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SportEventQueryFacade {
 
-    List<SportEventResponse> getEvent();
+    List<SportEventResponse> getEvents();
 }

@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventRoleRepository {
 
-    EventRoleDTO findAvailableRole(long eventId,GameRole gameRole);
+    EventRoleDTO findAvailableRole(long eventId, GameRole gameRole);
 
-    void save(EventRoleDTO eventRoleDTO);
+    void save(EventRole eventRole);
 
-    boolean isUserExistInEvent(long eventId,long userId);
+    boolean isUserExistInEvent(long eventId, long userId);
 }

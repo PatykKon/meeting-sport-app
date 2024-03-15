@@ -10,25 +10,37 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventFacade {
 
     private final CreateSportEventHandler createSportEventHandler;
-    private final AddSportFieldHandler addSportFieldHandler;
+    private final CreateSportFieldHandler createSportFieldHandler;
     private final AssignEventToPlaceHandler assignEventToPlaceHandler;
     private final CreateGameRoleHandler createGameRoleHandler;
     private final JoinEventHandler joinEventHandler;
 
     @Autowired
-    public EventFacade(CreateSportEventHandler createSportEventHandler, AddSportFieldHandler addSportFieldHandler, AssignEventToPlaceHandler assignEventToPlaceHandler, CreateGameRoleHandler createGameRoleHandler, JoinEventHandler joinEventHandler) {
+    public EventFacade(CreateSportEventHandler createSportEventHandler, CreateSportFieldHandler createSportFieldHandler, AssignEventToPlaceHandler assignEventToPlaceHandler, CreateGameRoleHandler createGameRoleHandler, JoinEventHandler joinEventHandler) {
         this.createSportEventHandler = createSportEventHandler;
-        this.addSportFieldHandler = addSportFieldHandler;
+        this.createSportFieldHandler = createSportFieldHandler;
         this.assignEventToPlaceHandler = assignEventToPlaceHandler;
         this.createGameRoleHandler = createGameRoleHandler;
         this.joinEventHandler = joinEventHandler;
     }
 
-    public void createSportEvent(CreateSportEventCommand command){
+    public void createSportEvent(CreateSportEventCommand command) {
         createSportEventHandler.handle(command);
     }
-    public void addSportField(AddSportFieldCommand command){addSportFieldHandler.handle(command);}
-    public void assignEventToPlace(AssignEventToPlaceCommand command){assignEventToPlaceHandler.handle(command);}
-    public void createGameRole(CreateGameRoleCommand command){createGameRoleHandler.handle(command);}
-    public void joinEvent(JoinEventCommand command){joinEventHandler.handle(command);}
+
+    public void addSportField(AddSportFieldCommand command) {
+        createSportFieldHandler.handle(command);
+    }
+
+    public void assignEventToPlace(AssignEventToPlaceCommand command) {
+        assignEventToPlaceHandler.handle(command);
+    }
+
+    public void createGameRole(CreateGameRoleCommand command) {
+        createGameRoleHandler.handle(command);
+    }
+
+    public void joinEvent(JoinEventCommand command) {
+        joinEventHandler.handle(command);
+    }
 }

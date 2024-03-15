@@ -8,5 +8,5 @@ public interface SportFieldRepository {
 
     SportFieldDTO findById(Long sportFieldId);
 
-    void save(SportFieldDTO sportField);
+    void save(SportField sportField);
 }

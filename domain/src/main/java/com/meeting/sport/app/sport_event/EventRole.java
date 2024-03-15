@@ -28,6 +28,9 @@ public class EventRole {
         if (!sportEvent.getEventRoles().isEmpty()) {
             throw new RuntimeException("this have already user role list");
         }
+        if (gameRoles.size() != sportEvent.getNumberOfPlayers()) {
+            throw new RuntimeException("game roles can not be less than declared number of players: " + sportEvent.getNumberOfPlayers());
+        }
         List<EventRole> gameRoleList = new ArrayList<>();
 
         gameRoles.forEach(gameRole -> gameRoleList.add(crateAvailableEventRole(gameRole, sportEvent)));

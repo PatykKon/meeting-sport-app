@@ -4,13 +4,17 @@ import com.meeting.sport.app.event.command.*;
 import com.meeting.sport.app.event.handler.EventFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("api/sport-event")
 class EventCommandAPI {
 
     private final EventFacade eventFacade;
+
     @Autowired
-    EventCommandAPI(EventFacade eventFacade) {this.eventFacade = eventFacade;}
+    EventCommandAPI(EventFacade eventFacade) {
+        this.eventFacade = eventFacade;
+    }
 
     @PostMapping("/create")
     void createEvent(@RequestBody CreateSportEventCommand command) {

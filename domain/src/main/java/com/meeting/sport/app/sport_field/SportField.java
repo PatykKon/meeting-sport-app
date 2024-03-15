@@ -19,7 +19,7 @@ public class SportField {
         this.sportEvents = sportEvents;
     }
 
-    public static SportField addSportField(FieldType fieldType, FieldSpace fieldSpace,String city,String street, String number){
+    public static SportField createSportField(FieldType fieldType, FieldSpace fieldSpace, String city, String street, String number){
         Address fieldAddress = new Address(city,street,number);
 
         return new SportField(null, fieldType,fieldSpace,fieldAddress,null);

@@ -1,9 +1,6 @@
 package com.meeting.sport.app.event.command;
 
-import com.meeting.sport.app.event.Command;
-
 import java.time.LocalDateTime;
-
 
 public record CreateSportEventCommand(
         String title,

@@ -7,11 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 
-@Mapper(componentModel = "spring",uses = {SportEventMapper.class})
+@Mapper(componentModel = "spring", uses = {SportEventMapper.class})
 public interface SportFieldMapper {
 
-    @Mapping(target = "sportEvents", source = "sportEventDTOS")
-    SportFieldEntity DTOToEntity(SportFieldDTO sportFieldDTO);
     @Mapping(target = "sportEventDTOS", source = "sportEvents")
     SportFieldDTO entityToDTO(SportFieldEntity sportFieldEntity);
 
@@ -22,12 +20,12 @@ public interface SportFieldMapper {
     @Mapping(target = "sportEvents", source = "sportEventDTOS")
     SportField DTOToModel(SportFieldDTO sportFieldDTO);
 
-    @Mapping(target = "fieldSpace", source = "fieldSpace")
+    @Mapping(target = "spaceField", source = "fieldSpace")
     @Mapping(target = "city", source = "address.city")
     @Mapping(target = "street", source = "address.street")
     @Mapping(target = "number", source = "address.number")
-    @Mapping(target = "sportEventDTOS", source = "sportEvents")
-    SportFieldDTO modelToDTO(SportField sportField);
+    @Mapping(target = "sportEvents", source = "sportEvents")
+    SportFieldEntity modelToEntity(SportField sportField);
 
     SportFieldResponse entityToResponse(SportFieldEntity sportFieldEntity);
 }

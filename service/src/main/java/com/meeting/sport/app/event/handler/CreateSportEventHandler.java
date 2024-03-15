@@ -1,25 +1,16 @@
 package com.meeting.sport.app.event.handler;
 
 import com.meeting.sport.app.event.command.CreateSportEventCommand;
-import com.meeting.sport.app.event.CommandHandler;
+import com.meeting.sport.app.event.sport_event.SportEventService;
 import com.meeting.sport.app.sport_event.SportEvent;
-import com.meeting.sport.app.sport_event.SportEventMapper;
-import com.meeting.sport.app.sport_event.SportEventRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
 @Component
+@AllArgsConstructor
 class CreateSportEventHandler implements CommandHandler<CreateSportEventCommand> {
 
-    private final SportEventRepository sportEventRepository;
-    private final SportEventMapper sportEventMapper;
-
-    @Autowired
-    CreateSportEventHandler(SportEventRepository sportEventRepository, SportEventMapper sportEventMapper) {
-        this.sportEventRepository = sportEventRepository;
-        this.sportEventMapper = sportEventMapper;
-    }
+    private final SportEventService sportEventService;
 
     @Override
     public void handle(CreateSportEventCommand command) {
@@ -31,6 +22,6 @@ class CreateSportEventHandler implements CommandHandler<CreateSportEventCommand>
                 command.startTime(),
                 command.gameTime());
 
-        sportEventRepository.save(sportEventMapper.modelToDTO(sportEvent));
+        sportEventService.saveEvent(sportEvent);
     }
 }
