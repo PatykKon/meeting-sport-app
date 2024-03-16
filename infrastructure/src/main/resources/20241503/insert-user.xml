@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+
+    <changeSet author="konpat" id="4">
+
+        <insert schemaName="public"
+                tableName="game_user">
+            <column name="id" value="1" type="integer"/>
+            <column name="name" value="Patryk" type="varchar(255)"/>
+            <column name="age" value="25" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="game_user">
+            <column name="id" value="2" type="integer"/>
+            <column name="name" value="Andrzej" type="varchar(255)"/>
+            <column name="age" value="30" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="game_user">
+            <column name="id" value="3" type="integer"/>
+            <column name="name" value="Maciej" type="varchar(255)"/>
+            <column name="age" value="18" type="integer"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

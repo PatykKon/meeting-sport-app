@@ -1,12 +1,8 @@
 package com.meeting.sport.app.dto;
 
-import com.meeting.sport.app.user.UserDTO;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder

@@ -1,0 +1,59 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="5" author="konpat" runInTransaction="true">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="SPORT_EVENT"/>
+            <tableExists tableName="EVENT_ROLE"/>
+            <tableExists tableName="SPORT_FIELD"/>
+            <tableExists tableName="GAME_USER"/>
+        </preConditions>
+
+        <createTable tableName="SPORT_EVENT">
+            <column name="ID" type="integer">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TITLE" type="varchar(50)"></column>
+            <column name="DESCRIPTION" type="varchar(250)"></column>
+            <column name="PLAYERS" type="integer"></column>
+            <column name="MIN_AGE" type="integer"></column>
+            <column name="START_TIME" type="timestamp"></column>
+            <column name="END_TIME" type="timestamp"></column>
+            <column name="GAME_TIME" type="integer"></column>
+            <column name="SPORT_FIELD_ENTITY_ID" type="bigint"></column>
+        </createTable>
+
+        <createTable tableName="EVENT_ROLE">
+            <column name="ID" type="integer">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="GAME_ROLE" type="varchar(250)"></column>
+            <column name="IS_AVAILABLE" type="boolean"></column>
+            <column name="USER_ID" type="bigint"></column>
+            <column name="SPORT_EVENT_ENTITY_ID" type="bigint"></column>
+        </createTable>
+
+        <createTable tableName="SPORT_FIELD">
+            <column name="ID" type="integer">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="SPACE_FIELD" type="varchar(250)"></column>
+            <column name="FIELD_TYPE" type="varchar(250)"></column>
+            <column name="CITY" type="varchar(250)"></column>
+            <column name="STREET" type="varchar(250)"></column>
+            <column name="NUMBER" type="varchar(250)"></column>
+        </createTable>
+
+        <createTable tableName="GAME_USER">
+            <column name="ID" type="integer">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="varchar(250)"></column>
+            <column name="AGE" type="integer"></column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -10,6 +10,7 @@
         <module>infrastructure</module>
         <module>service</module>
         <module>configuration</module>
+        <module>database</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

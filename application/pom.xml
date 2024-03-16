@@ -43,6 +43,11 @@
         </dependency>
         <dependency>
             <groupId>com.meeting.sport.app</groupId>
+            <artifactId>database</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.meeting.sport.app</groupId>
             <artifactId>configuration</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

@@ -14,6 +14,6 @@ class UserServiceImpl implements UserService{
 
     @Override
     public User getTestUser() {
-       return userMapper.DTOToModel(userRepository.findById(56));
+       return userMapper.DTOToModel(userRepository.findById(1));
     }
 }

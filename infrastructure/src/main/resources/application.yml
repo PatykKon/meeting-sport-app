@@ -4,6 +4,9 @@ spring:
     password: "qwerty"
     url: "jdbc:postgresql://127.0.0.1:5432/BookingGame"
     driver-class: "org.postgresql.Driver"
+
+  liquibase:
+    change-log: classpath:changelog.xml
 jpa:
   show-sql: true
   hibernate:

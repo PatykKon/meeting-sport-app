@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+
+    <changeSet author="konpat" id="2">
+
+        <insert schemaName="public"
+                tableName="sport_event">
+            <column name="id" value="1" type="integer"/>
+            <column name="title" value="Mecz" type="varchar(255)"/>
+            <column name="description" value="Gramy mecz dla zabawy, bez dzieci tylko +18" type="varchar(255)"/>
+            <column name="players" value="6" type="integer"/>
+            <column name="min_age" value="18" type="integer"/>
+            <column name="start_time" value="2024-03-15T12:00:00" type="timestamp"/>
+            <column name="end_time" value="2024-03-15T14:00:00" type="timestamp"/>
+            <column name="game_time" value="2" type="integer"/>
+            <column name="sport_field_entity_id" value="1" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="sport_event">
+            <column name="id" value="2" type="integer"/>
+            <column name="title" value="Meczyk" type="varchar(255)"/>
+            <column name="description" value="Luźna gierka przed spaniem, niech się zgłąsza kto może" type="varchar(255)"/>
+            <column name="players" value="12" type="integer"/>
+            <column name="min_age" value="0" type="integer"/>
+            <column name="start_time" value="2024-03-15T20:00:00" type="timestamp"/>
+            <column name="end_time" value="2024-03-15T21:00:00" type="timestamp"/>
+            <column name="game_time" value="1" type="integer"/>
+            <column name="sport_field_entity_id" value="3" type="integer"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

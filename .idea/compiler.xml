@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="database" />
         <module name="application" />
         <module name="configuration" />
         <module name="service" />
@@ -32,6 +33,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="application" options="-parameters" />
       <module name="configuration" options="-parameters" />
+      <module name="database" options="-parameters" />
       <module name="domain" options="-parameters" />
       <module name="infrastructure" options="-parameters" />
       <module name="meeting-sport-app" options="-parameters" />
