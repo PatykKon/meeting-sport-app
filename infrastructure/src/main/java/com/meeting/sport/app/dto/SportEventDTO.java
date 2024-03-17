@@ -16,6 +16,7 @@ public record SportEventDTO (
         LocalDateTime endTime,
         Integer gameTime,
         SportFieldDTO sportFieldDTO,
-        List<EventRoleDTO> eventRoleDTOS
+        List<EventRoleDTO> eventRoleDTOS,
+        Long ownerId
 ){
 }

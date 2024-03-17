@@ -26,6 +26,7 @@ public class SportEventEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Integer gameTime;
+    private Long ownerId;
     @OneToMany(mappedBy = "sportEventEntity", cascade = CascadeType.ALL)
     private List<EventRoleEntity> eventRoleEntities = new ArrayList<>();
     @ManyToOne

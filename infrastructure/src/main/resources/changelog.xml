@@ -6,8 +6,8 @@
 
         <include file="/20241503/tables.xml"/>
         <include file="/20241503/insert-sport-field.xml"/>
-        <include file="/20241503/insert-user.xml"/>
         <include file="/20241503/insert-sport-event.xml"/>
+        <include file="/20241503/insert-user.xml"/>
         <include file="/20241503/insert-event-role.xml"/>
 
 </databaseChangeLog>

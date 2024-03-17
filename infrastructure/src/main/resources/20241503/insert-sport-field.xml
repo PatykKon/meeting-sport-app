@@ -8,7 +8,7 @@
 
         <insert schemaName="public"
                 tableName="sport_field">
-            <column name="id" value="1" type="integer"/>
+            <column name="id" value="100000" type="integer"/>
             <column name="space_field" value="OUTSIDE" type="varchar(255)"/>
             <column name="field_type" value="FOOTBALL" type="varchar(255)"/>
             <column name="city" value="Kraków" type="varchar(255)"/>
@@ -17,7 +17,7 @@
         </insert>
         <insert schemaName="public"
                 tableName="sport_field">
-            <column name="id" value="2" type="integer"/>
+            <column name="id" value="200000" type="integer"/>
             <column name="space_field" value="OUTSIDE" type="varchar(255)"/>
             <column name="field_type" value="FOOTBALL" type="varchar(255)"/>
             <column name="city" value="Warszawa" type="varchar(255)"/>
@@ -26,7 +26,7 @@
         </insert>
         <insert schemaName="public"
                 tableName="sport_field">
-            <column name="id" value="3" type="integer"/>
+            <column name="id" value="300000" type="integer"/>
             <column name="space_field" value="INSIDE" type="varchar(255)"/>
             <column name="field_type" value="FOOTBALL" type="varchar(255)"/>
             <column name="city" value="Poznań" type="varchar(255)"/>

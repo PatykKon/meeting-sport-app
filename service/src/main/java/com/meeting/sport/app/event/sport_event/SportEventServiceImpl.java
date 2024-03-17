@@ -20,6 +20,7 @@ class SportEventServiceImpl implements SportEventService {
         EventRoleDTO eventRoleDTO = eventRoleRepository.findAvailableRole(eventId, gameRole);
         return eventRoleMapper.DTOToModel(eventRoleDTO);
     }
+
     @Override
     public SportEvent getEventById(Long eventId) {
         SportEventDTO sportEventDTO = sportEventRepository.findById(eventId);

@@ -8,7 +8,7 @@
 
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="1" type="integer"/>
+            <column name="id" value="100000" type="integer"/>
             <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
@@ -16,141 +16,141 @@
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="2" type="integer"/>
+            <column name="id" value="200000" type="integer"/>
             <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="1" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="3" type="integer"/>
+            <column name="id" value="300000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="1" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="4" type="integer"/>
+            <column name="id" value="400000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="1" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="5" type="integer"/>
+            <column name="id" value="500000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="false" type="boolean"/>
             <column name="user_id" value="1" type="integer"/>
-            <column name="sport_event_entity_id" value="1" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="6" type="integer"/>
+            <column name="id" value="600000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="false" type="boolean"/>
             <column name="user_id" value="2" type="integer"/>
-            <column name="sport_event_entity_id" value="1" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
         </insert>
 
 
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="7" type="integer"/>
+            <column name="id" value="700000" type="integer"/>
             <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="8" type="integer"/>
+            <column name="id" value="800000" type="integer"/>
             <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="9" type="integer"/>
+            <column name="id" value="900000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="10" type="integer"/>
+            <column name="id" value="1000000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="11" type="integer"/>
+            <column name="id" value="1100000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="12" type="integer"/>
+            <column name="id" value="1200000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="13" type="integer"/>
+            <column name="id" value="1300000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="14" type="integer"/>
+            <column name="id" value="1400000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="15" type="integer"/>
+            <column name="id" value="1500000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="16" type="integer"/>
+            <column name="id" value="1600000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="17" type="integer"/>
+            <column name="id" value="1700000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">
-            <column name="id" value="18" type="integer"/>
+            <column name="id" value="1800000" type="integer"/>
             <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="2" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
         </insert>
 
     </changeSet>

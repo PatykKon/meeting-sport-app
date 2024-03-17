@@ -6,6 +6,7 @@ import com.meeting.sport.app.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 public class SportEvent {
 
     private Long id;
@@ -16,8 +17,10 @@ public class SportEvent {
     private SportField sportField;
     private List<EventRole> eventRoles;
     private EventTime eventTime;
+    private Long ownerId;
 
-    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<EventRole> eventRoles, EventTime eventTime) {
+
+    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<EventRole> eventRoles, EventTime eventTime, Long ownerId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -26,6 +29,8 @@ public class SportEvent {
         this.sportField = sportField;
         this.eventRoles = eventRoles;
         this.eventTime = eventTime;
+        this.ownerId = ownerId;
+
     }
 
     public static SportEvent create(String title,
@@ -33,7 +38,8 @@ public class SportEvent {
                                     int players,
                                     int minAge,
                                     LocalDateTime startEvent,
-                                    Integer gameTime) {
+                                    Integer gameTime,
+                                    Long ownerId) {
 
         Title gameTitle = new Title(title);
         Description gameDescription = new Description(description);
@@ -42,7 +48,7 @@ public class SportEvent {
         EventTime eventTime = new EventTime(gameTime, startEvent);
         List<EventRole> eventRoleList = new ArrayList<>();
 
-        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, null, eventRoleList, eventTime);
+        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, null, eventRoleList, eventTime,ownerId);
     }
 
     public void addGameRoles(EventRole eventRole) {
@@ -52,7 +58,8 @@ public class SportEvent {
         this.eventRoles.add(eventRole);
         eventRole.addSportEvent(this);
     }
-    int getNumberOfPlayers(){
+
+    int getNumberOfPlayers() {
         return getTeamSize().getTeamSize();
     }
 
@@ -96,4 +103,7 @@ public class SportEvent {
         return eventRoles;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
 }
