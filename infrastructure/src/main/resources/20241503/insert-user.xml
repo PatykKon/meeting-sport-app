@@ -8,20 +8,24 @@
 
         <insert schemaName="public"
                 tableName="game_user">
-            <column name="id" value="1" type="integer"/>
-            <column name="name" value="Patryk" type="varchar(255)"/>
+            <column name="id" value="1000" type="integer"/>
+            <column name="firstname" value="Patryk" type="varchar(255)"/>
             <column name="age" value="25" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="game_user">
-            <column name="id" value="2" type="integer"/>
-            <column name="name" value="Andrzej" type="varchar(255)"/>
+            <column name="id" value="2000" type="integer"/>
+            <column name="firstname" value="Andrzej" type="varchar(255)"/>
             <column name="age" value="30" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="game_user">
-            <column name="id" value="3" type="integer"/>
-            <column name="name" value="Maciej" type="varchar(255)"/>
+            <column name="id" value="3000" type="integer"/>
+            <column name="firstname" value="Maciej" type="varchar(255)"/>
+            <column name="lastname" value="Kot" type="varchar(255)"/>
+            <column name="email" value="kot@gmail.com" type="varchar(255)"/>
+            <column name="password" value="admin" type="varchar(255)"/>
+            <column name="role" value="ADMIN" type="varchar(255)"/>
             <column name="age" value="18" type="integer"/>
         </insert>
 

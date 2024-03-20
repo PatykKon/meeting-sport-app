@@ -17,4 +17,9 @@ class UserRepositoryImpl implements UserRepository {
     public UserDTO findById(long id) {
         return userMapper.entityToDTO(userRepositoryJPA.findById(id).orElseThrow());
     }
+
+    @Override
+    public UserDTO findUserByEmail(String email) {
+        return userMapper.entityToDTO(userRepositoryJPA.findByEmail(email).orElseThrow());
+    }
 }

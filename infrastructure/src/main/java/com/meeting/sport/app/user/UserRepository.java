@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository {
 
     UserDTO findById(long id);
+
+    UserDTO findUserByEmail(String email);
 }

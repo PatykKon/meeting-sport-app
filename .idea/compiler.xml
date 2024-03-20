@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="database" />
+        <module name="security" />
         <module name="application" />
         <module name="configuration" />
         <module name="service" />
@@ -37,6 +38,7 @@
       <module name="domain" options="-parameters" />
       <module name="infrastructure" options="-parameters" />
       <module name="meeting-sport-app" options="-parameters" />
+      <module name="security" options="-parameters" />
       <module name="service" options="-parameters" />
       <module name="webapp" options="-parameters" />
     </option>

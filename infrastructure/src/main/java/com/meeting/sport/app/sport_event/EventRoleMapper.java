@@ -2,10 +2,11 @@ package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.dto.EventRoleDTO;
 import com.meeting.sport.app.dto.EventRoleResponse;
+import com.meeting.sport.app.user.UserMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {UserMapper.class})
 public interface EventRoleMapper {
 
     @Mapping(source = "sportEventEntity", target = "sportEventDTO")

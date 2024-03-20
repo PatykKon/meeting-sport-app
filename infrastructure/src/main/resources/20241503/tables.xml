@@ -42,8 +42,22 @@
             <column name="ID" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="NAME" type="VARCHAR(250)"/>
+            <column name="FIRSTNAME" type="VARCHAR(250)"/>
+            <column name="LASTNAME" type="VARCHAR(250)"/>
             <column name="AGE" type="INT"/>
+            <column name="ROLE" type="VARCHAR(250)"/>
+            <column name="EMAIL" type="VARCHAR(250)"/>
+            <column name="PASSWORD" type="VARCHAR(250)"/>
+        </createTable>
+        <createTable tableName="TOKEN">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TOKEN" type="VARCHAR(250)"/>
+            <column name="TOKEN_TYPE" type="VARCHAR(250)"/>
+            <column name="REVOKED" type="boolean"/>
+            <column name="EXPIRED" type="boolean"/>
+            <column name="USER_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
 

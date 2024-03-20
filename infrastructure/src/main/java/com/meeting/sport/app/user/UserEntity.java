@@ -1,10 +1,10 @@
 package com.meeting.sport.app.user;
 
 import com.meeting.sport.app.sport_event.EventRoleEntity;
+import com.meeting.sport.app.token.TokenEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -32,13 +32,13 @@ public class UserEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy = "user")
-    private List<Token> tokens;
+    @OneToMany(mappedBy = "userEntity")
+    private List<TokenEntity> tokenEntities;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(role.getAuth());
     }
 
     @Override
