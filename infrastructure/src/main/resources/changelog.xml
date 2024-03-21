@@ -9,5 +9,6 @@
         <include file="/20241503/insert-sport-event.xml"/>
         <include file="/20241503/insert-user.xml"/>
         <include file="/20241503/insert-event-role.xml"/>
+        <include file="/20242103/insert-token.xml"/>
 
 </databaseChangeLog>
