@@ -1,8 +1,10 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.dto.EventRoleDTO;
+import com.meeting.sport.app.dto.EventRoleResponse;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Repository
@@ -34,5 +36,11 @@ class EventRoleRepositoryImpl implements EventRoleRepository {
     @Override
     public boolean isUserExistInEvent(long eventId, long userId) {
         return eventRoleRepositoryJPA.isUserExistInEvent(eventId, userId);
+    }
+
+    @Override
+    public List<EventRoleResponse> getEventRoleByUser(long userId) {
+        List<EventRoleEntity> eventRole = eventRoleRepositoryJPA.getEventRoleEntitiesByUserEntity_Id(userId);
+        return eventRole.stream().map(eventRoleMapper::entityToResponse).toList();
     }
 }

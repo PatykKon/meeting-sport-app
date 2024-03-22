@@ -9,14 +9,14 @@ class Description {
         this.value = checkDescription(value);
     }
 
-    private String checkDescription(String title) {
-        if (title.length() > MAX_DESCRIPTION) {
+    private String checkDescription(String description) {
+        if (description.length() > MAX_DESCRIPTION) {
             throw new RuntimeException("description is too long");
         }
-        if (title.isEmpty() || title == null) {
+        if (description.isEmpty() || description == null) {
             throw new RuntimeException("description can bo empty");
         }
-        return title;
+        return description;
     }
     public String getValue() {
         return value;

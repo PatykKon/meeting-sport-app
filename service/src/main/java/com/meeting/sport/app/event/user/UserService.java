@@ -4,5 +4,5 @@ import com.meeting.sport.app.user.User;
 
 public interface UserService {
 
-    User getLoggedUser();
+    User getLoggedUser(String userEmail);
 }

@@ -8,6 +8,7 @@ public record CreateSportEventCommand(
         int players,
         int minAge,
         LocalDateTime startTime,
-        Integer gameTime
+        Integer gameTime,
+        String userEmail
 ) implements Command {
 }

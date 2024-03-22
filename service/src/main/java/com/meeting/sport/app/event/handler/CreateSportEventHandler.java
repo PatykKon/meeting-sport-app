@@ -20,7 +20,7 @@ class CreateSportEventHandler implements CommandHandler<CreateSportEventCommand>
     @Transactional
     public void handle(CreateSportEventCommand command) {
 
-        User user = userService.getLoggedUser();
+        User user = userService.getLoggedUser(command.userEmail());
 
         SportEvent sportEvent = SportEvent.create(
                 command.title(),

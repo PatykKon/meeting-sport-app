@@ -5,6 +5,7 @@ import com.meeting.sport.app.sport_event.GameRole;
 public record JoinEventCommand(
 
         Long eventId,
-        GameRole gameRole
+        GameRole gameRole,
+        String userEmail
 ) implements Command {
 }

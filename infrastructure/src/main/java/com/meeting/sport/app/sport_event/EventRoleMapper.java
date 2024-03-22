@@ -26,6 +26,7 @@ public interface EventRoleMapper {
 
     @Mapping(source = "available", target = "isAvailable")
     @Mapping(source = "userEntity", target = "userResponse")
+    @Mapping(source = "sportEventEntity", target = "sportEventResponse")
     EventRoleResponse entityToResponse(EventRoleEntity eventRoleEntity);
 
     @Mapping(source = "sportEvent.description.value", target = "sportEventEntity.description")

@@ -1,7 +1,10 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.dto.EventRoleDTO;
+import com.meeting.sport.app.dto.EventRoleResponse;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface EventRoleRepository {
@@ -11,4 +14,6 @@ public interface EventRoleRepository {
     void save(EventRole eventRole);
 
     boolean isUserExistInEvent(long eventId, long userId);
+
+    List<EventRoleResponse> getEventRoleByUser(long userId);
 }

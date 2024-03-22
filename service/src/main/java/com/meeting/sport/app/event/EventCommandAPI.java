@@ -3,10 +3,11 @@ package com.meeting.sport.app.event;
 import com.meeting.sport.app.event.command.*;
 import com.meeting.sport.app.event.handler.EventFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/sport-event")
+@RequestMapping("api/auth/sport-event")
 class EventCommandAPI {
 
     private final EventFacade eventFacade;

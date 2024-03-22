@@ -11,4 +11,6 @@ interface EventRoleRepositoryJPA extends JpaRepository<EventRoleEntity, Long> {
 
     @Query("SELECT CASE WHEN COUNT(er) > 0 THEN true ELSE false END FROM EventRoleEntity er WHERE er.userEntity.id = :userId AND er.sportEventEntity.id = :eventId")
     boolean isUserExistInEvent(long eventId, long userId);
+
+    List<EventRoleEntity> getEventRoleEntitiesByUserEntity_Id(Long user_id);
 }
