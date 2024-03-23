@@ -17,6 +17,7 @@
             <column name="end_time" value="2024-03-15T14:00:00" type="timestamp"/>
             <column name="game_time" value="2" type="integer"/>
             <column name="sport_field_entity_id" value="100000" type="integer"/>
+            <column name="owner_id" value="1000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="sport_event">
@@ -28,7 +29,8 @@
             <column name="start_time" value="2024-03-15T20:00:00" type="timestamp"/>
             <column name="end_time" value="2024-03-15T21:00:00" type="timestamp"/>
             <column name="game_time" value="1" type="integer"/>
-            <column name="sport_field_entity_id" value="300000" type="integer"/>
+            <column name="sport_field_entity_id" value="200000" type="integer"/>
+            <column name="owner_id" value="3000" type="integer"/>
         </insert>
 
     </changeSet>
