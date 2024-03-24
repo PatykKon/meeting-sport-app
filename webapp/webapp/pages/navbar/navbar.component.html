@@ -11,6 +11,13 @@
       <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
         <mat-icon>share</mat-icon>
       </button>
+      <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
+      <button mat-button routerLink="/signup" routerLinkActive="active">Signup</button>
+      <button mat-button routerLink="" routerLinkActive="active">Main Site</button>
+      <span class="user-info">
+        <span>{{ user.firstname + " " + user.lastname }}</span>
+      </span>
+      <button mat-button (click)="handleLogOut()">LogOut</button>
     </div>
   </mat-toolbar>
 </p>

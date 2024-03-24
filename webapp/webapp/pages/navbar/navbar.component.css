@@ -1,0 +1,8 @@
+.user-info {
+  text-align: right; /* Wyrównanie do prawej strony */
+}
+
+.user-info span {
+  color: #ffffff; /* Zmiana koloru tekstu */
+  font-size: 18px; /* Zmiana wielkości tekstu */
+}

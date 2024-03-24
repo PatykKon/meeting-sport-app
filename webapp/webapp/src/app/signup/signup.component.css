@@ -1,0 +1,22 @@
+mat-card {
+  width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 500px) {
+  mat-card {
+    width: 90%;
+  }
+}
+
+button {
+  width: 200px;
+  margin: 20px auto 0;
+  text-align: center;
+  display: block;
+}

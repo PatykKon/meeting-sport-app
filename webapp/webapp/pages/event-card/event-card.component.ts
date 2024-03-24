@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {EventCardService} from "./event-card.service";
 import {EventInterface} from "./event.interface";
-import {of} from "rxjs";
+import {CommonModule} from "@angular/common";
 
 @Component({
     selector: 'app-event-card',
     standalone: true,
     imports: [
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        CommonModule
     ],
     templateUrl: './event-card.component.html',
     styleUrl: './event-card.component.css'
@@ -19,6 +19,8 @@ import {of} from "rxjs";
 export class EventCardComponent {
 
     public events: EventInterface[] = [];
+
+
 
     constructor(
         private eventSportService: EventCardService
@@ -30,9 +32,15 @@ export class EventCardComponent {
     }
 
     public getEvents() {
-        return this.eventSportService.getEvents().subscribe(ss => {
-            console.log(ss)
-            this.events = ss
+        return this.eventSportService.getEvents().subscribe(events => {
+            console.log(events)
+            this.events = events;
         })
-    }
+
+  // public getEvents() {
+  //   return this.eventSportService.getEvents().subscribe(ss => {
+  //     console.log(ss)
+  //     this.events = ss
+  //   })
+  }
 }

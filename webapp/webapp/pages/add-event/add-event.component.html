@@ -1,0 +1,30 @@
+<div class="add-event-form">
+  <h2 class="form-title">Dodaj nowe wydarzenie</h2>
+  <form>
+    <div class="form-group">
+      <label for="title">Tytuł:</label>
+      <input type="text" id="title" name="title" placeholder="Wprowadź tytuł wydarzenia" required [(ngModel)]="field.title">
+    </div>
+    <div class="form-group">
+      <label for="description">Opis:</label>
+      <textarea id="description" name="description" placeholder="Wprowadź opis wydarzenia" rows="4" required [(ngModel)]="field.description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="players">Liczba graczy:</label>
+      <input type="number" id="players" name="players" placeholder="Wprowadź liczbę graczy" required [(ngModel)]="field.players">
+    </div>
+    <div class="form-group">
+      <label for="minAge">Minimalny wiek:</label>
+      <input type="number" id="minAge" name="minAge" placeholder="Wprowadź minimalny wiek" required [(ngModel)]="field.minAge">
+    </div>
+    <div class="form-group">
+      <label for="startTime">Data i godzina rozpoczęcia:</label>
+      <input type="datetime-local" id="startTime" name="startTime" required [(ngModel)]="field.startTime">
+    </div>
+    <div class="form-group">
+      <label for="gameTime">Czas trwania gry (w godzinach):</label>
+      <input type="number" id="gameTime" name="gameTime" placeholder="Wprowadź czas trwania gry" required [(ngModel)]="field.gameTime">
+    </div>
+    <button type="submit" (click)="onSubmit()" class="btn-submit">Dodaj wydarzenie</button>
+  </form>
+</div>

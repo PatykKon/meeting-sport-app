@@ -1,24 +1,8 @@
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.example-label {
-  font-size: 14px;
-  margin: 8px;
-  min-width: 120px;
-}
-
 .example-button-row {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 600px;
 }
 
 .example-button-row button {
-  margin: 8px;
-  width: 120px;
+  margin-bottom: 5px;
 }

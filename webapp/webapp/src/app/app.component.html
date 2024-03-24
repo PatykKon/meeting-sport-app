@@ -1,17 +1,13 @@
-<!--<router-outlet></router-outlet>-->
-
-
 <div>
-  <div class="min-h-[90vh]" >
+  <div class="min-h-[90vh]">
     <app-navbar></app-navbar>
     <div class="flex flex-grow">
 
       <div class="left-section">
         <app-table-row></app-table-row>
       </div>
-
       <div class="right-section">
-        <app-home-page></app-home-page>
+        <router-outlet></router-outlet>
       </div>
 
     </div>
@@ -21,4 +17,3 @@
     <app-footer></app-footer>
   </div>
 </div>
-

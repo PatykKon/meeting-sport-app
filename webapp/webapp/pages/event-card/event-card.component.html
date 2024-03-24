@@ -1,14 +1,19 @@
-<mat-card *ngFor="let event of events" class="example-card">
-  <mat-card-header>
-    <mat-card-title>{{'ss'}}</mat-card-title>
-    <mat-card-subtitle>Event Type</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>This card indeterminates progress bar.</p>
-    <p>{{'ss'}}</p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>JOIN</button>
+<div *ngFor="let event of events" class="event-card">
+  <div class="event-header">
+    <h3 class="event-title">{{ event.title }}</h3>
+    <p class="event-subtitle">Start: {{ event.description }}</p>
+    <p class="event-subtitle">StartDate: {{ event.startTime }}</p>
+    <p class="event-subtitle">GameTime: {{ event.gameTime }}</p>
+    <p class="event-subtitle">MinAge: {{ event.minAge }}</p>
+  </div>
+  <div class="event-actions">
+    <button mat-button>LIKE</button>
     <button mat-button>SHARE</button>
-  </mat-card-actions>
-</mat-card>
+  </div>
+</div>
+<!--&lt;!&ndash;<div *ngFor="let event of events">&ndash;&gt;-->
+<!--&lt;!&ndash;  <p>{{ event.title }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;  <p>{{ event.description }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;  &lt;!&ndash; Add more HTML to display event details &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
