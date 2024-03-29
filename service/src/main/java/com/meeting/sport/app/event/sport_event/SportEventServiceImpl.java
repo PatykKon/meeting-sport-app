@@ -41,4 +41,10 @@ class SportEventServiceImpl implements SportEventService {
     public boolean isUserExistInEvent(Long eventId, Long userId) {
         return eventRoleRepository.isUserExistInEvent(eventId, userId);
     }
+
+    @Override
+    public EventRole getUserEventRole(Long eventId, Long userId) {
+        EventRoleDTO eventRoleDTO = eventRoleRepository.getEventRoleByUserAndEvent(eventId,userId);
+        return eventRoleMapper.DTOToModel(eventRoleDTO);
+    }
 }

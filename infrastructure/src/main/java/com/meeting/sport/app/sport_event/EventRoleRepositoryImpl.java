@@ -43,4 +43,10 @@ class EventRoleRepositoryImpl implements EventRoleRepository {
         List<EventRoleEntity> eventRole = eventRoleRepositoryJPA.getEventRoleEntitiesByUserEntity_Id(userId);
         return eventRole.stream().map(eventRoleMapper::entityToResponse).toList();
     }
+
+    @Override
+    public EventRoleDTO getEventRoleByUserAndEvent(Long userId,Long eventId) {
+        EventRoleEntity eventRole = eventRoleRepositoryJPA.getEventRoleEntityByUserEntityIdAndSportEventEntityId(userId,eventId);
+        return eventRoleMapper.entityToDTO(eventRole);
+    }
 }

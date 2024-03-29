@@ -14,14 +14,16 @@ public class EventFacade {
     private final AssignEventToPlaceHandler assignEventToPlaceHandler;
     private final CreateGameRoleHandler createGameRoleHandler;
     private final JoinEventHandler joinEventHandler;
+    private final LeaveEventHandler leaveEventHandler;
 
     @Autowired
-    public EventFacade(CreateSportEventHandler createSportEventHandler, CreateSportFieldHandler createSportFieldHandler, AssignEventToPlaceHandler assignEventToPlaceHandler, CreateGameRoleHandler createGameRoleHandler, JoinEventHandler joinEventHandler) {
+    public EventFacade(CreateSportEventHandler createSportEventHandler, CreateSportFieldHandler createSportFieldHandler, AssignEventToPlaceHandler assignEventToPlaceHandler, CreateGameRoleHandler createGameRoleHandler, JoinEventHandler joinEventHandler, LeaveEventHandler leaveEventHandler) {
         this.createSportEventHandler = createSportEventHandler;
         this.createSportFieldHandler = createSportFieldHandler;
         this.assignEventToPlaceHandler = assignEventToPlaceHandler;
         this.createGameRoleHandler = createGameRoleHandler;
         this.joinEventHandler = joinEventHandler;
+        this.leaveEventHandler = leaveEventHandler;
     }
 
     public void createSportEvent(CreateSportEventCommand command) {
@@ -43,4 +45,6 @@ public class EventFacade {
     public void joinEvent(JoinEventCommand command) {
         joinEventHandler.handle(command);
     }
+
+    public void leaveEvent(LeaveEventCommand command){leaveEventHandler.handle(command);}
 }

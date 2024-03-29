@@ -41,4 +41,9 @@ class EventCommandAPI {
     void createEvent(@RequestBody JoinEventCommand command) {
         eventFacade.joinEvent(command);
     }
+
+    @PutMapping("/leave")
+    void createEvent(@RequestBody LeaveEventCommand command) {
+        eventFacade.leaveEvent(command);
+    }
 }

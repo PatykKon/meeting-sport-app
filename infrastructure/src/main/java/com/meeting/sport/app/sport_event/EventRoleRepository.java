@@ -16,4 +16,6 @@ public interface EventRoleRepository {
     boolean isUserExistInEvent(long eventId, long userId);
 
     List<EventRoleResponse> getEventRoleByUser(long userId);
+
+    EventRoleDTO getEventRoleByUserAndEvent(Long eventId, Long userId);
 }

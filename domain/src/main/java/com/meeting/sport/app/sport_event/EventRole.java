@@ -41,6 +41,10 @@ public class EventRole {
         changeRoleAvailability();
         this.user = user;
     }
+    public void leaveEvent(){
+        this.user = null;
+        changeRoleAvailability();
+    }
 
     void addSportEvent(SportEvent sportEvent) {
         this.sportEvent = sportEvent;

@@ -15,4 +15,5 @@ public interface SportEventService {
 
     boolean isUserExistInEvent(Long eventId, Long userId);
 
+    EventRole getUserEventRole(Long eventId, Long userId);
 }
