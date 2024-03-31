@@ -16,4 +16,4 @@ SportEvent Organizer is an application developed in Java 17, using the Spring fr
 
 - Java 17
 - Spring Framework
-- Database (PostgreSQL)
+- Database (PostgreSQL,Liquibase)
