@@ -3,7 +3,6 @@ package com.meeting.sport.app.user;
 
 import com.meeting.sport.app.sport_event.EventRole;
 
-
 import java.util.List;
 
 public class User {
