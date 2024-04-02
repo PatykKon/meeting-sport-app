@@ -37,5 +37,6 @@ public interface SportEventMapper {
 
     @Mapping(source = "eventRoleEntities", target = "eventRoleResponse")
     @Mapping(source = "sportField", target = "sportFieldResponse")
+    @Mapping(source = "id", target = "id")
     SportEventResponse entityToResponse(SportEventEntity sportEvent);
 }

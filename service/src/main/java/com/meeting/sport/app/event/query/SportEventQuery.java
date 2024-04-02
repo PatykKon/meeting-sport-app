@@ -2,9 +2,7 @@ package com.meeting.sport.app.event.query;
 
 import com.meeting.sport.app.dto.EventRoleResponse;
 import com.meeting.sport.app.dto.SportEventResponse;
-import com.meeting.sport.app.sport_event.EventRoleRepository;
-import com.meeting.sport.app.sport_event.SportEventMapper;
-import com.meeting.sport.app.sport_event.SportEventRepository;
+import com.meeting.sport.app.sport_event.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +15,18 @@ class SportEventQuery implements SportEventQueryFacade{
     private final SportEventRepository sportEventRepository;
     private final SportEventMapper sportEventMapper;
     private final EventRoleRepository eventRoleRepository;
+    private final SportEventRepositoryJPA sportEventRepositoryJPA;
+
 
     public List<SportEventResponse> getEvents(){
        return sportEventRepository.getAll().stream().map(sportEventMapper::entityToResponse).toList();
     }
     public List<EventRoleResponse> getUserEvents(long userId){
         return eventRoleRepository.getEventRoleByUser(userId);
+    }
+
+    public SportEventResponse getEventById(Long eventId){
+        SportEventEntity eventEntity = sportEventRepositoryJPA.findById(eventId).orElseThrow();
+        return sportEventMapper.entityToResponse(eventEntity);
     }
 }

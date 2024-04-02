@@ -8,6 +8,8 @@ import java.util.List;
 
 @Builder
 public record SportEventResponse(
+
+        Long id,
         String title,
         String description,
         LocalDateTime startTime,

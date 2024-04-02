@@ -18,4 +18,6 @@ public interface EventRoleRepository {
     List<EventRoleResponse> getEventRoleByUser(long userId);
 
     EventRoleDTO getEventRoleByUserAndEvent(Long eventId, Long userId);
+
+    List<EventRoleDTO> getEventRoleEntitiesByUserEntityId(Long userId);
 }

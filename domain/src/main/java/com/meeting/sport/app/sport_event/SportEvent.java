@@ -59,6 +59,10 @@ public class SportEvent {
         eventRole.addSportEvent(this);
     }
 
+    public boolean isInTheSameTime(EventTime eventTime){
+        return this.eventTime.isEventInTheSameTime(eventTime);
+    }
+
     int getNumberOfPlayers() {
         return getTeamSize().getTeamSize();
     }

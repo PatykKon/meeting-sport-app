@@ -15,4 +15,7 @@ interface EventRoleRepositoryJPA extends JpaRepository<EventRoleEntity, Long> {
     List<EventRoleEntity> getEventRoleEntitiesByUserEntity_Id(Long user_id);
 
     EventRoleEntity getEventRoleEntityByUserEntityIdAndSportEventEntityId(Long userId,Long eventId);
+
+    List<EventRoleEntity> getEventRoleEntitiesByUserEntityId(Long userId);
+
 }

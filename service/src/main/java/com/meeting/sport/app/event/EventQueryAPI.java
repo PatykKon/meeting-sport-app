@@ -32,4 +32,8 @@ class EventQueryAPI {
     List<EventRoleResponse> getEventRoleForUser(@PathVariable long userId){
         return sportEventQuery.getUserEvents(userId);
     }
+    @GetMapping("/event/{eventId}")
+    SportEventResponse getSportEvent(@PathVariable long eventId){
+        return sportEventQuery.getEventById(eventId);
+    }
 }

@@ -2,9 +2,13 @@ package com.meeting.sport.app.event.sport_event;
 
 import com.meeting.sport.app.dto.EventRoleDTO;
 import com.meeting.sport.app.dto.SportEventDTO;
+import com.meeting.sport.app.event.user.UserService;
 import com.meeting.sport.app.sport_event.*;
+import com.meeting.sport.app.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -37,10 +41,22 @@ class SportEventServiceImpl implements SportEventService {
         sportEventRepository.save(sportEvent);
     }
 
-    @Override
-    public boolean isUserExistInEvent(Long eventId, Long userId) {
-        return eventRoleRepository.isUserExistInEvent(eventId, userId);
-    }
+        public void checkUserExistInOtherEventInThisTime(Long eventId, Long userId){
+
+            List<EventRoleDTO> eventRoleListDTO = eventRoleRepository.getEventRoleEntitiesByUserEntityId(userId);
+            List<EventRole> eventRoles = eventRoleListDTO.stream().map(eventRoleMapper::DTOToModel).toList();
+
+            SportEvent sportEventToJoin = sportEventMapper.DTOToModel(sportEventRepository.findById(eventId));
+
+            final boolean isUserExistInOtherEventInThisTime = eventRoles.stream()
+                    .map(EventRole::getSportEvent)
+                    .anyMatch(sportEvent -> sportEvent.isInTheSameTime(sportEventToJoin.getEventTime()));
+
+            if(isUserExistInOtherEventInThisTime){
+                throw new RuntimeException("Użytkownik o id:" + userId + " bierzę juz udział w tym czasie w innym wydarzeniu!");
+            }
+        }
+
 
     @Override
     public EventRole getUserEventRole(Long eventId, Long userId) {

@@ -25,11 +25,8 @@ class JoinEventHandler implements CommandHandler<JoinEventCommand> {
 
         User loggedUser = userService.getLoggedUser(command.userEmail());
 
-        boolean isUserExistInEvent = sportEventService.isUserExistInEvent(command.eventId(), loggedUser.getId());
+        sportEventService.checkUserExistInOtherEventInThisTime(command.eventId(), loggedUser.getId());
 
-        if (isUserExistInEvent) {
-            throw new RuntimeException("Użytkownik o id:" + loggedUser.getId() + " bierzę juz udział w wydarzeniu!");
-        }
         sportEvent.checkRequirements(loggedUser);
 
         eventRole.assignUser(loggedUser);
