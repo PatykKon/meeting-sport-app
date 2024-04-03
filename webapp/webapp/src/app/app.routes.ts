@@ -5,13 +5,19 @@ import {SignupComponent} from "./signup/signup.component";
 import {HomePageComponent} from "../../pages/home-page/home-page.component";
 import {EventCardComponent} from "../../pages/event-card/event-card.component";
 import {AddEventComponent} from "../../pages/add-event/add-event.component";
+import {SelectedEventCardComponent} from "../../pages/selected-event-card/selected-event-card.component";
+import {AddEventRoleComponent} from "../../pages/add-event-role/add-event-role.component";
+import {AddFieldComponent} from "../../pages/add-field/add-field.component";
 
 export const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "signup", component: SignupComponent},
   {path: "", component: HomePageComponent},
   {path: "events", component: EventCardComponent},
-  {path: "add-event", component: AddEventComponent}
+  {path: "add-event", component: AddEventComponent},
+  {path: "event/:eventId", component: SelectedEventCardComponent},
+  {path: "event/:eventId/add-event-role", component: AddEventRoleComponent},
+  {path: "event/:eventId/add-field", component: AddFieldComponent}
 ];
 @NgModule({
   imports:[RouterModule.forRoot(routes)],

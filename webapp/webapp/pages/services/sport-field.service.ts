@@ -7,7 +7,7 @@ const BASIC_URL = "http://localhost:8080/api/auth"
 @Injectable({
   providedIn: 'root'
 })
-export class EventCardService {
+export class SportFieldService {
 
   constructor(
     private http: HttpClient) {
@@ -20,9 +20,9 @@ export class EventCardService {
   });
 
 
-  getEvents(): Observable<any> {
+  getSportFields(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(BASIC_URL + "/sport-event", {headers}).pipe(
+    return this.http.get(BASIC_URL + "/sport-field/all", {headers}).pipe(
       tap((events) => {
         const currentState = this.eventSubject.value;
         this.eventSubject.next({...currentState, events});
@@ -54,9 +54,9 @@ export class EventCardService {
     );
   }
 
-  joinEvent(field: any): Observable<any> {
+  assignToEvent(field: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(BASIC_URL + "/sport-event/join", field, { headers }).pipe(
+    return this.http.post<any>(BASIC_URL + "/sport-event/assign-to-field", field, { headers }).pipe(
       tap((events) => {
         const currentState = this.eventSubject.value;
         this.eventSubject.next({ ...currentState, events });

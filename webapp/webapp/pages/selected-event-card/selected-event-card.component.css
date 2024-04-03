@@ -1,0 +1,64 @@
+.selected-event-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.event-header {
+  margin-bottom: 20px;
+  display: flex; /* Ustawiamy flexbox */
+  justify-content: space-between; /* Rozstawiamy elementy równomiernie wzdłuż osi głównej */
+  color: #333;
+}
+
+.header-details, .field-details {
+  flex-basis: 48%; /* Ustawiamy szerokość na 48% kontenera, aby zmieścić obok siebie */
+
+}
+
+.event-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.event-subtitle {
+  margin-bottom: 5px;
+}
+
+.event-roles {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.role-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.role-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.role-info {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.event-actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: #333; /* Kolor tekstu */
+}
+
+
+

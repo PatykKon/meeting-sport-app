@@ -1,0 +1,49 @@
+<div class="selected-event-card">
+  <div class="event-header">
+    <div class="header-details">
+      <!-- Nagłówek wydarzenia -->
+      <h3 class="event-title">{{ event.title }}</h3>
+      <p class="event-subtitle">Start: {{ event.description }}</p>
+      <p class="event-subtitle">StartDate: {{ event.startTime }}</p>
+      <p class="event-subtitle">GameTime: {{ event.gameTime }}</p>
+      <p class="event-subtitle">MinAge: {{ event.minAge }}</p>
+    </div>
+
+    <!-- Szczegóły pola sportowego -->
+    <div class="field-details">
+      <h3 class="event-title">Field Details</h3>
+      <p class="event-subtitle">Miasto: {{ event.sportFieldResponse.city }}</p>
+      <p class="event-subtitle">Ulica: {{ event.sportFieldResponse.street }}</p>
+      <p class="event-subtitle">Numer: {{ event.sportFieldResponse.number }}</p>
+      <p class="event-subtitle">Typ GRY: {{ event.sportFieldResponse.fieldSpace}}</p>
+      <p class="event-subtitle">Typ Boiska: {{ event.sportFieldResponse.fieldType}}</p>
+    </div>
+  </div>
+
+  <div class="event-roles">
+    <h3 class="event-title">Event Roles</h3>
+    <div class="role-item" *ngFor="let roleSummary of roleSummaries">
+      <p class="role-title">Game Role: {{ roleSummary.gameRole }}</p>
+      <p class="role-info">Wolne miejsca: {{ roleSummary.availableCount }}</p>
+      <p class="role-info">Zajęte miejsca: {{ roleSummary.occupiedCount }}</p>
+      <button mat-raised-button (click)="handleJoinEvent(roleSummary.gameRole)">JOIN</button>
+    </div>
+  </div>
+
+  <!-- Przycisk SHARE -->
+  <div class="event-actions">
+    <button mat-raised-button>SHARE</button>
+  </div>
+</div>
+
+
+
+<!-- Lista ról wydarzenia -->
+<!--  <div class="event-roles">-->
+<!--    <h3 class="event-title">Event Roles</h3>-->
+<!--    <div class="role-item" *ngFor="let role of event.eventRoleResponse">-->
+<!--      <p class="role-title">Game Role: {{ role.gameRole }}</p>-->
+<!--      <p class="role-info">Is Available: {{ role.isAvailable }}</p>-->
+<!--      <p class="role-info">User ID: {{ role.userId }}</p>-->
+<!--    </div>-->
+<!--  </div>-->

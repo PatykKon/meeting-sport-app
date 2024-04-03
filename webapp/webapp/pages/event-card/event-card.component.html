@@ -7,7 +7,7 @@
     <p class="event-subtitle">MinAge: {{ event.minAge }}</p>
   </div>
   <div class="event-actions">
-    <button mat-button>LIKE</button>
+    <button mat-raised-button (click)="redirectToEvent(event.id)" routerLinkActive="active">MORE</button>
     <button mat-button>SHARE</button>
   </div>
 </div>

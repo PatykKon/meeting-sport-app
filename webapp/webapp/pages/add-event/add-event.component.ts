@@ -37,15 +37,13 @@ export class AddEventComponent {
   }
 
   onSubmit(): void {
-    console.log("kliklo sie")
     this.handleCreateEvent();
   }
 
   handleCreateEvent() {
     this.eventService.createEvent(this.field).subscribe({
       next: (response) => {
-        console.log('cos sie wydarzyło: '+ response);
-        this.route.navigateByUrl("");
+        this.route.navigateByUrl("event/"+response+"/add-event-role");
       }
     })
   }
