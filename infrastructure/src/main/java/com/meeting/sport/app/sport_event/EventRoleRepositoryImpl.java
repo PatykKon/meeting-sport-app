@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.dto.EventRoleDTO;
 import com.meeting.sport.app.dto.EventRoleResponse;
 import org.springframework.stereotype.Repository;
 
@@ -19,40 +18,35 @@ class EventRoleRepositoryImpl implements EventRoleRepository {
     }
 
     @Override
-    public EventRoleDTO findAvailableRole(long eventId, GameRole gameRole) {
+    public EventRole findAvailableRole(long eventId, GameRole gameRole) {
         EventRoleEntity entity = eventRoleRepositoryJPA.findBySportEventEntityIdAndGameRoleAndIsAvailableTrue(eventId, gameRole)
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Brak dostępnego użytkownika gry dla roli: " + gameRole));
 
-        return eventRoleMapper.entityToDTO(entity);
+        return eventRoleMapper.entityToModel(entity);
     }
 
     @Override
-    public void save(EventRole eventRole) {
-        eventRoleRepositoryJPA.save(eventRoleMapper.modelToEntity(eventRole));
-    }
-
-    @Override
-    public boolean isUserExistInEvent(long eventId, long userId) {
-        return eventRoleRepositoryJPA.isUserExistInEvent(eventId, userId);
+    public Long save(EventRole eventRole) {
+        EventRoleEntity entity = eventRoleRepositoryJPA.save(eventRoleMapper.modelToEntity(eventRole));
+        return entity.getId();
     }
 
     @Override
     public List<EventRoleResponse> getEventRoleByUser(long userId) {
-        List<EventRoleEntity> eventRole = eventRoleRepositoryJPA.getEventRoleEntitiesByUserEntity_Id(userId);
+        List<EventRoleEntity> eventRole = eventRoleRepositoryJPA.getEventRoleEntitiesByUserId(userId);
         return eventRole.stream().map(eventRoleMapper::entityToResponse).toList();
     }
-
     @Override
-    public EventRoleDTO getEventRoleByUserAndEvent(Long userId,Long eventId) {
-        EventRoleEntity eventRole = eventRoleRepositoryJPA.getEventRoleEntityByUserEntityIdAndSportEventEntityId(userId,eventId);
-        return eventRoleMapper.entityToDTO(eventRole);
+    public EventRole getEventRoleByUserAndEvent(Long userId,Long eventId) {
+        EventRoleEntity eventRole = eventRoleRepositoryJPA.getEventRoleEntityByUserIdAndSportEventEntityId(userId,eventId);
+        return eventRoleMapper.entityToModel(eventRole);
     }
 
     @Override
-    public List<EventRoleDTO> getEventRoleEntitiesByUserEntityId(Long userId) {
-        List<EventRoleEntity> eventRoleEntities = eventRoleRepositoryJPA.getEventRoleEntitiesByUserEntityId(userId);
-        return eventRoleEntities.stream().map(eventRoleMapper::entityToDTO).toList();
+    public List<EventRole> getEventRoleEntitiesByUserEntityId(Long userId) {
+        List<EventRoleEntity> eventRoleEntities = eventRoleRepositoryJPA.getEventRoleEntitiesByUserId(userId);
+        return eventRoleEntities.stream().map(eventRoleMapper::entityToModel).toList();
     }
 }

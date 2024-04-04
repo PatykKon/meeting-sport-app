@@ -1,11 +1,7 @@
 package com.meeting.sport.app.sport_field;
 
-import com.meeting.sport.app.sport_event.SportEventEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Table(name = "SPORT_FIELD")
 @Entity
@@ -25,8 +21,6 @@ public class SportFieldEntity {
     private String city;
     private String street;
     private String number;
-    @OneToMany(mappedBy = "sportField")
-    private List<SportEventEntity> sportEvents = new ArrayList<>();
 }
 
 

@@ -6,6 +6,7 @@ import lombok.Builder;
 
 @Builder
 public record SportFieldResponse(
+        Long id,
         FieldType fieldType,
         FieldSpace fieldSpace,
         String city,

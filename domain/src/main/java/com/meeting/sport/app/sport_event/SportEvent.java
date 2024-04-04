@@ -14,22 +14,22 @@ public class SportEvent {
     private Description description;
     private TeamSize teamSize;
     private RequiredAge requiredAge;
-    private SportField sportField;
-    private List<EventRole> eventRoles;
     private EventTime eventTime;
     private Long ownerId;
+    private Long sportFieldId;
+    private List<EventRole> eventRoles;
 
 
-    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, SportField sportField, List<EventRole> eventRoles, EventTime eventTime, Long ownerId) {
+    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId,Long sportFieldId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.teamSize = teamSize;
         this.requiredAge = requiredAge;
-        this.sportField = sportField;
         this.eventRoles = eventRoles;
         this.eventTime = eventTime;
         this.ownerId = ownerId;
+        this.sportFieldId = sportFieldId;
 
     }
 
@@ -48,7 +48,7 @@ public class SportEvent {
         EventTime eventTime = new EventTime(gameTime, startEvent);
         List<EventRole> eventRoleList = new ArrayList<>();
 
-        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, null, eventRoleList, eventTime,ownerId);
+        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime,ownerId,null);
     }
 
     public void addGameRoles(EventRole eventRole) {
@@ -71,8 +71,8 @@ public class SportEvent {
         this.requiredAge.isUserAgeCorrect(user.getAge());
     }
 
-    public void submitSportField(SportField sportField) {
-        this.sportField = sportField;
+    public void submitSportField(Long sportFieldId) {
+        this.sportFieldId = sportFieldId;
     }
 
     public Long getId() {
@@ -95,8 +95,8 @@ public class SportEvent {
         return requiredAge;
     }
 
-    public SportField getSportField() {
-        return sportField;
+    public Long getSportFieldId() {
+        return sportFieldId;
     }
 
     public EventTime getEventTime() {

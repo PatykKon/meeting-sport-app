@@ -18,7 +18,7 @@ class JoinEventHandler implements CommandHandler<JoinEventCommand> {
 
     @Override
     @Transactional
-    public void handle(JoinEventCommand command) {
+    public Long handle(JoinEventCommand command) {
 
         EventRole eventRole = sportEventService.getAvailableEventRoleById(command.eventId(), command.gameRole());
         SportEvent sportEvent = eventRole.getSportEvent();
@@ -29,7 +29,7 @@ class JoinEventHandler implements CommandHandler<JoinEventCommand> {
 
         sportEvent.checkRequirements(loggedUser);
 
-        eventRole.assignUser(loggedUser);
-        sportEventService.saveEventRole(eventRole);
+        eventRole.assignToEvent(loggedUser);
+        return sportEventService.saveEventRole(eventRole);
     }
 }

@@ -2,48 +2,43 @@ package com.meeting.sport.app.event;
 
 import com.meeting.sport.app.event.command.*;
 import com.meeting.sport.app.event.handler.EventFacade;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("api/auth/sport-event")
 class EventCommandAPI {
 
     private final EventFacade eventFacade;
 
-    @Autowired
-    EventCommandAPI(EventFacade eventFacade) {
-        this.eventFacade = eventFacade;
-    }
-
     @PostMapping("/create")
-    void createEvent(@RequestBody CreateSportEventCommand command) {
-        eventFacade.createSportEvent(command);
+    Long createEvent(@RequestBody CreateSportEventCommand command) {
+        return eventFacade.createSportEvent(command);
     }
 
     @PostMapping("/add-field")
-    void createEvent(@RequestBody AddSportFieldCommand command) {
-        eventFacade.addSportField(command);
+    Long addSportField(@RequestBody AddSportFieldCommand command) {
+        return eventFacade.addSportField(command);
     }
 
     @PostMapping("/assign-to-field")
-    void createEvent(@RequestBody AssignEventToPlaceCommand command) {
-        eventFacade.assignEventToPlace(command);
+    Long assignEventToPlace(@RequestBody AssignEventToPlaceCommand command) {
+        return eventFacade.assignEventToPlace(command);
     }
 
     @PostMapping("/game-role")
-    void createEvent(@RequestBody CreateGameRoleCommand command) {
-        eventFacade.createGameRole(command);
+    Long createGameRole(@RequestBody CreateGameRoleCommand command) {
+        return eventFacade.createGameRole(command);
     }
 
     @PostMapping("/join")
-    void createEvent(@RequestBody JoinEventCommand command) {
-        eventFacade.joinEvent(command);
+    Long joinEvent(@RequestBody JoinEventCommand command) {
+        return eventFacade.joinEvent(command);
     }
 
     @PutMapping("/leave")
-    void createEvent(@RequestBody LeaveEventCommand command) {
-        eventFacade.leaveEvent(command);
+    Long leaveEvent(@RequestBody LeaveEventCommand command) {
+        return eventFacade.leaveEvent(command);
     }
 }

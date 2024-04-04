@@ -9,20 +9,19 @@ public class SportField {
     private FieldType fieldType;
     private FieldSpace fieldSpace;
     private Address address;
-    private List<SportEvent> sportEvents;
 
-    public SportField(Long id, FieldType fieldType, FieldSpace fieldSpace, Address address, List<SportEvent> sportEvents) {
+
+    public SportField(Long id, FieldType fieldType, FieldSpace fieldSpace, Address address) {
         this.id = id;
         this.fieldType = fieldType;
         this.fieldSpace = fieldSpace;
         this.address = address;
-        this.sportEvents = sportEvents;
     }
 
     public static SportField createSportField(FieldType fieldType, FieldSpace fieldSpace, String city, String street, String number){
         Address fieldAddress = new Address(city,street,number);
 
-        return new SportField(null, fieldType,fieldSpace,fieldAddress,null);
+        return new SportField(null, fieldType,fieldSpace,fieldAddress);
     }
 
     public Long getId() {
@@ -41,8 +40,5 @@ public class SportField {
         return address;
     }
 
-    public List<SportEvent> getSportEvents() {
-        return sportEvents;
-    }
 }
 

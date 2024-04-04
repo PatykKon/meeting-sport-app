@@ -15,7 +15,7 @@ class CreateGameRoleHandler implements CommandHandler<CreateGameRoleCommand> {
     private final SportEventService sportEventService;
 
     @Override
-    public void handle(CreateGameRoleCommand command) {
+    public Long handle(CreateGameRoleCommand command) {
 
         SportEvent sportEvent = sportEventService.getEventById(command.sportEventId());
 
@@ -23,6 +23,6 @@ class CreateGameRoleHandler implements CommandHandler<CreateGameRoleCommand> {
 
         eventRoles.forEach(sportEvent::addGameRoles);
 
-        sportEventService.saveEvent(sportEvent);
+       return sportEventService.saveEvent(sportEvent);
     }
 }

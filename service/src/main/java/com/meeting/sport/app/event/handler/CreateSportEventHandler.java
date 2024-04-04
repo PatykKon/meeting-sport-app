@@ -16,9 +16,11 @@ class CreateSportEventHandler implements CommandHandler<CreateSportEventCommand>
     private final UserService userService;
     private final SportEventService sportEventService;
 
-    @Override
+
+
+
     @Transactional
-    public void handle(CreateSportEventCommand command) {
+    public Long handle(CreateSportEventCommand command) {
 
         User user = userService.getLoggedUser(command.userEmail());
 
@@ -31,6 +33,8 @@ class CreateSportEventHandler implements CommandHandler<CreateSportEventCommand>
                 command.gameTime(),
                 user.getId());
 
-        sportEventService.saveEvent(sportEvent);
+       return sportEventService.saveEvent(sportEvent);
+
     }
+
 }

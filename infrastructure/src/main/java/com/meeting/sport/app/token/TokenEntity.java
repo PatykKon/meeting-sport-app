@@ -1,5 +1,6 @@
 package com.meeting.sport.app.token;
 
+import com.meeting.sport.app.user.Token;
 import com.meeting.sport.app.user.TokenType;
 import com.meeting.sport.app.user.UserEntity;
 import jakarta.persistence.*;
@@ -28,4 +29,5 @@ public class TokenEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public UserEntity userEntity;
+
 }

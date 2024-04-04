@@ -4,23 +4,21 @@ import com.meeting.sport.app.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class EventRole {
 
     private Long id;
     private GameRole gameRole;
     private SportEvent sportEvent;
-    private User user;
+    private Long userId;
     private boolean isAvailable;
 
-    public EventRole(Long id, GameRole gameRole, SportEvent sportEvent, User user, boolean isAvailable) {
+    public EventRole(Long id, GameRole gameRole, SportEvent sportEvent, boolean isAvailable,Long userId) {
         this.id = id;
         this.gameRole = gameRole;
         this.sportEvent = sportEvent;
-        this.user = user;
         this.isAvailable = isAvailable;
+        this.userId = userId;
     }
 
     public static List<EventRole> crateAvailableRoleForUsers(List<GameRole> gameRoles, SportEvent sportEvent) {
@@ -37,25 +35,24 @@ public class EventRole {
         return gameRoleList;
     }
 
-    public void assignUser(User user) {
+    public void assignToEvent(User user) {
+        this.userId = user.getId();
         changeRoleAvailability();
-        this.user = user;
     }
     public void leaveEvent(){
-        this.user = null;
+        this.userId = null;
         changeRoleAvailability();
     }
 
     void addSportEvent(SportEvent sportEvent) {
         this.sportEvent = sportEvent;
     }
-
     private void changeRoleAvailability() {
         this.isAvailable = !isAvailable;
     }
 
     private static EventRole crateAvailableEventRole(GameRole gameRole, SportEvent sportEvent) {
-        return new EventRole(null, gameRole, sportEvent, null, true);
+        return new EventRole(null, gameRole, sportEvent, true, null);
     }
 
     public Long getId() {
@@ -74,7 +71,7 @@ public class EventRole {
         return sportEvent;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 }

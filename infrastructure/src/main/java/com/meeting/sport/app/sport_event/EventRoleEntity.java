@@ -18,10 +18,10 @@ public class EventRoleEntity {
     @Enumerated(EnumType.STRING)
     private GameRole gameRole;
     private boolean isAvailable;
+    private Long userId;
+
     @ManyToOne
     @JoinColumn(name = "sport_event_entity_id")
     SportEventEntity sportEventEntity;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+
 }

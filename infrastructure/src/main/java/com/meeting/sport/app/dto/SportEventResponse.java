@@ -17,7 +17,6 @@ public record SportEventResponse(
         Integer gameTime,
         int maxPlayers,
         int minAge,
-        SportFieldResponse sportFieldResponse,
         List<EventRoleResponse> eventRoleResponse
 
 

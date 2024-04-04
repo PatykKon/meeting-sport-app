@@ -13,7 +13,7 @@ class CreateSportFieldHandler implements CommandHandler<AddSportFieldCommand> {
     private final SportFieldService sportFieldService;
 
     @Override
-    public void handle(AddSportFieldCommand command) {
+    public Long handle(AddSportFieldCommand command) {
 
         SportField sportField = SportField.createSportField(
                 command.fieldType(),
@@ -22,6 +22,6 @@ class CreateSportFieldHandler implements CommandHandler<AddSportFieldCommand> {
                 command.street(),
                 command.number());
 
-        sportFieldService.save(sportField);
+       return sportFieldService.save(sportField);
     }
 }

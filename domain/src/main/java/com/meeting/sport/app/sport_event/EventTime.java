@@ -22,6 +22,16 @@ class EventTime {
         return this.startTime.isBefore(eventTime.endTime) && eventTime.startTime.isBefore(this.endTime);
     }
 
+    private Integer checkGameTime(Integer gameTime){
+        if (gameTime > MAX_PLAY_HOUR) {
+            throw new RuntimeException("You can't reserve field for more than 2 hours");
+        }
+        if (gameTime == null || gameTime < MIN_PLAY_HOUR) {
+            throw new RuntimeException("time is not correct");
+        }
+        return gameTime;
+    }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -31,16 +41,6 @@ class EventTime {
     }
 
     public Integer getGameTime() {
-        return gameTime;
-    }
-
-    private Integer checkGameTime(Integer gameTime){
-        if (gameTime > MAX_PLAY_HOUR) {
-            throw new RuntimeException("You can't reserve field for more than 2 hours");
-        }
-        if (gameTime == null || gameTime < MIN_PLAY_HOUR) {
-            throw new RuntimeException("time is not correct");
-        }
         return gameTime;
     }
 

@@ -4,7 +4,7 @@ import com.meeting.sport.app.sport_field.SportField;
 
 public interface SportFieldService {
 
-    SportField getSportFieldById(Long sportFieldId);
+    Long save(SportField sportField);
 
-    void save(SportField sportField);
+
 }

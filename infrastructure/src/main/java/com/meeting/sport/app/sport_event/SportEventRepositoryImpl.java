@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.dto.SportEventDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,13 +18,14 @@ class SportEventRepositoryImpl implements SportEventRepository {
     }
 
     @Override
-    public void save(SportEvent sportEvent) {
-        sportEventRepositoryJPA.save(sportEventMapper.modelToEntity(sportEvent));
+    public Long save(SportEvent sportEvent) {
+        SportEventEntity eventEntity = sportEventRepositoryJPA.save(sportEventMapper.modelToEntity(sportEvent));
+        return eventEntity.getId();
     }
 
     @Override
-    public SportEventDTO findById(Long eventId) {
-        return sportEventMapper.entityToDTO(sportEventRepositoryJPA.findById(eventId).orElseThrow());
+    public SportEvent findById(Long eventId) {
+        return sportEventMapper.entityToModel(sportEventRepositoryJPA.findById(eventId).orElseThrow());
     }
 
     @Override

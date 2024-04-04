@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.dto.SportEventDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,9 +7,9 @@ import java.util.List;
 @Repository
 public interface SportEventRepository {
 
-    void save(SportEvent sportEvent);
+    Long save(SportEvent sportEvent);
 
-    SportEventDTO findById(Long eventId);
+    SportEvent findById(Long eventId);
 
     List<SportEventEntity> getAll();
 }

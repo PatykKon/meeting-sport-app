@@ -26,25 +26,27 @@ public class EventFacade {
         this.leaveEventHandler = leaveEventHandler;
     }
 
-    public void createSportEvent(CreateSportEventCommand command) {
-        createSportEventHandler.handle(command);
+    public Long createSportEvent(CreateSportEventCommand command) {
+        return createSportEventHandler.handle(command);
     }
 
-    public void addSportField(AddSportFieldCommand command) {
-        createSportFieldHandler.handle(command);
+    public Long addSportField(AddSportFieldCommand command) {
+        return createSportFieldHandler.handle(command);
     }
 
-    public void assignEventToPlace(AssignEventToPlaceCommand command) {
-        assignEventToPlaceHandler.handle(command);
+    public Long assignEventToPlace(AssignEventToPlaceCommand command) {
+        return assignEventToPlaceHandler.handle(command);
     }
 
-    public void createGameRole(CreateGameRoleCommand command) {
-        createGameRoleHandler.handle(command);
+    public Long createGameRole(CreateGameRoleCommand command) {
+        return createGameRoleHandler.handle(command);
     }
 
-    public void joinEvent(JoinEventCommand command) {
-        joinEventHandler.handle(command);
+    public Long joinEvent(JoinEventCommand command) {
+        return joinEventHandler.handle(command);
     }
 
-    public void leaveEvent(LeaveEventCommand command){leaveEventHandler.handle(command);}
+    public Long leaveEvent(LeaveEventCommand command) {
+        return leaveEventHandler.handle(command);
+    }
 }

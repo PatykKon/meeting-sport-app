@@ -19,7 +19,7 @@ class LeaveEventHandler implements CommandHandler<LeaveEventCommand> {
 
     @Override
     @Transactional
-    public void handle(LeaveEventCommand command) {
+    public Long handle(LeaveEventCommand command) {
 
         User loggedUser = userService.getLoggedUser(command.userEmail());
 
@@ -27,6 +27,6 @@ class LeaveEventHandler implements CommandHandler<LeaveEventCommand> {
 
         eventRole.leaveEvent();
 
-        sportEventService.saveEventRole(eventRole);
+        return sportEventService.saveEventRole(eventRole);
     }
 }
