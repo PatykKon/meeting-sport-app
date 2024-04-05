@@ -1,12 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {EventInterface} from "../event-card/event.interface";
 import {EventCardService} from "../event-card/event-card.service";
-import {ActivatedRoute, RouterLinkActive} from "@angular/router";
+import {ActivatedRoute, Router, RouterLinkActive} from "@angular/router";
 import {MatButton, MatButtonModule} from "@angular/material/button";
 import {NgForOf} from "@angular/common";
 import {EventRoleInterface} from "../event-card/event-role.interface";
 import {FormsModule} from "@angular/forms";
 import {AuthService} from "../services/auth/auth.service";
+import {SportFieldService} from "../services/sport-field.service";
+import {SportFieldInterface} from "../event-card/sport-field.interface";
+import {catchError, throwError} from "rxjs";
 
 @Component({
   selector: 'app-selected-event-card',
@@ -32,11 +35,14 @@ export class SelectedEventCardComponent implements OnInit{
     gameRole: null,
     userEmail: null
   };
+  public sportField: SportFieldInterface;
 
   constructor(
     private eventSportService: EventCardService,
     private route: ActivatedRoute,
+    private router: Router,
     private eventService: EventCardService,
+    private fieldService: SportFieldService,
     private authService : AuthService
   ) {
   }
@@ -48,6 +54,7 @@ export class SelectedEventCardComponent implements OnInit{
     this.eventId = this.route.snapshot.params['eventId'];
     console.log(this.eventId)
     this.getEvent(this.eventId);
+    this.getField(this.eventId)
   }
 
   public getEvent(eventId: number) {
@@ -55,6 +62,14 @@ export class SelectedEventCardComponent implements OnInit{
       console.log(event)
       this.event = event;
       this.calculateRoleSummaries();
+    })
+  }
+
+  public getField(eventId: number) {
+    return this.fieldService.getSportFieldForEvent(eventId).subscribe(sportField => {
+      console.log("sportField" + sportField)
+      this.sportField = sportField;
+      console.log("sportField" + this.sportField.city)
     })
   }
   calculateRoleSummaries(): void {
@@ -77,10 +92,8 @@ export class SelectedEventCardComponent implements OnInit{
 
   handleJoinEvent(gameRole: string) {
     this.field.gameRole = gameRole
-    this.eventService.joinEvent(this.field).subscribe({
-      next: (response) => {
-        console.log('cos sie wydarzyło: '+ response);
-      }
-    })
+    this.eventService.joinEvent(this.field).subscribe(() => {
+      this.router.navigateByUrl("event/" + this.eventId);
+    });
   }
 }

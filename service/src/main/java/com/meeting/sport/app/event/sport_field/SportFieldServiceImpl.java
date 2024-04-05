@@ -15,4 +15,9 @@ class SportFieldServiceImpl implements SportFieldService {
     public Long save(SportField sportField) {
         return sportFieldRepository.save(sportField);
     }
+
+    @Override
+    public SportField getSportFieldById(Long sportFieldId) {
+        return sportFieldRepository.findById(sportFieldId);
+    }
 }

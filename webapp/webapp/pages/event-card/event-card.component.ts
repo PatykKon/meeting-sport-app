@@ -5,6 +5,8 @@ import {EventCardService} from "./event-card.service";
 import {EventInterface} from "./event.interface";
 import {CommonModule} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
+import {SportFieldInterface} from "./sport-field.interface";
+import {SportFieldService} from "../services/sport-field.service";
 
 @Component({
   selector: 'app-event-card',
@@ -21,7 +23,7 @@ import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 })
 export class EventCardComponent {
 
-  public events: EventInterface[] = [];
+  public events: EventInterface[] = []
 
 
   constructor(

@@ -16,11 +16,11 @@ public class SportEvent {
     private RequiredAge requiredAge;
     private EventTime eventTime;
     private Long ownerId;
-    private Long sportFieldId;
     private List<EventRole> eventRoles;
+    private SportField sportField;
 
 
-    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId,Long sportFieldId) {
+    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId,SportField sportField) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,7 +29,7 @@ public class SportEvent {
         this.eventRoles = eventRoles;
         this.eventTime = eventTime;
         this.ownerId = ownerId;
-        this.sportFieldId = sportFieldId;
+        this.sportField = sportField;
 
     }
 
@@ -58,6 +58,9 @@ public class SportEvent {
         this.eventRoles.add(eventRole);
         eventRole.addSportEvent(this);
     }
+    public void assignSportField(SportField sportField){
+        this.sportField = sportField;
+    }
 
     public boolean isInTheSameTime(EventTime eventTime){
         return this.eventTime.isEventInTheSameTime(eventTime);
@@ -69,10 +72,6 @@ public class SportEvent {
 
     public void checkRequirements(User user) {
         this.requiredAge.isUserAgeCorrect(user.getAge());
-    }
-
-    public void submitSportField(Long sportFieldId) {
-        this.sportFieldId = sportFieldId;
     }
 
     public Long getId() {
@@ -95,10 +94,6 @@ public class SportEvent {
         return requiredAge;
     }
 
-    public Long getSportFieldId() {
-        return sportFieldId;
-    }
-
     public EventTime getEventTime() {
         return eventTime;
     }
@@ -109,5 +104,9 @@ public class SportEvent {
 
     public Long getOwnerId() {
         return ownerId;
+    }
+
+    public SportField getSportField() {
+        return sportField;
     }
 }

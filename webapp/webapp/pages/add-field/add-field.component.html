@@ -1,1 +1,26 @@
-<p>add-field works!</p>
+<div class="container">
+  <h2>Add Game Role</h2>
+  <form #form="ngForm" (ngSubmit)="addGameRole(form)">
+    <label>
+      Rola Gry:
+      <select name="gameRole" ngModel required>
+        <option value="Bramkarz">BRAMKARZ</option>
+        <option value="Napastnik">NAPASTNIK</option>
+      </select>
+    </label>
+    <label>
+      Ilość:
+      <input type="number" name="quantity" ngModel required>
+    </label>
+    <button type="submit">Dodaj</button>
+    <button type="button" (click)="saveGameRole()">Zapisz</button>
+  </form>
+
+  <h2>Role Gry</h2>
+  <ul>
+    <li *ngFor="let role of gameRoles; let i = index">
+      {{ role.gameRole }}: {{ role.numberOfPlayers }}
+      <button (click)="deleteGameRole(i)">Usuń</button>
+    </li>
+  </ul>
+</div>

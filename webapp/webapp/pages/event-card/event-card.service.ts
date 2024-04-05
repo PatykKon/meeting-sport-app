@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 
 const BASIC_URL = "http://localhost:8080/api/auth"
 
@@ -61,10 +61,8 @@ export class EventCardService {
         const currentState = this.eventSubject.value;
         this.eventSubject.next({ ...currentState, events });
       }),
-      catchError(error => {
-        console.error('An error occurred:', error);
-        return throwError(error);
-      })
+
+      catchError(this.handleError)
     );
   }
 
@@ -72,6 +70,20 @@ export class EventCardService {
     return new HttpHeaders({
       Authorization: 'Bearer &{localStorage.getItem("accessToken")}'
     })
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
 

@@ -12,4 +12,6 @@ public interface SportEventQueryFacade {
     List<EventRoleResponse> getUserEvents(long userId);
     SportEventResponse getEventById(Long eventId);
     List<SportFieldResponse> getSportFields();
+
+    SportFieldResponse getSportFieldByEvent(long sportEventId);
 }

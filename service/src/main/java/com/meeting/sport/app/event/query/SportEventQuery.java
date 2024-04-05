@@ -4,10 +4,7 @@ import com.meeting.sport.app.dto.EventRoleResponse;
 import com.meeting.sport.app.dto.SportEventResponse;
 import com.meeting.sport.app.dto.SportFieldResponse;
 import com.meeting.sport.app.sport_event.*;
-import com.meeting.sport.app.sport_field.SportFieldEntity;
-import com.meeting.sport.app.sport_field.SportFieldMapper;
-import com.meeting.sport.app.sport_field.SportFieldRepository;
-import com.meeting.sport.app.sport_field.SportFieldRepositoryJPA;
+import com.meeting.sport.app.sport_field.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +18,8 @@ class SportEventQuery implements SportEventQueryFacade{
     private final SportEventMapper sportEventMapper;
     private final EventRoleRepository eventRoleRepository;
     private final SportEventRepositoryJPA sportEventRepositoryJPA;
-    private final SportFieldRepositoryJPA sportFieldRepository;
+    private final SportFieldRepositoryJPA sportFieldRepositoryJPA;
+    private final SportFieldRepository sportFieldRepository;
     private final SportFieldMapper sportFieldMapper;
 
     public List<SportEventResponse> getEvents(){
@@ -36,6 +34,15 @@ class SportEventQuery implements SportEventQueryFacade{
         return sportEventMapper.entityToResponse(eventEntity);
     }
     public List<SportFieldResponse> getSportFields(){
-        return sportFieldRepository.findAll().stream().map(sportFieldMapper::entityToResponse).toList();
+        return sportFieldRepositoryJPA.findAll().stream().map(sportFieldMapper::entityToResponse).toList();
+    }
+    public SportFieldResponse getSportFieldByEvent(long sportEventId){
+
+        SportEvent sportEvent = sportEventRepository.findById(sportEventId);
+        SportField sportField = sportEvent.getSportField();
+        SportFieldEntity sportFieldEntity = sportFieldMapper.modelToEntity(sportField);
+
+        return sportFieldMapper.entityToResponse(sportFieldEntity);
+
     }
 }

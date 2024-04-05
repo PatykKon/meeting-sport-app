@@ -7,4 +7,5 @@ public interface SportFieldService {
     Long save(SportField sportField);
 
 
+    SportField getSportFieldById(Long sportFieldId);
 }

@@ -19,7 +19,7 @@ class CreateGameRoleHandler implements CommandHandler<CreateGameRoleCommand> {
 
         SportEvent sportEvent = sportEventService.getEventById(command.sportEventId());
 
-        List<EventRole> eventRoles = EventRole.crateAvailableRoleForUsers(command.playerTypes(),sportEvent);
+        List<EventRole> eventRoles =  EventRoleCreator.createEventRoles(command.eventRoleDataList(),sportEvent);
 
         eventRoles.forEach(sportEvent::addGameRoles);
 

@@ -30,9 +30,9 @@ export class SportFieldService {
     );
   }
 
-  getEvent(eventId:number): Observable<any> {
+  getSportFieldForEvent(eventId:number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(BASIC_URL + '/sport-event/event/' + eventId, {headers}).pipe(
+    return this.http.get(BASIC_URL + '/sport-field/event/' + eventId, {headers}).pipe(
       tap((events) => {
         const currentState = this.eventSubject.value;
         this.eventSubject.next({...currentState, events});
@@ -40,9 +40,9 @@ export class SportFieldService {
     );
   }
 
-  createEvent(field: any): Observable<any> {
+  createEventRoles(field: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(BASIC_URL + "/sport-event/create", field, { headers }).pipe(
+    return this.http.post<any>(BASIC_URL + "/sport-event/game-role", field, { headers }).pipe(
       tap((events) => {
         const currentState = this.eventSubject.value;
         this.eventSubject.next({ ...currentState, events });

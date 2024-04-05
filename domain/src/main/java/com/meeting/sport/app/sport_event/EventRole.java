@@ -1,10 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.user.User;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class EventRole {
 
     private Long id;
@@ -21,18 +17,8 @@ public class EventRole {
         this.userId = userId;
     }
 
-    public static List<EventRole> crateAvailableRoleForUsers(List<GameRole> gameRoles, SportEvent sportEvent) {
-
-        if (!sportEvent.getEventRoles().isEmpty()) {
-            throw new RuntimeException("this have already user role list");
-        }
-        if (gameRoles.size() != sportEvent.getNumberOfPlayers()) {
-            throw new RuntimeException("game roles can not be less than declared number of players: " + sportEvent.getNumberOfPlayers());
-        }
-        List<EventRole> gameRoleList = new ArrayList<>();
-
-        gameRoles.forEach(gameRole -> gameRoleList.add(crateAvailableEventRole(gameRole, sportEvent)));
-        return gameRoleList;
+    public static EventRole crateAvailableEventRole(GameRole gameRole, SportEvent sportEvent) {
+        return new EventRole(null, gameRole, sportEvent, true, null);
     }
 
     public void assignToEvent(User user) {
@@ -49,10 +35,6 @@ public class EventRole {
     }
     private void changeRoleAvailability() {
         this.isAvailable = !isAvailable;
-    }
-
-    private static EventRole crateAvailableEventRole(GameRole gameRole, SportEvent sportEvent) {
-        return new EventRole(null, gameRole, sportEvent, true, null);
     }
 
     public Long getId() {

@@ -11,6 +11,9 @@ import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "../../pages/services/auth/auth.service";
 import {CommonModule} from "@angular/common";
 import {AddEventComponent} from "../../pages/add-event/add-event.component";
+import {AddFieldComponent} from "../../pages/add-field/add-field.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
@@ -27,7 +30,10 @@ import {AddEventComponent} from "../../pages/add-event/add-event.component";
     MatLabel,
     HttpClientModule,
     CommonModule,
-    AddEventComponent
+    AddEventComponent,
+    AddFieldComponent,
+    MatDialogModule,
+    FormsModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
