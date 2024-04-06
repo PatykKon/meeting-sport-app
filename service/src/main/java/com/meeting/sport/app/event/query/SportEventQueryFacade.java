@@ -3,6 +3,7 @@ package com.meeting.sport.app.event.query;
 import com.meeting.sport.app.dto.EventRoleResponse;
 import com.meeting.sport.app.dto.SportEventResponse;
 import com.meeting.sport.app.dto.SportFieldResponse;
+import com.meeting.sport.app.user.UserResponse;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface SportEventQueryFacade {
     List<SportFieldResponse> getSportFields();
 
     SportFieldResponse getSportFieldByEvent(long sportEventId);
+    List<UserResponse> getEventUsers(Long eventId);
 }
