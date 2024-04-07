@@ -20,6 +20,7 @@ export class AddEventRoleComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = ['id', 'fieldSpace', 'fieldType', 'city', 'street', 'number', 'action'];
   dataSource: MatTableDataSource<SportFieldInterface>;
+  public sportFields: SportFieldInterface[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -30,8 +31,6 @@ export class AddEventRoleComponent implements AfterViewInit, OnInit {
     userEmail: null
   };
 
-
-  public sportFields: SportFieldInterface[] = [];
 
   constructor(
     private sportFieldService: SportFieldService,
@@ -62,14 +61,11 @@ export class AddEventRoleComponent implements AfterViewInit, OnInit {
     return this.sportFieldService.getSportFields().subscribe(sportFields => {
       this.sportFields = sportFields;
       this.dataSource = new MatTableDataSource(this.sportFields);
-      console.log("sport fields: " + sportFields.city)
-      console.log("data source : " + this.dataSource)
     })
   }
 
   handleAssignToEvent(sportFieldId: number) {
     this.field.sportFieldId = sportFieldId;
-    console.log("sportfield: " + sportFieldId + "evreneID " + this.field.sportEventId);
     this.sportFieldService.assignToEvent(this.field).subscribe()
     this.router.navigateByUrl("event/" + this.field.sportEventId + "/add-field")
   }

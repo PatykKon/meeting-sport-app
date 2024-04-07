@@ -1,17 +1,17 @@
-.flex-container {
-  display: flex;
-}
-
 .right-section {
-  flex: 1;
+  flex: 0.7; /* Zwiększamy szerokość prawej sekcji na 70% szerokości kontenera */
+  max-width: 70%; /* Dodajemy maksymalną szerokość dla prawej sekcji */
+  height: 800px; /* Ustawiamy stałą wysokość dla prawej sekcji */
   padding: 10px; /* Dodaj padding według potrzeb */
   background-color: silver;
+  margin-right: auto; /* Ustawiamy margines prawy na auto, aby wysrodkować */
 }
 
 .left-section {
   flex: 0 0 auto;
-  width: 200px;
-  margin-left: 20px;
+  width: 200px; /* Szerokość lewej sekcji */
+  height: 800px; /* Ustawiamy stałą wysokość dla lewej sekcji */
+  margin-left: auto; /* Ustawiamy margines lewy na auto, aby wysrodkować */
   padding: 10px; /* Dodaj padding według potrzeb */
   background-color: darkseagreen;
 }
