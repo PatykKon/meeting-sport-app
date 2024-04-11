@@ -1,19 +1,76 @@
-<div *ngFor="let event of events" class="event-card">
-  <div class="event-header">
-    <h3 class="event-title">{{ event.title }}</h3>
-    <p class="event-subtitle">Start: {{ event.description }}</p>
-    <p class="event-subtitle">StartDate: {{ event.startTime }}</p>
-    <p class="event-subtitle">GameTime: {{ event.gameTime }}</p>
-    <p class="event-subtitle">MinAge: {{ event.minAge }}</p>
-  </div>
-  <div class="event-actions">
-    <button mat-raised-button (click)="redirectToEvent(event.id)" routerLinkActive="active">MORE</button>
-    <button mat-button>SHARE</button>
-  </div>
+<!--<div *ngFor="let event of events" class="event-card">-->
+<!--  <div class="event-header">-->
+<!--    <h3 class="event-title">{{ event.title }}</h3>-->
+<!--    <p class="event-subtitle">Start: {{ event.description }}</p>-->
+<!--    <p class="event-subtitle">StartDate: {{ event.startTime }}</p>-->
+<!--    <p class="event-subtitle">GameTime: {{ event.gameTime }}</p>-->
+<!--    <p class="event-subtitle">MinAge: {{ event.minAge }}</p>-->
+<!--  </div>-->
+<!--  <div class="event-actions">-->
+<!--    <button mat-raised-button (click)="redirectToEvent(event.id)" routerLinkActive="active">MORE</button>-->
+<!--    <button mat-button>SHARE</button>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div style="height: 700px; overflow-y: auto;" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+      <td mat-cell *matCellDef="let row"> {{row.title}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </th>
+      <td mat-cell *matCellDef="let row"> {{row.startDate}}% </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="gameTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Game Time </th>
+      <td mat-cell *matCellDef="let row"> {{row.gameTime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="minAge">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Min Age </th>
+      <td mat-cell *matCellDef="let row"> {{row.minAge}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let row"> {{row.sportFieldResponse.city}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-button (click)="redirectToEvent(row.id)">More</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
-<!--&lt;!&ndash;<div *ngFor="let event of events">&ndash;&gt;-->
-<!--&lt;!&ndash;  <p>{{ event.title }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;  <p>{{ event.description }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;  &lt;!&ndash; Add more HTML to display event details &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
 

@@ -39,6 +39,15 @@ export class EventCardService {
       })
     );
   }
+  getEventUsers(eventId:number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(BASIC_URL + '/sport-event/users/' + eventId, {headers}).pipe(
+      tap((events) => {
+        const currentState = this.eventSubject.value;
+        this.eventSubject.next({...currentState, events});
+      })
+    );
+  }
 
   createEvent(field: any): Observable<any> {
     const headers = this.getHeaders();
@@ -85,6 +94,5 @@ export class EventCardService {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
-
 
 }
