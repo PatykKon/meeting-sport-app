@@ -5,22 +5,35 @@ import lombok.Value;
 class TeamSize {
 
     private final int teamSize;
+    private final int minPlayers;
 
-    TeamSize(int teamSize) {
+    TeamSize(int teamSize, int minPlayers) {
         this.teamSize = checkMaxPlayer(teamSize);
+        this.minPlayers = checkMinPlayers(minPlayers, teamSize);
+    }
+
+    private int checkMinPlayers(int minPlayers, int teamSize) {
+        if (minPlayers > teamSize) {
+            throw new RuntimeException("min players can no be more than teamSize");
+        }
+        if (minPlayers < 2) {
+            throw new RuntimeException("2 is minimum players");
+        }
+        return minPlayers;
     }
 
     private int checkMaxPlayer(int players) {
         if (players > 100) {
             throw new RuntimeException("is too many players ");
         }
-        if (players <= 1) {
-            throw new RuntimeException("2 is minimum players");
-        }
         return players;
     }
 
     public int getTeamSize() {
         return teamSize;
+    }
+
+    public int getMinPlayers() {
+        return minPlayers;
     }
 }
