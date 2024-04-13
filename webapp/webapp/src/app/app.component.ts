@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {NavbarComponent} from "../../pages/navbar/navbar.component";
 import {FooterComponent} from "../../pages/footer/footer.component";
 import {HomePageComponent} from "../../pages/home-page/home-page.component";
@@ -36,23 +36,36 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'webapp';
 
-  user:any = null;
+  user: any = null;
+  isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) {
+
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.authService.getUserProfile().subscribe({
-      next:data=>console.log("req user", data),
-      error:error=>console.log("error",error)
+      next: data => console.log("req user", data),
+      error: error => console.log("error", error)
     })
     this.authService.authSubject.subscribe(
-      (auth)=> this.user = auth.user
+      (auth) => {
+        this.user = auth.user
+        this.isUserLoggedIn(); // Wywołaj metodę sprawdzającą, czy użytkownik jest zalogowany
+      }
     )
+  }
+
+  isUserLoggedIn():void {
+    this.isLoggedIn = this.user === true; // Aktualizuj wartość isLoggedIn
+    if (this.user === true){
+      this.router.navigateByUrl("/")
+    }
   }
 }

@@ -20,7 +20,8 @@ export class AddEventComponent {
     players: null,
     minAge: null,
     startTime: null,
-    userEmail: null
+    userEmail: null,
+    minPlayers:null
   };
   constructor(
     private eventService: EventCardService,

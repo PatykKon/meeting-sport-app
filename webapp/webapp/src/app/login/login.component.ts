@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {AuthService} from "../../../pages/services/auth/auth.service";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,17 +18,20 @@ import {AuthService} from "../../../pages/services/auth/auth.service";
     MatFormField,
     MatInput,
     MatButton,
-    MatLabel
+    MatLabel,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   loginForm!: FormGroup;
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder,) {
+    private fb: FormBuilder,
+    private route: Router) {
   }
 
   ngOnInit(): void {
@@ -46,6 +50,7 @@ export class LoginComponent {
       next: (response) => {
         localStorage.setItem("accessToken", response.accessToken);
         this.authService.getUserProfile().subscribe()
+        this.route.navigateByUrl("/")
       }
     });
   }

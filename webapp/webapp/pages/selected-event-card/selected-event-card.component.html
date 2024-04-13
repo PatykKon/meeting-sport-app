@@ -18,6 +18,14 @@
       <p class="event-subtitle">Typ GRY: {{ sportField.fieldSpace}}</p>
       <p class="event-subtitle">Typ Boiska: {{ sportField.fieldType}}</p>
     </div>
+
+    <div class="event-users">
+      <h3 class="event-title">Event Users</h3>
+      <div class="user-item" *ngFor="let user of users">
+        <p class="user-info">Name: {{ user.firstname }}</p>
+        <!-- Tutaj możesz dodać więcej informacji o użytkowniku -->
+      </div>
+    </div>
   </div>
 
   <div class="event-roles">

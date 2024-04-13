@@ -30,9 +30,9 @@ export class SportFieldService {
     );
   }
 
-  getSportFieldForEvent(eventId:number): Observable<any> {
+  getSportFieldForEvent(fieldId:number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(BASIC_URL + '/sport-field/event/' + eventId, {headers}).pipe(
+    return this.http.get(BASIC_URL + '/sport-field/event/' + fieldId, {headers}).pipe(
       tap((events) => {
         const currentState = this.eventSubject.value;
         this.eventSubject.next({...currentState, events});

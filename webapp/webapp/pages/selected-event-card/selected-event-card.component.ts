@@ -10,6 +10,7 @@ import {AuthService} from "../services/auth/auth.service";
 import {SportFieldService} from "../services/sport-field.service";
 import {SportFieldInterface} from "../event-card/sport-field.interface";
 import {catchError, throwError} from "rxjs";
+import {UserInterface} from "./user-interface";
 
 @Component({
   selector: 'app-selected-event-card',
@@ -29,6 +30,7 @@ export class SelectedEventCardComponent implements OnInit{
   public event: EventInterface;
   public roleSummaries: { gameRole: string, availableCount: number, occupiedCount: number }[] = [];
   public eventId: number = this.route.snapshot.params['eventId'];
+  public sportFieldId: number;
 
   public field = {
     eventId: this.eventId,
@@ -36,6 +38,7 @@ export class SelectedEventCardComponent implements OnInit{
     userEmail: null
   };
   public sportField: SportFieldInterface;
+  public users: UserInterface[] = []
 
   constructor(
     private eventSportService: EventCardService,
@@ -52,9 +55,8 @@ export class SelectedEventCardComponent implements OnInit{
       (auth) => this.field.userEmail = auth.user.email
     )
     this.eventId = this.route.snapshot.params['eventId'];
-    console.log(this.eventId)
     this.getEvent(this.eventId);
-    this.getField(this.eventId)
+    this.getUsers(this.eventId)
   }
 
   public getEvent(eventId: number) {
@@ -62,16 +64,22 @@ export class SelectedEventCardComponent implements OnInit{
       console.log(event)
       this.event = event;
       this.calculateRoleSummaries();
+      const sportFieldId = this.event.sportFieldResponse.id
+      this.getField(sportFieldId);
     })
   }
 
-  public getField(eventId: number) {
-    return this.fieldService.getSportFieldForEvent(eventId).subscribe(sportField => {
-      console.log("sportField" + sportField)
+  public getField(sportFieldId: number) {
+    return this.fieldService.getSportFieldForEvent(sportFieldId).subscribe(sportField => {
       this.sportField = sportField;
-      console.log("sportField" + this.sportField.city)
     })
   }
+  public getUsers(eventId: number){
+    return this.eventService.getEventUsers(eventId).subscribe(users => {
+      this.users = users;
+    })
+  }
+
   calculateRoleSummaries(): void {
     if (this.event && this.event.eventRoleResponse) {
       const roleMap = new Map<string, { availableCount: number, occupiedCount: number }>();

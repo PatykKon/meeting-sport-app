@@ -8,11 +8,12 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {ActivatedRoute, Route, Router} from "@angular/router";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-add-event-role',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButton],
   templateUrl: './add-event-role.component.html',
   styleUrl: './add-event-role.component.css'
 })
@@ -61,6 +62,7 @@ export class AddEventRoleComponent implements AfterViewInit, OnInit {
     return this.sportFieldService.getSportFields().subscribe(sportFields => {
       this.sportFields = sportFields;
       this.dataSource = new MatTableDataSource(this.sportFields);
+      console.log(sportFields)
     })
   }
 
