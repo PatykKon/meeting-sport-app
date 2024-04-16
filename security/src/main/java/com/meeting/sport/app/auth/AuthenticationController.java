@@ -1,6 +1,7 @@
 package com.meeting.sport.app.auth;
 
-import com.meeting.sport.app.user.UserDTO;
+import com.meeting.sport.app.user.dto.RegisterRequest;
+import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class AuthenticationController {
+class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 

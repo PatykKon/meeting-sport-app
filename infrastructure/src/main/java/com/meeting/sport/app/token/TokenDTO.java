@@ -1,6 +1,6 @@
 package com.meeting.sport.app.token;
 
-import com.meeting.sport.app.user.UserDTO;
+import com.meeting.sport.app.user.dto.UserDTO;
 
 public record TokenDTO(
         Long id,

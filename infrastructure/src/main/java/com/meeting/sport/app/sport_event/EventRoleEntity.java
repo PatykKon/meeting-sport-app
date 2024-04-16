@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventRoleEntity {
+class EventRoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

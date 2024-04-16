@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 interface EventRoleRepositoryJPA extends JpaRepository<EventRoleEntity, Long> {
-    @Query("SELECT er FROM EventRoleEntity er WHERE er.sportEventEntity.id = :eventId AND er.gameRole = :gameRole AND er.isAvailable = true")
-    List<EventRoleEntity> findBySportEventEntityIdAndGameRoleAndIsAvailableTrue(long eventId, GameRole gameRole);
 
     List<EventRoleEntity> getEventRoleEntitiesByUserId(Long user_id);
 

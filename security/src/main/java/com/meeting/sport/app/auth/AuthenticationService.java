@@ -2,10 +2,10 @@ package com.meeting.sport.app.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meeting.sport.app.JwtService;
-import com.meeting.sport.app.token.TokenEntity;
-import com.meeting.sport.app.token.TokenRepository;
-import com.meeting.sport.app.user.TokenType;
+import com.meeting.sport.app.token.TokenFacade;
 import com.meeting.sport.app.user.*;
+import com.meeting.sport.app.user.dto.RegisterRequest;
+import com.meeting.sport.app.user.dto.UserDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,25 +20,15 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final UserRepositoryJPA repository;
-    private final TokenRepository tokenRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
+    private final UserFacade userFacade;
+    private final TokenFacade tokenFacade;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        UserEntity user = UserEntity.builder()
-                .firstname(request.firstName())
-                .lastname(request.lastName())
-                .age(request.age())
-                .email(request.email())
-                .password(passwordEncoder.encode(request.password()))
-                .role(request.role())
-                .build();
-        UserEntity savedUser = repository.save(user);
-        String jwtToken = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
+        UserDTO savedUser = userFacade.createUser(request);
+        String jwtToken = jwtService.generateToken(savedUser);
+        String refreshToken = jwtService.generateRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
@@ -53,8 +43,7 @@ public class AuthenticationService {
                         request.password()
                 )
         );
-        var user = repository.findByEmail(request.email())
-                .orElseThrow();
+        var user = userFacade.getUserByEmail(request.email());
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -65,26 +54,12 @@ public class AuthenticationService {
                 .build();
     }
 
-    private void saveUserToken(UserEntity user, String jwtToken) {
-        var token = TokenEntity.builder()
-                .userEntity(user)
-                .token(jwtToken)
-                .tokenType(TokenType.BEARER)
-                .expired(false)
-                .revoked(false)
-                .build();
-        tokenRepository.save(token);
+    private void saveUserToken(UserDTO user, String jwtToken) {
+        tokenFacade.createToken(user,jwtToken);
     }
 
-    private void revokeAllUserTokens(UserEntity user) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
-        if (validUserTokens.isEmpty())
-            return;
-        validUserTokens.forEach(token -> {
-            token.setExpired(true);
-            token.setRevoked(true);
-        });
-        tokenRepository.saveAll(validUserTokens);
+    private void revokeAllUserTokens(UserDTO user) {
+        tokenFacade.revokeAllUserTokens(user.id());
     }
 
     public void refreshToken(
@@ -100,8 +75,7 @@ public class AuthenticationService {
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
-            UserEntity user = this.repository.findByEmail(userEmail)
-                    .orElseThrow();
+            UserDTO user = userFacade.getUserByEmail(userEmail);
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
@@ -116,6 +90,6 @@ public class AuthenticationService {
     }
     UserDTO getUserByToken(String jtwToken){
         String email = jwtService.getEmailFormJwtToken(jtwToken);
-        return userRepository.findUserByEmail(email);
+        return userFacade.getUserByEmail(email);
     }
 }

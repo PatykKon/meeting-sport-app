@@ -1,9 +1,5 @@
 package com.meeting.sport.app.sport_field;
 
-import com.meeting.sport.app.sport_event.SportEvent;
-
-import java.util.List;
-
 public class SportField {
 
     private Long id;

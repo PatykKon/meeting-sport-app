@@ -6,6 +6,7 @@ import com.meeting.sport.app.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class SportEvent {
 
@@ -18,9 +19,10 @@ public class SportEvent {
     private Long ownerId;
     private List<EventRole> eventRoles;
     private SportField sportField;
+    private SportEventStatus sportEventStatus;
 
 
-    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId,SportField sportField) {
+    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId, SportField sportField, SportEventStatus sportEventStatus) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -30,6 +32,7 @@ public class SportEvent {
         this.eventTime = eventTime;
         this.ownerId = ownerId;
         this.sportField = sportField;
+        this.sportEventStatus = sportEventStatus;
 
     }
 
@@ -39,16 +42,32 @@ public class SportEvent {
                                     int minAge,
                                     LocalDateTime startEvent,
                                     Integer gameTime,
-                                    Long ownerId) {
+                                    Long ownerId,
+                                    int minPlayers) {
 
         Title gameTitle = new Title(title);
         Description gameDescription = new Description(description);
-        TeamSize gameTeamSize = new TeamSize(players);
+        TeamSize gameTeamSize = new TeamSize(players, minPlayers);
         RequiredAge requiredAge = new RequiredAge(minAge);
         EventTime eventTime = new EventTime(gameTime, startEvent);
         List<EventRole> eventRoleList = new ArrayList<>();
 
-        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime,ownerId,null);
+        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime, ownerId, null, SportEventStatus.COMING);
+    }
+
+    public void changeStatus() {
+
+        int allRoles = getEventRoles().size();
+        int allAvailableGameRoles = getEventRoles().stream().filter(EventRole::isAvailable).toList().size();
+        int activePlayers = allRoles - allAvailableGameRoles;
+
+        StatusCreator statusCreator = new StatusCreator(
+                getEventTime().getStartTime(),
+                getEventTime().getGameTime(),
+                getTeamSize().getTeamSize()
+        );
+
+        this.sportEventStatus = statusCreator.selectStatus(activePlayers);
     }
 
     public void addGameRoles(EventRole eventRole) {
@@ -58,11 +77,12 @@ public class SportEvent {
         this.eventRoles.add(eventRole);
         eventRole.addSportEvent(this);
     }
-    public void assignSportField(SportField sportField){
+
+    public void assignSportField(SportField sportField) {
         this.sportField = sportField;
     }
 
-    public boolean isInTheSameTime(EventTime eventTime){
+    public boolean isInTheSameTime(EventTime eventTime) {
         return this.eventTime.isEventInTheSameTime(eventTime);
     }
 
@@ -108,5 +128,9 @@ public class SportEvent {
 
     public SportField getSportField() {
         return sportField;
+    }
+
+    public SportEventStatus getSportEventStatus() {
+        return sportEventStatus;
     }
 }

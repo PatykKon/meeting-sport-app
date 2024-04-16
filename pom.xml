@@ -12,6 +12,8 @@
         <module>configuration</module>
         <module>database</module>
         <module>security</module>
+        <module>query_api</module>
+        <module>command_api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

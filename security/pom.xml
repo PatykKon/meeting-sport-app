@@ -18,14 +18,14 @@
     </properties>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.meeting.sport.app</groupId>-->
+<!--            <artifactId>infrastructure</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.meeting.sport.app</groupId>
-            <artifactId>infrastructure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.meeting.sport.app</groupId>
-            <artifactId>configuration</artifactId>
+            <artifactId>service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

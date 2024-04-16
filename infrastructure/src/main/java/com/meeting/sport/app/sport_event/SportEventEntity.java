@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
-public class SportEventEntity {
+class SportEventEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +24,15 @@ public class SportEventEntity {
     private String title;
     private String description;
     private int players;
+    private int minPlayers;
     private int minAge;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Integer gameTime;
     private Long ownerId;
-    @OneToMany(mappedBy = "sportEventEntity", cascade = CascadeType.ALL)
+    @Enumerated(EnumType.STRING)
+    private SportEventStatus sportEventStatus;
+    @OneToMany(mappedBy = "sportEventEntity", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<EventRoleEntity> eventRoleEntities = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "sport_field_id")

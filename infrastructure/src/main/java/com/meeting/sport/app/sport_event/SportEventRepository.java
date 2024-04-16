@@ -5,11 +5,22 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SportEventRepository {
+interface SportEventRepository  {
 
     Long save(SportEvent sportEvent);
 
-    SportEvent findById(Long eventId);
+    SportEvent findModelById(Long eventId);
 
-    List<SportEventEntity> getAll();
+    SportEventEntity findEntityById(Long eventId);
+
+    List<SportEventEntity> findAllEntity();
+
+    List<SportEvent> findAllSportEvent();
+
+    void saveAll(List<SportEvent> sportEvents);
+
+    List<SportEvent> findAllSportEventByStatus(SportEventStatus sportEventStatus);
+
 }
+
+

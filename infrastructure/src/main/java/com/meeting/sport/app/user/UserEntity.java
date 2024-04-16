@@ -1,14 +1,12 @@
 package com.meeting.sport.app.user;
 
-import com.meeting.sport.app.sport_event.EventRoleEntity;
 import com.meeting.sport.app.token.TokenEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class UserEntity implements UserDetails {
 
     @Id
@@ -30,7 +29,7 @@ public class UserEntity implements UserDetails {
     private int age;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity",fetch = FetchType.EAGER)
     private List<TokenEntity> tokenEntities;
 
 

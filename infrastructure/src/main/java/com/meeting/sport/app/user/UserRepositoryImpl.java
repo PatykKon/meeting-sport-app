@@ -1,25 +1,33 @@
 package com.meeting.sport.app.user;
 
+import com.meeting.sport.app.user.dto.RegisterRequest;
+import com.meeting.sport.app.user.dto.UserDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository
 class UserRepositoryImpl implements UserRepository {
 
     private final UserRepositoryJPA userRepositoryJPA;
-    private final UserMapper userMapper;
 
-    public UserRepositoryImpl(UserRepositoryJPA userRepositoryJPA, UserMapper userMapper) {
+    public UserRepositoryImpl(UserRepositoryJPA userRepositoryJPA) {
         this.userRepositoryJPA = userRepositoryJPA;
-        this.userMapper = userMapper;
     }
 
     @Override
     public UserDTO findById(long id) {
-        return userMapper.entityToDTO(userRepositoryJPA.findById(id).orElseThrow());
+        return UserMapper1.entityToDTO(userRepositoryJPA.findById(id).orElseThrow());
     }
 
     @Override
     public UserDTO findUserByEmail(String email) {
-        return userMapper.entityToDTO(userRepositoryJPA.findByEmail(email).orElseThrow());
+        return UserMapper1.entityToDTO(userRepositoryJPA.findByEmail(email).orElseThrow());
+    }
+
+    @Override
+    public UserDTO saveUser(UserDTO userDTO) {
+        User user = UserMapper1.DTOToModel(userDTO);
+        UserEntity entity = UserMapper1.modelToEntity(user);
+        UserEntity saveUser = userRepositoryJPA.save(entity);
+        return UserMapper1.entityToDTO(saveUser);
     }
 }
