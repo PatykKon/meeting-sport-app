@@ -23,7 +23,6 @@ public enum GameRole {
         throw new IllegalArgumentException("Invalid GameRole value: " + value);
     }
 
-
     @Override
     public String toString() {
         return "GameRole{}";
