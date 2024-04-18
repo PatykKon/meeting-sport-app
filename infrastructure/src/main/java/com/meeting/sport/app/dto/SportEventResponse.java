@@ -19,7 +19,5 @@ public record SportEventResponse(
         int minAge,
         List<EventRoleResponse> eventRoleResponse,
         SportFieldResponse sportFieldResponse
-
-
 ) {
 }
