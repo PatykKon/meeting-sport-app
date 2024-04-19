@@ -1,5 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
+import com.meeting.sport.app.dto.EventRoleResponse;
 import com.meeting.sport.app.dto.SportEventResponse;
 import com.meeting.sport.app.user.dto.UserResponse;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,11 @@ class SportEventQueryAPI {
     @GetMapping("/users/{eventId}")
     List<UserResponse> getEventUsers(@PathVariable long eventId) {
         return sportEventQuery.getEventUsers(eventId);
+    }
+
+    @GetMapping("/event/users/{userId}")
+    List<EventRoleResponse> getEventForUsers(@PathVariable long userId) {
+        return sportEventQuery.getEventsForUser(userId);
     }
 
 

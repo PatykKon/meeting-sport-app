@@ -20,6 +20,7 @@ class EventRoleMapper1 {
         eventRoleResponse.id(eventRoleEntity.getId());
         eventRoleResponse.gameRole(eventRoleEntity.getGameRole());
         eventRoleResponse.userId(eventRoleEntity.getUserId());
+        eventRoleResponse.sportEventResponse(SportEventMapper1.entityToResponse(eventRoleEntity.getSportEventEntity()));
 
         return eventRoleResponse.build();
     }

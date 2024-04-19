@@ -20,7 +20,7 @@ class EventRoleEntity {
     private boolean isAvailable;
     private Long userId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sport_event_entity_id")
     SportEventEntity sportEventEntity;
 
