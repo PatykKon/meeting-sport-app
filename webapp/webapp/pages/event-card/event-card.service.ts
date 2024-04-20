@@ -30,7 +30,18 @@ export class EventCardService {
     );
   }
 
-  getEvent(eventId:number): Observable<any> {
+  getEventsForUser(userId: number): Observable<any> {
+    console.log("userId: "+ userId)
+    const headers = this.getHeaders();
+    return this.http.get(BASIC_URL + "/sport-event/event/users/"+userId, {headers}).pipe(
+      tap((events) => {
+        const currentState = this.eventSubject.value;
+        this.eventSubject.next({...currentState, events});
+      })
+    );
+  }
+
+  getEvent(eventId: number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(BASIC_URL + '/sport-event/event/' + eventId, {headers}).pipe(
       tap((events) => {
@@ -39,7 +50,8 @@ export class EventCardService {
       })
     );
   }
-  getEventUsers(eventId:number): Observable<any> {
+
+  getEventUsers(eventId: number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(BASIC_URL + '/sport-event/users/' + eventId, {headers}).pipe(
       tap((events) => {
@@ -51,10 +63,10 @@ export class EventCardService {
 
   createEvent(field: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(BASIC_URL + "/sport-event/create", field, { headers }).pipe(
+    return this.http.post<any>(BASIC_URL + "/sport-event/create", field, {headers}).pipe(
       tap((events) => {
         const currentState = this.eventSubject.value;
-        this.eventSubject.next({ ...currentState, events });
+        this.eventSubject.next({...currentState, events});
       }),
       catchError(error => {
         console.error('An error occurred:', error);
@@ -65,10 +77,10 @@ export class EventCardService {
 
   joinEvent(field: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(BASIC_URL + "/sport-event/join", field, { headers }).pipe(
+    return this.http.post<any>(BASIC_URL + "/sport-event/join", field, {headers}).pipe(
       tap((events) => {
         const currentState = this.eventSubject.value;
-        this.eventSubject.next({ ...currentState, events });
+        this.eventSubject.next({...currentState, events});
       }),
 
       catchError(this.handleError)

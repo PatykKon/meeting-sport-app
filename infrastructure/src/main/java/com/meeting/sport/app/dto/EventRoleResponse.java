@@ -11,6 +11,6 @@ public record EventRoleResponse(
         boolean isAvailable,
         Long userId,
 
-        SportEventResponse sportEventResponse
+        Long sportEventId
 ) {
 }

@@ -49,6 +49,7 @@ export class EventCardComponent implements OnInit,AfterViewInit{
 
   public ngOnInit(): void {
     this.getEvents();
+    console.log(this.events)
   }
 
   public getEvents() {
