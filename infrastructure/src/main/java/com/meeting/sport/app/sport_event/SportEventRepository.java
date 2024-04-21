@@ -21,6 +21,8 @@ interface SportEventRepository  {
 
     List<SportEvent> findAllSportEventByStatus(SportEventStatus sportEventStatus);
 
+    void delete(SportEvent sportEvent);
+
 }
 
 

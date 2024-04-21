@@ -13,8 +13,8 @@ class EventRoleCreator {
         }
         final int sumGameRole = getSumGameRole(eventRoleDataList);
 
-        if (sumGameRole != sportEvent.getNumberOfPlayers()) {
-            throw new RuntimeException("game roles can not be less than declared number of players: " + sportEvent.getNumberOfPlayers());
+        if (sumGameRole != sportEvent.getTeamSize().getTeamSize()) {
+            throw new RuntimeException("game roles can not be less than declared number of players: " + sportEvent.getTeamSize().getTeamSize());
         }
 
         List<EventRole> eventRoles = eventRoleDataList.stream()
@@ -22,7 +22,7 @@ class EventRoleCreator {
                         .mapToObj(i -> EventRole.crateAvailableEventRole(eventRoleData.gameRole(), sportEvent)))
                 .toList();
 
-        eventRoles.forEach(sportEvent::addGameRoles);
+        eventRoles.forEach(sportEvent::addEventRoles);
     }
 
     private static int getSumGameRole(List<EventRoleData> eventRoleDataList) {

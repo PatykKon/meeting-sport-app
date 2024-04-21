@@ -22,13 +22,13 @@ class SportEventServiceImpl implements SportEventService {
     private final SportEventRepository sportEventRepository;
 
 
-    public Long laveEvent(Long eventId, User loggedUser) {
+    public Long laveEvent(Long eventId, Long loggedUserId) {
 
-        EventRole eventRole = eventRoleRepository.getEventRoleByUserAndEvent(eventId, loggedUser.getId());
+        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
 
-        eventRole.leaveEvent();
+        sportEvent.leaveEvent(loggedUserId);
 
-        return eventRoleRepository.save(eventRole);
+        return sportEventRepository.save(sportEvent);
     }
 
     public Long joinEvent(Long eventId, String gameRole, User loggedUser) {
@@ -39,7 +39,7 @@ class SportEventServiceImpl implements SportEventService {
 
         checkUserExistInOtherEventInThisTime(eventId, loggedUser.getId());
 
-        sportEvent.checkRequirements(loggedUser);
+        sportEvent.getRequiredAge().validateAge(loggedUser.getAge());
 
         availableRole.assignToEvent(loggedUser);
         return sportEventRepository.save(sportEvent);
@@ -83,6 +83,18 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
+    void deleteSportEvent(Long sportEventId,Long ownerId){
+
+        SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
+
+        if(!sportEvent.getOwnerId().equals(ownerId)){
+            throw new RuntimeException("only owner can delete event");
+        }
+
+        sportEventRepository.delete(sportEvent);
+
+    }
+
     public void updateStatus() {
         try {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());
@@ -109,11 +121,12 @@ class SportEventServiceImpl implements SportEventService {
 
         final boolean isUserExistInOtherEventInThisTime = eventRoles.stream()
                 .map(EventRole::getSportEvent)
-                .anyMatch(sportEvent -> sportEvent.isInTheSameTime(sportEventToJoin.getEventTime()));
+                .anyMatch(sportEvent -> sportEvent.getEventTime().isEventInTheSameTime(sportEventToJoin.getEventTime()));
 
         if (isUserExistInOtherEventInThisTime) {
             throw new RuntimeException("Użytkownik o id:" + userId + " bierzę juz udział w tym czasie w innym wydarzeniu!");
         }
+
     }
 
     private EventRole getAvailableRole(SportEvent sportEvent){

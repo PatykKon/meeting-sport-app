@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 class StatusCreator {
 
     private static final Integer ONE_HOUR_LEFT = 1;
-    private final static LocalDateTime TIME_NOW = LocalDateTime.now();
 
     private final LocalDateTime startTimeEvent;
     private final int gameTime;
@@ -18,33 +17,35 @@ class StatusCreator {
     }
 
     public SportEventStatus selectStatus(int currentPlayers) {
-        if (isSportEventShouldBeCanceled(currentPlayers)) {
+        LocalDateTime timeNow = LocalDateTime.now();
+
+        if (isSportEventShouldBeCanceled(currentPlayers,timeNow)) {
             return SportEventStatus.CANCELED;
         }
-        if(isAfterEvent()){
+        if(isAfterEvent(timeNow)){
             return SportEventStatus.COMPLETED;
         }
-        if(isDuringEvent()){
+        if(isDuringEvent(timeNow)){
             return SportEventStatus.DURING;
         }
         return SportEventStatus.COMING;
     }
 
-    private boolean isSportEventShouldBeCanceled(int currentPlayers){
+    private boolean isSportEventShouldBeCanceled(int currentPlayers,LocalDateTime timeNow){
         boolean isNumberOfPlayersInRange = currentPlayers < minPlayers;
-        boolean isTimeToCheckNumberOfPlayers = TIME_NOW.isAfter(startTimeEvent.minusHours(ONE_HOUR_LEFT));
+        boolean isTimeToCheckNumberOfPlayers = timeNow.isAfter(startTimeEvent.minusHours(ONE_HOUR_LEFT));
 
         return isNumberOfPlayersInRange && isTimeToCheckNumberOfPlayers;
 
     }
-    private boolean isAfterEvent(){
-        return TIME_NOW.isAfter(startTimeEvent.plusHours(gameTime));
+    private boolean isAfterEvent(LocalDateTime timeNow){
+        return timeNow.isAfter(startTimeEvent.plusHours(gameTime));
     }
-    private boolean isDuringEvent(){
-        boolean isEventTimeNow = TIME_NOW.isEqual(startTimeEvent);
-        boolean isAfterStartEvent = TIME_NOW.isAfter(startTimeEvent);
-        boolean isBeforeAndEvent = TIME_NOW.isBefore(startTimeEvent.plusHours(gameTime));
+    private boolean isDuringEvent(LocalDateTime timeNow){
+        boolean isEventTimeNow = timeNow.isEqual(startTimeEvent);
+        boolean isAfterStartEvent = timeNow.isAfter(startTimeEvent);
+        boolean isBeforeAndEvent = timeNow.isBefore(startTimeEvent.plusHours(gameTime));
 
-        return isEventTimeNow && isAfterStartEvent && isBeforeAndEvent;
+        return isEventTimeNow || isAfterStartEvent && isBeforeAndEvent;
     }
 }

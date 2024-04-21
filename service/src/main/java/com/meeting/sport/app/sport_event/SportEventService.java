@@ -9,7 +9,7 @@ import java.util.List;
 
 interface SportEventService {
 
-    Long laveEvent(Long eventId, User loggedUser);
+    Long laveEvent(Long eventId, Long loggedUserId);
 
     Long joinEvent(Long eventId,String gameRole,User loggedUser);
 

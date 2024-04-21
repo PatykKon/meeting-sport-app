@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SportEvent {
 
@@ -55,11 +56,20 @@ public class SportEvent {
         return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime, ownerId, null, SportEventStatus.COMING);
     }
 
-    public void changeStatus() {
+    void leaveEvent(Long userId){
+        EventRole eventRole = eventRoles
+                .stream()
+                .filter(e -> Objects.nonNull(e.getUserId()) && e.getUserId().equals(userId))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Brak użytkownika o danym id:" + userId));
 
-        int allRoles = getEventRoles().size();
-        int allAvailableGameRoles = getEventRoles().stream().filter(EventRole::isAvailable).toList().size();
-        int activePlayers = allRoles - allAvailableGameRoles;
+        eventRole.leaveEvent();
+        changeStatus();
+    }
+
+    void changeStatus() {
+
+        int activePlayers = getActivePlayers();
 
         StatusCreator statusCreator = new StatusCreator(
                 getEventTime().getStartTime(),
@@ -70,7 +80,7 @@ public class SportEvent {
         this.sportEventStatus = statusCreator.selectStatus(activePlayers);
     }
 
-    public void addGameRoles(EventRole eventRole) {
+    void addEventRoles(EventRole eventRole) {
         if (eventRoles == null) {
             eventRoles = new ArrayList<>();
         }
@@ -78,20 +88,17 @@ public class SportEvent {
         eventRole.addSportEvent(this);
     }
 
-    public void assignSportField(SportField sportField) {
+    void assignSportField(SportField sportField) {
         this.sportField = sportField;
     }
 
-    public boolean isInTheSameTime(EventTime eventTime) {
-        return this.eventTime.isEventInTheSameTime(eventTime);
-    }
-
-    int getNumberOfPlayers() {
-        return getTeamSize().getTeamSize();
-    }
-
-    public void checkRequirements(User user) {
-        this.requiredAge.isUserAgeCorrect(user.getAge());
+    private int getActivePlayers() {
+        int gameRoles = getEventRoles().size();
+        int availableGameRoles = getEventRoles().stream()
+                .filter(EventRole::isAvailable)
+                .toList()
+                .size();
+        return gameRoles - availableGameRoles;
     }
 
     public Long getId() {

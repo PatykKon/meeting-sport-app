@@ -63,4 +63,10 @@ class SportEventRepositoryImpl implements SportEventRepository {
         }
         return sportEventEntities.stream().map(SportEventMapper1::entityToModel).toList();
     }
+
+    @Override
+    public void delete(SportEvent sportEvent) {
+        SportEventEntity sportEventEntity = SportEventMapper1.modelToEntity(sportEvent);
+        sportEventRepositoryJPA.delete(sportEventEntity);
+    }
 }
