@@ -83,11 +83,11 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
-    void deleteSportEvent(Long sportEventId,Long ownerId){
+    public void deleteSportEvent(Long sportEventId,Long userId){
 
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
 
-        if(!sportEvent.getOwnerId().equals(ownerId)){
+        if(!sportEvent.getOwnerId().equals(userId)){
             throw new RuntimeException("only owner can delete event");
         }
 

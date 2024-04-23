@@ -28,5 +28,7 @@ interface SportEventService {
 
     void updateStatus();
 
+    void deleteSportEvent(Long sportEventId,Long ownerId);
+
 
 }

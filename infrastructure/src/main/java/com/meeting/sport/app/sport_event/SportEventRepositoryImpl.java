@@ -1,10 +1,8 @@
 package com.meeting.sport.app.sport_event;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +19,7 @@ class SportEventRepositoryImpl implements SportEventRepository {
     @Override
     public Long save(SportEvent sportEvent) {
 
-        SportEventEntity entity = SportEventMapper1.modelToEntity(sportEvent);
+        SportEventEntity entity = SportEventMapper.modelToEntity(sportEvent);
         SportEventEntity eventEntity = sportEventRepositoryJPA.save(entity);
         return eventEntity.getId();
     }
@@ -30,7 +28,7 @@ class SportEventRepositoryImpl implements SportEventRepository {
     public SportEvent findModelById(Long eventId) {
 
         SportEventEntity entity = findEntityById(eventId);
-        return SportEventMapper1.entityToModel(entity);
+        return SportEventMapper.entityToModel(entity);
     }
     @Override
     public SportEventEntity findEntityById(Long eventId){
@@ -45,12 +43,12 @@ class SportEventRepositoryImpl implements SportEventRepository {
     @Override
     public List<SportEvent> findAllSportEvent() {
         List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAll();
-        return sportEventEntities.stream().map(SportEventMapper1::entityToModel).toList();
+        return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
     }
 
     @Override
     public void saveAll(List<SportEvent> sportEvents) {
-        List<SportEventEntity> sportEventEntities = sportEvents.stream().map(SportEventMapper1::modelToEntity).toList();
+        List<SportEventEntity> sportEventEntities = sportEvents.stream().map(SportEventMapper::modelToEntity).toList();
         sportEventRepositoryJPA.saveAll(sportEventEntities);
     }
 
@@ -61,12 +59,12 @@ class SportEventRepositoryImpl implements SportEventRepository {
         if(sportEventEntities == null){
             return Collections.emptyList();
         }
-        return sportEventEntities.stream().map(SportEventMapper1::entityToModel).toList();
+        return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
     }
 
     @Override
     public void delete(SportEvent sportEvent) {
-        SportEventEntity sportEventEntity = SportEventMapper1.modelToEntity(sportEvent);
+        SportEventEntity sportEventEntity = SportEventMapper.modelToEntity(sportEvent);
         sportEventRepositoryJPA.delete(sportEventEntity);
     }
 }
