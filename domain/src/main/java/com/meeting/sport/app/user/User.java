@@ -1,6 +1,7 @@
 package com.meeting.sport.app.user;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -23,6 +24,18 @@ public class User {
         this.age = age;
         this.role = role;
         this.tokens = tokens;
+    }
+
+    static User createUser(String firstname, String lastname, int age, String email, String password) {
+        return new User(
+                null,
+                firstname,
+                lastname,
+                email,
+                password,
+                age,
+                Role.USER,
+                new ArrayList<>());
     }
 
 

@@ -1,27 +1,92 @@
 package com.meeting.sport.app.sport_field;
 
 import com.meeting.sport.app.dto.SportFieldResponse;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
-public interface SportFieldMapper {
+public class SportFieldMapper {
 
-    @Mapping(target = "spaceField", source = "fieldSpace")
-    @Mapping(target = "fieldType", source = "fieldType")
-    @Mapping(target = "city", source = "address.city")
-    @Mapping(target = "street", source = "address.street")
-    @Mapping(target = "number", source = "address.number")
-    SportFieldEntity modelToEntity(SportField sportField);
+    public static SportFieldEntity modelToEntity(SportField sportField) {
+        if ( sportField == null ) {
+            return null;
+        }
 
-    @Mapping(target = "fieldSpace", source = "spaceField")
-    @Mapping(target = "fieldType", source = "fieldType")
-    @Mapping(target = "address.city", source = "city")
-    @Mapping(target = "address.street", source = "street")
-    @Mapping(target = "address.number", source = "number")
-    SportField entityToModel(SportFieldEntity sportFieldEntity);
+        SportFieldEntity.SportFieldEntityBuilder sportFieldEntity = SportFieldEntity.builder();
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "fieldSpace", source = "spaceField")
-    SportFieldResponse entityToResponse(SportFieldEntity sportFieldEntity);
+        sportFieldEntity.spaceField( sportField.getFieldSpace() );
+        sportFieldEntity.fieldType( sportField.getFieldType() );
+        sportFieldEntity.city( sportFieldAddressCity( sportField ) );
+        sportFieldEntity.street( sportFieldAddressStreet( sportField ) );
+        sportFieldEntity.number( sportFieldAddressNumber( sportField ) );
+        sportFieldEntity.id( sportField.getId() );
+
+        return sportFieldEntity.build();
+    }
+
+
+    public static SportField entityToModel(SportFieldEntity sportFieldEntity) {
+        if ( sportFieldEntity == null ) {
+            return null;
+        }
+
+        Address address = sportFieldEntityToAddress( sportFieldEntity );
+        FieldSpace fieldSpace = sportFieldEntity.getSpaceField();
+        FieldType fieldType = sportFieldEntity.getFieldType();
+        Long id = sportFieldEntity.getId();
+
+        return new SportField( id, fieldType, fieldSpace, address );
+
+    }
+
+
+    public static SportFieldResponse entityToResponse(SportFieldEntity sportFieldEntity) {
+        if ( sportFieldEntity == null ) {
+            return null;
+        }
+
+        SportFieldResponse.SportFieldResponseBuilder sportFieldResponse = SportFieldResponse.builder();
+
+        sportFieldResponse.id( sportFieldEntity.getId() );
+        sportFieldResponse.fieldSpace( sportFieldEntity.getSpaceField().toString() );
+        sportFieldResponse.fieldType( sportFieldEntity.getFieldType().toString() );
+        sportFieldResponse.city( sportFieldEntity.getCity() );
+        sportFieldResponse.street( sportFieldEntity.getStreet() );
+        sportFieldResponse.number( sportFieldEntity.getNumber() );
+
+        return sportFieldResponse.build();
+    }
+
+    private static String sportFieldAddressCity(SportField sportField) {
+
+        Address address = sportField.getAddress();
+
+        return address.getCity();
+
+    }
+
+    private static String sportFieldAddressStreet(SportField sportField) {
+
+        Address address = sportField.getAddress();
+
+        return address.getStreet();
+    }
+
+    private static String sportFieldAddressNumber(SportField sportField) {
+
+        Address address = sportField.getAddress();
+
+        return address.getNumber();
+
+    }
+
+    protected static Address sportFieldEntityToAddress(SportFieldEntity sportFieldEntity) {
+        if ( sportFieldEntity == null ) {
+            return null;
+        }
+
+       String city = sportFieldEntity.getCity();
+       String street = sportFieldEntity.getStreet();
+       String number = sportFieldEntity.getNumber();
+
+        return new Address( city, street, number );
+
+    }
 }

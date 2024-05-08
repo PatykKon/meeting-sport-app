@@ -28,6 +28,9 @@
             <column name="GAME_TIME" type="INT"/>
             <column name="SPORT_FIELD_ENTITY_ID" type="BIGINT"/>
             <column name="OWNER_ID" type="BIGINT"/>
+            <column name="MIN_PLAYERS" type="INT"/>
+            <column name="SPORT_FIELD_ID" type="INT"/>
+            <column name="SPORT_EVENT_STATUS" type="VARCHAR(250)"/>
         </createTable>
         <createTable tableName="EVENT_ROLE">
             <column name="ID" type="BIGINT" autoIncrement="true">

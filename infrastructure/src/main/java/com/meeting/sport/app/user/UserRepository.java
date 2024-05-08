@@ -11,6 +11,6 @@ public interface UserRepository {
 
     UserDTO findUserByEmail(String email);
 
-    UserDTO saveUser(UserDTO userDTO);
+    UserDTO saveUser(User user);
 
 }

@@ -13,7 +13,7 @@ public class SportFieldQuery {
     private final SportFieldRepository sportFieldRepository;
 
     public List<SportFieldResponse> getSportFields() {
-        return sportFieldRepository.findAllEntity().stream().map(SportFieldMapper1::entityToResponse).toList();
+        return sportFieldRepository.findAllEntity().stream().map(SportFieldMapper::entityToResponse).toList();
     }
 
     public SportFieldResponse getSportFieldByEvent(long sportFieldId) {
@@ -21,6 +21,6 @@ public class SportFieldQuery {
 
         SportFieldEntity entity = sportFieldRepository.findEntityById(sportFieldId);
 
-        return SportFieldMapper1.entityToResponse(entity);
+        return SportFieldMapper.entityToResponse(entity);
     }
 }

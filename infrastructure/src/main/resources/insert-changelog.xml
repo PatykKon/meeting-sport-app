@@ -1,0 +1,13 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <include file="/20241503/insert-sport-field.xml"/>
+    <include file="/20241503/insert-sport-event.xml"/>
+    <include file="/20241503/insert-user.xml"/>
+    <include file="/20241503/insert-event-role.xml"/>
+    <include file="/20242103/insert-token.xml"/>
+
+</databaseChangeLog>

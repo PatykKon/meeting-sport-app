@@ -15,8 +15,8 @@ class SportFieldServiceImpl implements SportFieldService {
         return sportFieldRepository.findById(sportFieldId);
     }
 
-    public Long createSportField(FieldType fieldType,
-                                 FieldSpace fieldSpace,
+    public Long createSportField(String fieldType,
+                                 String fieldSpace,
                                  String city,
                                  String street,
                                  String number)
