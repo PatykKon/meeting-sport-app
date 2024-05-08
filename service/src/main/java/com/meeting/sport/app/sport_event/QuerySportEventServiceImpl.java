@@ -2,9 +2,7 @@ package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.dto.EventRoleResponse;
 import com.meeting.sport.app.dto.SportEventResponse;
-import com.meeting.sport.app.user.User;
 import com.meeting.sport.app.user.UserFacade;
-import com.meeting.sport.app.user.dto.UserDTO;
 import com.meeting.sport.app.user.dto.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,13 +21,13 @@ class QuerySportEventServiceImpl implements QuerySportEventService {
     public List<SportEventResponse> getEvents() {
         return sportEventRepository.findAllEntity()
                 .stream()
-                .map(SportEventMapper1::entityToResponse)
+                .map(SportEventMapper::entityToResponse)
                 .toList();
     }
 
     public SportEventResponse getEventById(Long eventId) {
         SportEventEntity eventEntity = sportEventRepository.findEntityById(eventId);
-        return SportEventMapper1.entityToResponse(eventEntity);
+        return SportEventMapper.entityToResponse(eventEntity);
     }
 
     public List<UserResponse> getEventUsers(Long eventId) {
@@ -42,8 +40,8 @@ class QuerySportEventServiceImpl implements QuerySportEventService {
 
     public List<EventRoleResponse> getEventsForUser(Long userId) {
         List<EventRole> eventRoles = eventRoleRepository.getEventRoleEntitiesByUserEntityId(userId);
-        List<EventRoleEntity> eventRoleEntities = eventRoles.stream().map(EventRoleMapper1::modelToEntity).toList();
-        return eventRoleEntities.stream().map(EventRoleMapper1::entityToResponse).toList();
+        List<EventRoleEntity> eventRoleEntities = eventRoles.stream().map(EventRoleMapper::modelToEntity).toList();
+        return eventRoleEntities.stream().map(EventRoleMapper::entityToResponse).toList();
 
     }
 }

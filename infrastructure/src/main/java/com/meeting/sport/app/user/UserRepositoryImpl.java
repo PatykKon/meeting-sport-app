@@ -1,6 +1,5 @@
 package com.meeting.sport.app.user;
 
-import com.meeting.sport.app.user.dto.RegisterRequest;
 import com.meeting.sport.app.user.dto.UserDTO;
 import org.springframework.stereotype.Repository;
 
@@ -15,19 +14,18 @@ class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserDTO findById(long id) {
-        return UserMapper1.entityToDTO(userRepositoryJPA.findById(id).orElseThrow());
+        return UserMapper.entityToDTO(userRepositoryJPA.findById(id).orElseThrow());
     }
 
     @Override
     public UserDTO findUserByEmail(String email) {
-        return UserMapper1.entityToDTO(userRepositoryJPA.findByEmail(email).orElseThrow());
+        return UserMapper.entityToDTO(userRepositoryJPA.findByEmail(email).orElseThrow());
     }
 
     @Override
-    public UserDTO saveUser(UserDTO userDTO) {
-        User user = UserMapper1.DTOToModel(userDTO);
-        UserEntity entity = UserMapper1.modelToEntity(user);
+    public UserDTO saveUser(User user) {
+        UserEntity entity = UserMapper.modelToEntity(user);
         UserEntity saveUser = userRepositoryJPA.save(entity);
-        return UserMapper1.entityToDTO(saveUser);
+        return UserMapper.entityToDTO(saveUser);
     }
 }

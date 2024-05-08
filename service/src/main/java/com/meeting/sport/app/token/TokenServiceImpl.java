@@ -11,25 +11,23 @@ import java.util.List;
 @AllArgsConstructor
 class TokenServiceImpl implements TokenService {
 
-    private final UserMapper userMapper;
     private final TokenRepository tokenRepository;
-    private final TokenMapper tokenMapper;
     @Override
     public void createToken(UserDTO userDTO, String jtwToken){
 
-        User user = userMapper.DTOToModel(userDTO);
+        User user = UserMapper.DTOToModel(userDTO);
 
         Token token = Token.createToken(user,jtwToken);
 
-        TokenEntity tokenEntity = tokenMapper.modelToEntity(token);
+        TokenEntity tokenEntity = TokenMapper.modelToEntity(token);
 
         tokenRepository.save(tokenEntity);
     }
     @Override
     public void revokeAllUserTokens(Long id){
         List<TokenEntity> tokenEntityList = tokenRepository.findAllValidTokenByUser(id);
-        List<TokenDTO> tokenDTOS = tokenEntityList.stream().map(tokenMapper::entityToDTO).toList();
-        List<Token> tokens = tokenDTOS.stream().map(tokenMapper::DTOToModel).toList();
+        List<TokenDTO> tokenDTOS = tokenEntityList.stream().map(TokenMapper::entityToDTO).toList();
+        List<Token> tokens = tokenDTOS.stream().map(TokenMapper::DTOToModel).toList();
 
 
         if (tokens.isEmpty())
@@ -38,7 +36,7 @@ class TokenServiceImpl implements TokenService {
             token.changeExpired();
             token.changeRevoked();
         });
-       tokenRepository.saveAll(tokens.stream().map(tokenMapper::modelToEntity).toList());
+       tokenRepository.saveAll(tokens.stream().map(TokenMapper::modelToEntity).toList());
     }
 
     @Override

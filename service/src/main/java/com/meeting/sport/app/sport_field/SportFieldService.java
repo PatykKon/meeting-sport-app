@@ -9,8 +9,8 @@ interface SportFieldService {
     SportField getSportFieldById(Long sportFieldId);
 
     Long createSportField(
-            FieldType fieldType,
-            FieldSpace fieldSpace,
+            String fieldType,
+            String fieldSpace,
             String city,
             String street,
             String number);

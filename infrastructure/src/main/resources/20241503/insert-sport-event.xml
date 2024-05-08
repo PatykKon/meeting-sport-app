@@ -18,6 +18,7 @@
             <column name="game_time" value="2" type="integer"/>
             <column name="sport_field_entity_id" value="100000" type="integer"/>
             <column name="owner_id" value="1000" type="integer"/>
+            <column name="sport_event_status" value="Coming" type="varchar(255)"/>
         </insert>
         <insert schemaName="public"
                 tableName="sport_event">
@@ -31,6 +32,7 @@
             <column name="game_time" value="1" type="integer"/>
             <column name="sport_field_entity_id" value="200000" type="integer"/>
             <column name="owner_id" value="3000" type="integer"/>
+            <column name="sport_event_status" value="Coming" type="varchar(255)"/>
         </insert>
 
     </changeSet>

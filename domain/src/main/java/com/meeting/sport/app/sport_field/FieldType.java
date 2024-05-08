@@ -1,10 +1,15 @@
 package com.meeting.sport.app.sport_field;
 
-public enum FieldType {
+enum FieldType {
     FOOTBALL,
     BASKETBALL,
     VOLLEYBALL,
     TENNIS,
-    SQUASH,
+    SQUASH;
 
+
+    @Override
+    public String toString() {
+        return "FieldType{}";
+    }
 }
