@@ -69,15 +69,9 @@ public class SportEvent {
 
     void changeStatus() {
 
-        int activePlayers = getActivePlayers();
+        StatusCreator statusCreator = new StatusCreator(this);
+        this.sportEventStatus = statusCreator.selectStatus();
 
-        StatusCreator statusCreator = new StatusCreator(
-                getEventTime().getStartTime(),
-                getEventTime().getGameTime(),
-                getTeamSize().getTeamSize()
-        );
-
-        this.sportEventStatus = statusCreator.selectStatus(activePlayers);
     }
 
     void addEventRoles(EventRole eventRole) {
@@ -92,7 +86,7 @@ public class SportEvent {
         this.sportField = sportField;
     }
 
-    private int getActivePlayers() {
+    protected int getActivePlayers() {
         int gameRoles = getEventRoles().size();
         int availableGameRoles = getEventRoles().stream()
                 .filter(EventRole::isAvailable)

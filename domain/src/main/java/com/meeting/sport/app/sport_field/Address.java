@@ -1,7 +1,7 @@
 package com.meeting.sport.app.sport_field;
 
 
-public class Address {
+class Address {
     private final String city;
     private final String street;
     private final String number;

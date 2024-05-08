@@ -18,7 +18,7 @@ class SportFieldRepositoryImpl implements SportFieldRepository {
     @Override
     public SportField findById(Long sportFieldId) {
         SportFieldEntity entity = sportFieldRepositoryJPA.findById(sportFieldId).orElseThrow();
-        return SportFieldMapper1.entityToModel(entity);
+        return SportFieldMapper.entityToModel(entity);
     }
     public SportFieldEntity findEntityById(long sportFieldId){
         return sportFieldRepositoryJPA.findById(sportFieldId).orElseThrow();
@@ -32,7 +32,7 @@ class SportFieldRepositoryImpl implements SportFieldRepository {
     @Override
     public Long save(SportField sportField) {
 
-        SportFieldEntity entity = sportFieldRepositoryJPA.save(SportFieldMapper1.modelToEntity(sportField));
+        SportFieldEntity entity = sportFieldRepositoryJPA.save(SportFieldMapper.modelToEntity(sportField));
         return entity.getId();
     }
 }

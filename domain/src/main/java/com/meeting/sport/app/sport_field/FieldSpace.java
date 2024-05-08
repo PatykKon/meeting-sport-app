@@ -1,6 +1,11 @@
 package com.meeting.sport.app.sport_field;
 
-public enum FieldSpace {
+enum FieldSpace {
     INSIDE,
-    OUTSIDE
+    OUTSIDE;
+
+    @Override
+    public String toString() {
+        return "FieldSpace{}";
+    }
 }
