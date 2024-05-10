@@ -3,6 +3,7 @@ package com.meeting.sport.app.sport_event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,6 +56,16 @@ class SportEventRepositoryImpl implements SportEventRepository {
     @Override
     public List<SportEvent> findAllSportEventByStatus(SportEventStatus sportEventStatus) {
         List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAllBySportEventStatus(sportEventStatus);
+
+        if(sportEventEntities == null){
+            return Collections.emptyList();
+        }
+        return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
+    }
+
+    @Override
+    public List<SportEvent> findAllSportEventByTime(LocalDateTime time) {
+        List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAllByStartTimeAfter(time);
 
         if(sportEventEntities == null){
             return Collections.emptyList();

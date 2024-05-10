@@ -97,10 +97,15 @@ class SportEventServiceImpl implements SportEventService {
         try {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());
 
-            List<SportEvent> sportEvents = sportEventRepository.findAllSportEventByStatus(SportEventStatus.COMING)
-                    .stream()
-                    .filter(e -> e.getEventTime().getStartTime().isBefore(LocalDateTime.now().plusDays(1)))
-                    .toList();
+//            List<SportEvent> sportEvents = sportEventRepository.findAllSportEventByStatus(SportEventStatus.COMING)
+//                    .stream()
+//                    .filter(SportEvent::isDaysInCheckingRange)
+//                    .toList();
+            final int hourLeftToCheck = 2;
+            final LocalDateTime dateToCheckStatus = LocalDateTime.now().minusHours(hourLeftToCheck);
+
+            List<SportEvent> sportEvents = sportEventRepository.findAllSportEventByTime(dateToCheckStatus);
+
             sportEvents.forEach(SportEvent::changeStatus);
             sportEventRepository.saveAll(sportEvents);
 
