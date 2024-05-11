@@ -32,7 +32,7 @@ class SportEventEntity {
     private Long ownerId;
     @Enumerated(EnumType.STRING)
     private SportEventStatus sportEventStatus;
-    @OneToMany(mappedBy = "sportEventEntity", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sportEventEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EventRoleEntity> eventRoleEntities = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "sport_field_id")

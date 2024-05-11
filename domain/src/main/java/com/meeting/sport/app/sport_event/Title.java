@@ -7,7 +7,7 @@ class Title {
     private final static int MAX_TITLE = 60;
     private final String value;
 
-    public Title(String value) {
+    Title(String value) {
         this.value = checkTitle(value);
     }
 
@@ -21,7 +21,7 @@ class Title {
         return title;
     }
 
-    public String getValue() {
+    String getValue() {
         return value;
     }
 

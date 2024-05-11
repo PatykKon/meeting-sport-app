@@ -29,6 +29,7 @@ class UserServiceImpl implements UserService {
         return userRepository.findUserByEmail(email);
     }
 
+    @Override
     public UserDTO createUser(RegisterRequest request) {
 
         String encodedPassword = passwordEncoder.encode(request.password());

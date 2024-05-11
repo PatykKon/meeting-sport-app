@@ -5,7 +5,7 @@ class Description {
     private final static int MAX_DESCRIPTION = 250;
     private final String value;
 
-    public Description(String value) {
+    Description(String value) {
         this.value = checkDescription(value);
     }
 
@@ -18,7 +18,7 @@ class Description {
         }
         return description;
     }
-    public String getValue() {
+    String getValue() {
         return value;
     }
 }

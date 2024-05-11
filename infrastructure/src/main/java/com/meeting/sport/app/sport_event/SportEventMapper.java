@@ -72,6 +72,7 @@ class SportEventMapper {
         sportEventResponse.endTime( sportEvent.getEndTime() );
         sportEventResponse.gameTime( sportEvent.getGameTime() );
         sportEventResponse.minAge( sportEvent.getMinAge() );
+        sportEventResponse.ownerId( sportEvent.getOwnerId() );
 
         return sportEventResponse.build();
     }

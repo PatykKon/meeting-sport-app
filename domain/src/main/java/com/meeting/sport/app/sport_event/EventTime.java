@@ -8,6 +8,8 @@ class EventTime {
     private static final int MAX_PLAY_HOUR = 2;
     private static final int MIN_PLAY_HOUR = 1;
 
+    private static final int MIN_HOUR_BEFORE_START_TO_DELETE_EVENT = 4;
+
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
     private final Integer gameTime;
@@ -20,6 +22,11 @@ class EventTime {
 
     public boolean isEventInTheSameTime(EventTime eventTime){
         return this.startTime.isBefore(eventTime.endTime) && eventTime.startTime.isBefore(this.endTime);
+    }
+
+    boolean isEventCanBeDeleted(){
+        LocalDateTime nowTime = LocalDateTime.now();
+        return startTime.isAfter(nowTime.minusHours(MIN_HOUR_BEFORE_START_TO_DELETE_EVENT));
     }
 
     private Integer checkGameTime(Integer gameTime){

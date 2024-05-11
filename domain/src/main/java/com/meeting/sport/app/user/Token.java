@@ -5,7 +5,7 @@ public class Token {
     private Long id;
     private String token;
 
-    private TokenType tokenType;
+    private final TokenType tokenType;
     private boolean revoked;
     private boolean expired;
 

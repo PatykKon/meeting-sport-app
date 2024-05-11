@@ -11,7 +11,7 @@ class StatusCreator {
     private final int minPlayers;
     private final int activePlayers;
 
-    public StatusCreator(SportEvent sportEvent) {
+    StatusCreator(SportEvent sportEvent) {
         this.startTimeEvent = sportEvent.getEventTime().getStartTime();
         this.gameTime = sportEvent.getEventTime().getGameTime();
         this.minPlayers = sportEvent.getTeamSize().getMinPlayers();
@@ -19,7 +19,7 @@ class StatusCreator {
 
     }
 
-    public SportEventStatus selectStatus() {
+    SportEventStatus selectStatus() {
         LocalDateTime timeNow = LocalDateTime.now();
 
         if (isSportEventShouldBeCanceled(activePlayers,timeNow)) {

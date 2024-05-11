@@ -1,7 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_field.SportField;
-import com.meeting.sport.app.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class SportEvent {
         return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime, ownerId, null, SportEventStatus.COMING);
     }
 
-    void leaveEvent(Long userId){
+    void leaveEvent(Long userId) {
         EventRole eventRole = eventRoles
                 .stream()
                 .filter(e -> Objects.nonNull(e.getUserId()) && e.getUserId().equals(userId))
@@ -74,10 +73,13 @@ public class SportEvent {
 
     }
 
-    void addEventRoles(EventRole eventRole) {
-        if (eventRoles == null) {
-            eventRoles = new ArrayList<>();
+    void checkOwner(Long userId) {
+        if (!ownerId.equals(userId)) {
+            throw new RuntimeException("user with: " + userId + " is not owner!");
         }
+    }
+
+    void addEventRoles(EventRole eventRole) {
         this.eventRoles.add(eventRole);
         eventRole.addSportEvent(this);
     }
@@ -86,7 +88,7 @@ public class SportEvent {
         this.sportField = sportField;
     }
 
-    protected int getActivePlayers() {
+    int getActivePlayers() {
         int gameRoles = getEventRoles().size();
         int availableGameRoles = getEventRoles().stream()
                 .filter(EventRole::isAvailable)
@@ -95,43 +97,50 @@ public class SportEvent {
         return gameRoles - availableGameRoles;
     }
 
-    public Long getId() {
+
+    void checkTimeDeleteEvent(){
+        if(!eventTime.isEventCanBeDeleted()){
+            throw new RuntimeException("Event can not be deleted less than 4 hours to start");
+        }
+    }
+
+    Long getId() {
         return id;
     }
 
-    public Title getTitle() {
+    Title getTitle() {
         return title;
     }
 
-    public Description getDescription() {
+    Description getDescription() {
         return description;
     }
 
-    public TeamSize getTeamSize() {
+    TeamSize getTeamSize() {
         return teamSize;
     }
 
-    public RequiredAge getRequiredAge() {
+    RequiredAge getRequiredAge() {
         return requiredAge;
     }
 
-    public EventTime getEventTime() {
+    EventTime getEventTime() {
         return eventTime;
     }
 
-    public List<EventRole> getEventRoles() {
+    List<EventRole> getEventRoles() {
         return eventRoles;
     }
 
-    public Long getOwnerId() {
+    Long getOwnerId() {
         return ownerId;
     }
 
-    public SportField getSportField() {
+    SportField getSportField() {
         return sportField;
     }
 
-    public SportEventStatus getSportEventStatus() {
+    SportEventStatus getSportEventStatus() {
         return sportEventStatus;
     }
 }

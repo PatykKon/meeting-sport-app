@@ -29,11 +29,11 @@ class TeamSize {
         return players;
     }
 
-    public int getTeamSize() {
+    int getTeamSize() {
         return teamSize;
     }
 
-    public int getMinPlayers() {
+    int getMinPlayers() {
         return minPlayers;
     }
 }

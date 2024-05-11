@@ -14,25 +14,25 @@ public class SportField {
         this.address = address;
     }
 
-    public static SportField createSportField(String fieldType, String fieldSpace, String city, String street, String number) {
+    static SportField createSportField(String fieldType, String fieldSpace, String city, String street, String number) {
         Address fieldAddress = new Address(city, street, number);
 
         return new SportField(null, FieldType.valueOf(fieldType), FieldSpace.valueOf(fieldSpace), fieldAddress);
     }
 
-    public Long getId() {
+    Long getId() {
         return id;
     }
 
-    public FieldType getFieldType() {
+    FieldType getFieldType() {
         return fieldType;
     }
 
-    public FieldSpace getFieldSpace() {
+    FieldSpace getFieldSpace() {
         return fieldSpace;
     }
 
-    public Address getAddress() {
+    Address getAddress() {
         return address;
     }
 

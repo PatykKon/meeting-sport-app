@@ -20,8 +20,9 @@ class SportEventServiceImpl implements SportEventService {
 
     private final SportEventRepository sportEventRepository;
     private final JoinedValidator joinedValidator;
+    private final DeleteEventValidator deleteEventValidator;
 
-
+    @Override
     public Long laveEvent(Long eventId, Long loggedUserId) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(eventId);
@@ -31,11 +32,12 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
+    @Override
     public Long joinEvent(Long eventId, String gameRole, User loggedUser) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(eventId);
 
-        EventRole availableRole = getAvailableRole(sportEvent);
+        EventRole availableRole = getAvailableRole(sportEvent,gameRole);
 
         joinedValidator.validate(sportEvent, loggedUser);
 
@@ -43,6 +45,7 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
+    @Override
     public Long createGameRoles(Long eventId, List<EventRoleData> eventRoleDataList) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(eventId);
@@ -52,6 +55,7 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
+    @Override
     public Long assignFieldToSportEvent(Long sportEventId, SportField sportField) {
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
         sportEvent.assignSportField(sportField);
@@ -59,6 +63,7 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
+    @Override
     public Long createSportEvent(String title,
                                  String description,
                                  int players,
@@ -81,18 +86,18 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
+    @Override
     public void deleteSportEvent(Long sportEventId, Long userId) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
 
-        if (!sportEvent.getOwnerId().equals(userId)) {
-            throw new RuntimeException("only owner can delete event");
-        }
+        deleteEventValidator.validate(userId,sportEvent);
 
         sportEventRepository.delete(sportEvent);
 
     }
 
+    @Override
     public void updateStatus() {
         try {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());
@@ -116,9 +121,11 @@ class SportEventServiceImpl implements SportEventService {
         }
     }
 
-    private EventRole getAvailableRole(SportEvent sportEvent) {
+
+    private EventRole getAvailableRole(SportEvent sportEvent,String eventRole) {
         return sportEvent.getEventRoles()
                 .stream()
+                .filter(eventRole1 -> eventRole1.getGameRole().toString().equals(eventRole))
                 .filter(EventRole::isAvailable)
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Brak dostępnegej Roli"));

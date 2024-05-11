@@ -15,11 +15,11 @@ public enum Role {
         this.permissions = permissions;
     }
 
-    public SimpleGrantedAuthority getAuth() {
+    SimpleGrantedAuthority getAuth() {
         return new SimpleGrantedAuthority("ROLE_" + permissions);
     }
 
-    public String getPermissions() {
+    String getPermissions() {
         return permissions;
     }
 }
