@@ -2,6 +2,8 @@ package com.meeting.sport.app.sport_event;
 
 class RequiredAge {
 
+    private final static int MIN_AGE = 0;
+
     private final int age;
 
     RequiredAge(int age) {
@@ -9,7 +11,7 @@ class RequiredAge {
     }
 
     private int checkAge(int age) {
-        if (age < 0) {
+        if (age < MIN_AGE) {
             throw new RuntimeException("age can not be less than 0");
         }
         return age;

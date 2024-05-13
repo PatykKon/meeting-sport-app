@@ -102,14 +102,7 @@ class SportEventServiceImpl implements SportEventService {
         try {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());
 
-//            List<SportEvent> sportEvents = sportEventRepository.findAllSportEventByStatus(SportEventStatus.COMING)
-//                    .stream()
-//                    .filter(SportEvent::isDaysInCheckingRange)
-//                    .toList();
-            final int hourLeftToCheck = 2;
-            final LocalDateTime dateToCheckStatus = LocalDateTime.now().minusHours(hourLeftToCheck);
-
-            List<SportEvent> sportEvents = sportEventRepository.findAllSportEventByTime(dateToCheckStatus);
+            List<SportEvent> sportEvents = getSportEventToCheckStatus();
 
             sportEvents.forEach(SportEvent::changeStatus);
             sportEventRepository.saveAll(sportEvents);
@@ -119,6 +112,13 @@ class SportEventServiceImpl implements SportEventService {
             logger.error("An error occurred while updating event status: " + e.getMessage());
 
         }
+    }
+
+    private List<SportEvent> getSportEventToCheckStatus(){
+
+        final LocalDateTime dateToCheckStatus = LocalDateTime.now().minusHours(SportEventConstants.HOUR_LEFT_TO_CHECK_STATUS);
+
+        return sportEventRepository.findAllSportEventByTime(dateToCheckStatus);
     }
 
 
