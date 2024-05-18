@@ -1,8 +1,5 @@
-package com.meeting.sport.app.token;
+package com.meeting.sport.app.user;
 
-import com.meeting.sport.app.user.Token;
-import com.meeting.sport.app.user.TokenType;
-import com.meeting.sport.app.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class TokenEntity {
+class TokenEntity {
 
     @Id
     @GeneratedValue

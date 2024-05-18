@@ -1,7 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.dto.EventRoleResponse;
-import com.meeting.sport.app.sport_field.SportField;
+import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -97,11 +96,11 @@ class EventRoleMapper {
         if (sportEvent == null) {
             return 0;
         }
-        TeamSize teamSize = sportEvent.getTeamSize();
-        if (teamSize == null) {
+        Team team = sportEvent.getTeamSize();
+        if (team == null) {
             return 0;
         }
-        int teamSize1 = teamSize.getTeamSize();
+        int teamSize1 = team.getTeamSize();
         return teamSize1;
     }
 
@@ -210,7 +209,7 @@ class EventRoleMapper {
         return title;
     }
 
-    protected static TeamSize sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {
+    protected static Team sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {
         if (sportEventEntity == null) {
             return null;
         }
@@ -221,7 +220,7 @@ class EventRoleMapper {
         teamSize = sportEventEntity.getPlayers();
         minPlayers = sportEventEntity.getMinPlayers();
 
-        return new TeamSize(teamSize, minPlayers);
+        return new Team(teamSize, minPlayers);
 
 
     }
@@ -241,19 +240,13 @@ class EventRoleMapper {
     }
 
     protected static EventTime sportEventEntityToEventTime(SportEventEntity sportEventEntity) {
-        if (sportEventEntity == null) {
-            return null;
-        }
 
-        LocalDateTime startTime = null;
-        Integer gameTime = null;
+        LocalDateTime startTime = sportEventEntity.getStartTime();
+        Integer gameTime = sportEventEntity.getGameTime();
+        LocalDateTime endTime = sportEventEntity.getEndTime();
 
-        startTime = sportEventEntity.getStartTime();
-        gameTime = sportEventEntity.getGameTime();
+        return new EventTime(gameTime, startTime, endTime);
 
-        EventTime eventTime = new EventTime(gameTime, startTime);
-
-        return eventTime;
     }
 
     protected static SportEvent sportEventEntityToSportEvent(SportEventEntity sportEventEntity) {
@@ -263,7 +256,7 @@ class EventRoleMapper {
 
         Description description = null;
         Title title = null;
-        TeamSize teamSize = null;
+        Team team = null;
         RequiredAge requiredAge = null;
         EventTime eventTime = null;
         Long id = null;
@@ -271,7 +264,7 @@ class EventRoleMapper {
 
         description = sportEventEntityToDescription(sportEventEntity);
         title = sportEventEntityToTitle(sportEventEntity);
-        teamSize = sportEventEntityToTeamSize(sportEventEntity);
+        team = sportEventEntityToTeamSize(sportEventEntity);
         requiredAge = sportEventEntityToRequiredAge(sportEventEntity);
         eventTime = sportEventEntityToEventTime(sportEventEntity);
         id = sportEventEntity.getId();
@@ -279,9 +272,10 @@ class EventRoleMapper {
         SportEventStatus sportEventStatus = sportEventEntity.getSportEventStatus();
 
         List<EventRole> eventRoles = null;
-        SportField sportField = null;
+        Long sportFieldId = null;
 
-        return new SportEvent(id, title, description, teamSize, requiredAge, eventRoles, eventTime, ownerId, sportField, sportEventStatus);
+
+        return new SportEvent(id, title, description, team, requiredAge, eventRoles, eventTime, ownerId, sportFieldId, sportEventStatus);
 
     }
 

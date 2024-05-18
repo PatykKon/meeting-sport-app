@@ -1,9 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.dto.EventRoleResponse;
-import com.meeting.sport.app.dto.SportEventResponse;
-import com.meeting.sport.app.sport_field.SportField;
-import com.meeting.sport.app.sport_field.SportFieldMapper;
+import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,67 +9,66 @@ import java.util.List;
 class SportEventMapper {
 
     static SportEventEntity modelToEntity(SportEvent sportEvent) {
-        if ( sportEvent == null ) {
+        if (sportEvent == null) {
             return null;
         }
 
         SportEventEntity.SportEventEntityBuilder sportEventEntity = SportEventEntity.builder();
 
-        sportEventEntity.title( sportEventTitleValue( sportEvent ) );
-        sportEventEntity.description( sportEventDescriptionValue( sportEvent ) );
-        sportEventEntity.players( sportEventTeamSizeTeamSize( sportEvent ) );
+        sportEventEntity.title(sportEventTitleValue(sportEvent));
+        sportEventEntity.description(sportEventDescriptionValue(sportEvent));
+        sportEventEntity.players(sportEventTeamSizeTeamSize(sportEvent));
         sportEventEntity.minPlayers(sportEventTeamSizeMinPlayer(sportEvent));
-        sportEventEntity.minAge( sportEventRequiredAgeAge( sportEvent ) );
-        sportEventEntity.startTime( sportEventEventTimeStartTime( sportEvent ) );
-        sportEventEntity.endTime( sportEventEventTimeEndTime( sportEvent ) );
-        sportEventEntity.gameTime( sportEventEventTimeGameTime( sportEvent ) );
-        sportEventEntity.eventRoleEntities( eventRoleListToEventRoleEntityList( sportEvent.getEventRoles() ) );
-        sportEventEntity.sportFieldEntity( SportFieldMapper.modelToEntity( sportEvent.getSportField() ) );
-        sportEventEntity.id( sportEvent.getId() );
-        sportEventEntity.ownerId( sportEvent.getOwnerId() );
+        sportEventEntity.minAge(sportEventRequiredAgeAge(sportEvent));
+        sportEventEntity.startTime(sportEventEventTimeStartTime(sportEvent));
+        sportEventEntity.endTime(sportEventEventTimeEndTime(sportEvent));
+        sportEventEntity.gameTime(sportEventEventTimeGameTime(sportEvent));
+        sportEventEntity.eventRoleEntities(eventRoleListToEventRoleEntityList(sportEvent.getEventRoles()));
+        sportEventEntity.sportFieldId(sportEvent.getSportFieldId());
+        sportEventEntity.id(sportEvent.getId());
+        sportEventEntity.ownerId(sportEvent.getOwnerId());
         sportEventEntity.sportEventStatus(sportEvent.getSportEventStatus());
 
         return sportEventEntity.build();
     }
 
     static SportEvent entityToModel(SportEventEntity sportEventEntity) {
-        if ( sportEventEntity == null ) {
+        if (sportEventEntity == null) {
             return null;
         }
 
-        Title title = sportEventEntityToTitle( sportEventEntity );
-        Description description = sportEventEntityToDescription( sportEventEntity );
-        TeamSize teamSize = sportEventEntityToTeamSize( sportEventEntity );
-        RequiredAge requiredAge = sportEventEntityToRequiredAge( sportEventEntity );
-        EventTime eventTime = sportEventEntityToEventTime( sportEventEntity );
-        SportField sportField = SportFieldMapper.entityToModel( sportEventEntity.getSportFieldEntity() );
-        List<EventRole> eventRoles = eventRoleEntityListToEventRoleList( sportEventEntity.getEventRoleEntities() );
+        Title title = sportEventEntityToTitle(sportEventEntity);
+        Description description = sportEventEntityToDescription(sportEventEntity);
+        Team team = sportEventEntityToTeamSize(sportEventEntity);
+        RequiredAge requiredAge = sportEventEntityToRequiredAge(sportEventEntity);
+        EventTime eventTime = sportEventEntityToEventTime(sportEventEntity);
+        Long sportFieldId = sportEventEntity.getSportFieldId();
+        List<EventRole> eventRoles = eventRoleEntityListToEventRoleList(sportEventEntity.getEventRoleEntities());
         Long id = sportEventEntity.getId();
         Long ownerId = sportEventEntity.getOwnerId();
         SportEventStatus sportEventStatus = sportEventEntity.getSportEventStatus();
 
-        return new SportEvent( id, title, description, teamSize, requiredAge, eventRoles, eventTime, ownerId, sportField,sportEventStatus );
+        return new SportEvent(id, title, description, team, requiredAge, eventRoles, eventTime, ownerId, sportFieldId, sportEventStatus);
 
     }
 
 
     static SportEventResponse entityToResponse(SportEventEntity sportEvent) {
-        if ( sportEvent == null ) {
+        if (sportEvent == null) {
             return null;
         }
 
         SportEventResponse.SportEventResponseBuilder sportEventResponse = SportEventResponse.builder();
 
-        sportEventResponse.eventRoleResponse( eventRoleEntityListToEventRoleResponseList( sportEvent.getEventRoleEntities() ) );
-        sportEventResponse.id( sportEvent.getId() );
-        sportEventResponse.sportFieldResponse( SportFieldMapper.entityToResponse( sportEvent.getSportFieldEntity() ) );
-        sportEventResponse.title( sportEvent.getTitle() );
-        sportEventResponse.description( sportEvent.getDescription() );
-        sportEventResponse.startTime( sportEvent.getStartTime() );
-        sportEventResponse.endTime( sportEvent.getEndTime() );
-        sportEventResponse.gameTime( sportEvent.getGameTime() );
-        sportEventResponse.minAge( sportEvent.getMinAge() );
-        sportEventResponse.ownerId( sportEvent.getOwnerId() );
+        sportEventResponse.eventRoleResponse(eventRoleEntityListToEventRoleResponseList(sportEvent.getEventRoleEntities()));
+        sportEventResponse.id(sportEvent.getId());
+        sportEventResponse.title(sportEvent.getTitle());
+        sportEventResponse.description(sportEvent.getDescription());
+        sportEventResponse.startTime(sportEvent.getStartTime());
+        sportEventResponse.endTime(sportEvent.getEndTime());
+        sportEventResponse.gameTime(sportEvent.getGameTime());
+        sportEventResponse.minAge(sportEvent.getMinAge());
+        sportEventResponse.ownerId(sportEvent.getOwnerId());
 
         return sportEventResponse.build();
     }
@@ -92,14 +88,15 @@ class SportEventMapper {
 
     private static int sportEventTeamSizeTeamSize(SportEvent sportEvent) {
 
-        TeamSize teamSize = sportEvent.getTeamSize();
-        return teamSize.getTeamSize();
+        Team team = sportEvent.getTeamSize();
+        return team.getTeamSize();
 
     }
+
     private static int sportEventTeamSizeMinPlayer(SportEvent sportEvent) {
 
-        TeamSize teamSize = sportEvent.getTeamSize();
-        return teamSize.getMinPlayers();
+        Team team = sportEvent.getTeamSize();
+        return team.getMinPlayers();
 
     }
 
@@ -112,7 +109,7 @@ class SportEventMapper {
     private static LocalDateTime sportEventEventTimeStartTime(SportEvent sportEvent) {
 
         EventTime eventTime = sportEvent.getEventTime();
-        return  eventTime.getStartTime();
+        return eventTime.getStartTime();
 
     }
 
@@ -127,16 +124,16 @@ class SportEventMapper {
 
         EventTime eventTime = sportEvent.getEventTime();
 
-        return  eventTime.getGameTime();
+        return eventTime.getGameTime();
 
     }
 
     protected static List<EventRoleEntity> eventRoleListToEventRoleEntityList(List<EventRole> list) {
 
 
-        List<EventRoleEntity> list1 = new ArrayList<EventRoleEntity>( list.size() );
-        for ( EventRole eventRole : list ) {
-            list1.add( EventRoleMapper.modelToEntity( eventRole ) );
+        List<EventRoleEntity> list1 = new ArrayList<EventRoleEntity>(list.size());
+        for (EventRole eventRole : list) {
+            list1.add(EventRoleMapper.modelToEntity(eventRole));
         }
 
         return list1;
@@ -147,18 +144,18 @@ class SportEventMapper {
 
         String value = sportEventEntity.getTitle();
 
-        return  new Title(value);
+        return new Title(value);
     }
 
     protected static Description sportEventEntityToDescription(SportEventEntity sportEventEntity) {
 
-        String value =  sportEventEntity.getDescription();
+        String value = sportEventEntity.getDescription();
 
-        return new Description( value );
+        return new Description(value);
 
     }
 
-    protected static TeamSize sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {
+    protected static Team sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {
 
         int teamSize = 0;
         int minPlayers = 0;
@@ -166,7 +163,7 @@ class SportEventMapper {
         teamSize = sportEventEntity.getPlayers();
         minPlayers = sportEventEntity.getMinPlayers();
 
-        return new TeamSize(teamSize, minPlayers);
+        return new Team(teamSize, minPlayers);
     }
 
     protected static RequiredAge sportEventEntityToRequiredAge(SportEventEntity sportEventEntity) {
@@ -174,7 +171,7 @@ class SportEventMapper {
 
         int age = sportEventEntity.getMinAge();
 
-        return new RequiredAge( age );
+        return new RequiredAge(age);
 
     }
 
@@ -183,30 +180,31 @@ class SportEventMapper {
 
         LocalDateTime startTime = sportEventEntity.getStartTime();
         Integer gameTime = sportEventEntity.getGameTime();
+        LocalDateTime endTime = sportEventEntity.getEndTime();
 
-        return new EventTime( gameTime, startTime );
+        return new EventTime(gameTime, startTime, endTime);
 
 
     }
 
     protected static List<EventRole> eventRoleEntityListToEventRoleList(List<EventRoleEntity> list) {
 
-        List<EventRole> list1 = new ArrayList<EventRole>( list.size() );
-        for ( EventRoleEntity eventRoleEntity : list ) {
-            list1.add( EventRoleMapper.entityToModel( eventRoleEntity ) );
+        List<EventRole> list1 = new ArrayList<EventRole>(list.size());
+        for (EventRoleEntity eventRoleEntity : list) {
+            list1.add(EventRoleMapper.entityToModel(eventRoleEntity));
         }
 
         return list1;
     }
 
     protected static List<EventRoleResponse> eventRoleEntityListToEventRoleResponseList(List<EventRoleEntity> list) {
-        if ( list == null ) {
+        if (list == null) {
             return null;
         }
 
-        List<EventRoleResponse> list1 = new ArrayList<EventRoleResponse>( list.size() );
-        for ( EventRoleEntity eventRoleEntity : list ) {
-            list1.add( EventRoleMapper.entityToResponse( eventRoleEntity ) );
+        List<EventRoleResponse> list1 = new ArrayList<EventRoleResponse>(list.size());
+        for (EventRoleEntity eventRoleEntity : list) {
+            list1.add(EventRoleMapper.entityToResponse(eventRoleEntity));
         }
 
         return list1;

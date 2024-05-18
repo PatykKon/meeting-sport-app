@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_field;
 
-import com.meeting.sport.app.dto.SportFieldResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ public class SportFieldQuery {
     public SportFieldResponse getSportFieldByEvent(long sportFieldId) {
 
 
-        SportFieldEntity entity = sportFieldRepository.findEntityById(sportFieldId);
+        SportFieldEntity entity = sportFieldRepository.findById(sportFieldId);
 
         return SportFieldMapper.entityToResponse(entity);
     }

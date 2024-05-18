@@ -1,7 +1,6 @@
 package com.meeting.sport.app.user;
 
-import com.meeting.sport.app.token.TokenDTO;
-import com.meeting.sport.app.token.TokenEntity;
+import com.meeting.sport.app.user.dto.TokenDTO;
 import com.meeting.sport.app.user.dto.UserDTO;
 import com.meeting.sport.app.user.dto.UserResponse;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,13 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UserMapper {
+class UserMapper {
 
-    public static UserDTO entityToDTO(UserEntity userEntity) {
-        if (userEntity == null) {
-            return null;
-        }
 
+
+    static UserDTO entityToDTO(UserEntity userEntity) {
 
         userEntity.getAuthorities();
 
@@ -36,11 +33,38 @@ public class UserMapper {
         return userDTO.build();
     }
 
-    public static List<SimpleGrantedAuthority> mapToAuthorities(SimpleGrantedAuthority authority) {
+    static UserDTO modelToDTO(User user) {
+
+        UserDTO.UserDTOBuilder userDTO = UserDTO.builder();
+        userDTO.id(user.getId());
+        userDTO.email(user.getEmail());
+        userDTO.age(user.getAge());
+        userDTO.password(user.getPassword());
+        userDTO.role(Role.valueOf(user.getRole()));
+
+        return userDTO.build();
+    }
+
+    static List<SimpleGrantedAuthority> mapToAuthorities(SimpleGrantedAuthority authority) {
         return Collections.singletonList(authority);
     }
 
-    public static User DTOToModel(UserDTO dto) {
+    static User entityToModel(UserEntity userEntity){
+
+        List<Token> tokens = tokenEntityListToTokenList(userEntity.getTokenEntities());
+        Long id = userEntity.getId();
+        String firstname = userEntity.getFirstname();
+        String lastname = userEntity.getLastname();
+        String email = userEntity.getEmail();
+        String password = userEntity.getPassword();
+        int age = userEntity.getAge();
+        String role = userEntity.getRole().toString();
+
+
+        return new User(id,firstname,lastname,email,password,age,role,tokens);
+    }
+
+    static User DTOToModel(UserDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -52,7 +76,7 @@ public class UserMapper {
         String email = dto.email();
         String password = dto.password();
         int age = dto.age();
-        Role role = dto.role();
+        String role = dto.role().toString();
 
         User user = new User(id, firstname, lastname, email, password, age, role, tokens);
 
@@ -60,7 +84,7 @@ public class UserMapper {
     }
 
 
-    public static UserEntity modelToEntity(User user) {
+    static UserEntity modelToEntity(User user) {
         if (user == null) {
             return null;
         }
@@ -74,13 +98,13 @@ public class UserMapper {
         userEntity.email(user.getEmail());
         userEntity.password(user.getPassword());
         userEntity.age(user.getAge());
-        userEntity.role(user.getRole());
+        userEntity.role(Role.valueOf(user.getRole()));
 
         return userEntity.build();
     }
 
 
-    public static UserResponse entityToResponse(UserEntity userEntity) {
+    static UserResponse entityToResponse(UserEntity userEntity) {
         if (userEntity == null) {
             return null;
         }
@@ -95,7 +119,7 @@ public class UserMapper {
 
     }
 
-    public static UserResponse DTOToResponse(UserDTO dto) {
+    static UserResponse DTOToResponse(UserDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -109,7 +133,7 @@ public class UserMapper {
 
     }
 
-    public static UserResponse modelToResponse(User user) {
+    static UserResponse modelToResponse(User user) {
         if (user == null) {
             return null;
         }
@@ -173,6 +197,21 @@ public class UserMapper {
         return auth;
     }
 
+    protected static Token tokenEntityToToken(TokenEntity tokenEntity) {
+        if (tokenEntity == null) {
+            return null;
+        }
+
+        Long id = tokenEntity.getId();
+        String token = tokenEntity.getToken();
+        boolean revoked = tokenEntity.isRevoked();
+        boolean expired = tokenEntity.isExpired();
+
+        return new Token(id, token, revoked, expired, null);
+
+    }
+
+
     protected static Token tokenDTOToToken(TokenDTO tokenDTO) {
         if (tokenDTO == null) {
             return null;
@@ -203,6 +242,19 @@ public class UserMapper {
         List<Token> list1 = new ArrayList<Token>(list.size());
         for (TokenDTO tokenDTO : list) {
             list1.add(tokenDTOToToken(tokenDTO));
+        }
+
+        return list1;
+    }
+
+    protected static List<Token> tokenEntityListToTokenList(List<TokenEntity> list) {
+        if (list == null) {
+            return null;
+        }
+
+        List<Token> list1 = new ArrayList<Token>(list.size());
+        for (TokenEntity tokenEntity : list) {
+            list1.add(tokenEntityToToken(tokenEntity));
         }
 
         return list1;

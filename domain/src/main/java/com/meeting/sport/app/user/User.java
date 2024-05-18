@@ -1,10 +1,9 @@
 package com.meeting.sport.app.user;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+class User {
 
     private Long id;
     private String firstname;
@@ -12,10 +11,10 @@ public class User {
     private String email;
     private String password;
     private int age;
-    private Role role;
+    private String role;
     private List<Token> tokens;
 
-    public User(Long id, String firstname, String lastname, String email, String password, int age, Role role, List<Token> tokens) {
+    User(Long id, String firstname, String lastname, String email, String password, int age, String role, List<Token> tokens) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -26,7 +25,8 @@ public class User {
         this.tokens = tokens;
     }
 
-    static User createUser(String firstname, String lastname, int age, String email, String password) {
+    static User createUser(String firstname, String lastname, int age, String email, String password, String userRole) {
+
         return new User(
                 null,
                 firstname,
@@ -34,40 +34,40 @@ public class User {
                 email,
                 password,
                 age,
-                Role.USER,
+                userRole,
                 new ArrayList<>());
     }
 
 
-    public Long getId() {
+    Long getId() {
         return id;
     }
 
-    public String getFirstname() {
+    String getFirstname() {
         return firstname;
     }
 
-    public String getLastname() {
+    String getLastname() {
         return lastname;
     }
 
-    public String getEmail() {
+   String getEmail() {
         return email;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
-    public int getAge() {
+    int getAge() {
         return age;
     }
 
-    public Role getRole() {
+    String getRole() {
         return role;
     }
 
-    public List<Token> getTokens() {
+    List<Token> getTokens() {
         return tokens;
     }
 }

@@ -1,8 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
-import lombok.Value;
-
-class TeamSize {
+class Team {
 
     private final static int MIN_PLAYERS_IN_GAME = 2;
     private final static int MAX_PLAYERS_IN_GAME = 100;
@@ -10,7 +8,7 @@ class TeamSize {
     private final int teamSize;
     private final int minPlayers;
 
-    TeamSize(int teamSize, int minPlayers) {
+    Team(int teamSize, int minPlayers) {
         this.teamSize = checkMaxPlayer(teamSize);
         this.minPlayers = checkMinPlayers(minPlayers, teamSize);
     }

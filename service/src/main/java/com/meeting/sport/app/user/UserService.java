@@ -6,10 +6,10 @@ import com.meeting.sport.app.user.dto.UserResponse;
 
 interface UserService {
 
-    User getLoggedUser(String userEmail);
+    UserDTO getLoggedUser(String userEmail);
     User getLoggedUser(Long id);
 
     UserDTO getUserDTOByEmail(String email);
 
-    UserDTO createUser(RegisterRequest request);
+    UserDTO createUser(RegisterRequest request,String encryptedPassword);
 }

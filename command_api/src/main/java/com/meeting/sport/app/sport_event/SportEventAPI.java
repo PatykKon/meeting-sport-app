@@ -15,6 +15,7 @@ class SportEventAPI {
     private final JoinEventHandler joinEventHandler;
     private final LeaveEventHandler leaveEventHandler;
     private final DeleteSportEventHandler deleteSportEventHandler;
+    private final UpdateSportEventHandler updateSportEventHandler;
 
     @PostMapping("/create")
     Long createEvent(@RequestBody CreateSportEventCommand command) {
@@ -40,6 +41,11 @@ class SportEventAPI {
     @PutMapping("/leave")
     Long leaveEvent(@RequestBody LeaveEventCommand command) {
         return leaveEventHandler.handle(command);
+    }
+
+    @PutMapping("/update")
+    Long updateEvent(@RequestBody UpdateEventCommand command) {
+        return updateSportEventHandler.handle(command);
     }
 
     @DeleteMapping("/delete/{eventId}/to/{userId}")

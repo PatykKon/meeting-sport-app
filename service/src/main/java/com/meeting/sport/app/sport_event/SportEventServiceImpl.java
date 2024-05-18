@@ -1,8 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_event.dto.EventRoleData;
-import com.meeting.sport.app.sport_field.SportField;
-import com.meeting.sport.app.user.User;
+import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Component
 @AllArgsConstructor
@@ -33,15 +31,13 @@ class SportEventServiceImpl implements SportEventService {
     }
 
     @Override
-    public Long joinEvent(Long eventId, String gameRole, User loggedUser) {
+    public Long joinEvent(Long eventId, String gameRole, UserDTO loggedUser) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(eventId);
 
-        EventRole availableRole = getAvailableRole(sportEvent,gameRole);
-
         joinedValidator.validate(sportEvent, loggedUser);
 
-        availableRole.assignToEvent(loggedUser);
+        sportEvent.joinToEvent(loggedUser.id(), gameRole);
         return sportEventRepository.save(sportEvent);
     }
 
@@ -56,9 +52,34 @@ class SportEventServiceImpl implements SportEventService {
     }
 
     @Override
-    public Long assignFieldToSportEvent(Long sportEventId, SportField sportField) {
+    public Long assignFieldToSportEvent(Long sportEventId, Long sportFieldId) {
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
-        sportEvent.assignSportField(sportField);
+        sportEvent.assignSportField(sportFieldId);
+
+        return sportEventRepository.save(sportEvent);
+    }
+
+    public Long updateEvent(Long sportEventId,
+                            String title,
+                            String description,
+                            int players,
+                            int minAge,
+                            LocalDateTime startTime,
+                            int gameTime,
+                            Long ownerId,
+                            int minPlayers) {
+
+        SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
+
+        sportEvent.updateEvent(
+                ownerId,
+                description,
+                title,
+                minAge,
+                gameTime,
+                players,
+                minPlayers,
+                startTime);
 
         return sportEventRepository.save(sportEvent);
     }
@@ -91,7 +112,7 @@ class SportEventServiceImpl implements SportEventService {
 
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
 
-        deleteEventValidator.validate(userId,sportEvent);
+        deleteEventValidator.validate(userId, sportEvent);
 
         sportEventRepository.delete(sportEvent);
 
@@ -114,20 +135,10 @@ class SportEventServiceImpl implements SportEventService {
         }
     }
 
-    private List<SportEvent> getSportEventToCheckStatus(){
+    private List<SportEvent> getSportEventToCheckStatus() {
 
         final LocalDateTime dateToCheckStatus = LocalDateTime.now().minusHours(SportEventConstants.HOUR_LEFT_TO_CHECK_STATUS);
 
         return sportEventRepository.findAllSportEventByTime(dateToCheckStatus);
-    }
-
-
-    private EventRole getAvailableRole(SportEvent sportEvent,String eventRole) {
-        return sportEvent.getEventRoles()
-                .stream()
-                .filter(eventRole1 -> eventRole1.getGameRole().toString().equals(eventRole))
-                .filter(EventRole::isAvailable)
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Brak dostępnegej Roli"));
     }
 }

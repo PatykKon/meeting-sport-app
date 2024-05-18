@@ -1,6 +1,6 @@
 package com.meeting.sport.app.sport_field;
 
-public class SportField {
+class SportField {
 
     private Long id;
     private FieldType fieldType;

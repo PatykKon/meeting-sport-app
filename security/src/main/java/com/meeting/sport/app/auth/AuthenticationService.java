@@ -2,7 +2,7 @@ package com.meeting.sport.app.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meeting.sport.app.JwtService;
-import com.meeting.sport.app.token.TokenFacade;
+import com.meeting.sport.app.user.TokenFacade;
 import com.meeting.sport.app.user.*;
 import com.meeting.sport.app.user.dto.RegisterRequest;
 import com.meeting.sport.app.user.dto.UserDTO;
@@ -19,14 +19,16 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
     private final UserFacade userFacade;
     private final TokenFacade tokenFacade;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        UserDTO savedUser = userFacade.createUser(request);
+        String encryptedPassword = passwordEncoder.encode(request.password());
+        UserDTO savedUser = userFacade.createUser(request,encryptedPassword);
         String jwtToken = jwtService.generateToken(savedUser);
         String refreshToken = jwtService.generateRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);

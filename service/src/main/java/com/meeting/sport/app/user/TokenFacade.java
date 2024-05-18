@@ -1,4 +1,4 @@
-package com.meeting.sport.app.token;
+package com.meeting.sport.app.user;
 
 import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
@@ -19,5 +19,9 @@ public class TokenFacade {
 
     public boolean isTokenValid(String token){
         return tokenService.isTokenValid(token);
+    }
+
+    public void checkToken(String jwt){
+        tokenService.checkToken(jwt);
     }
 }

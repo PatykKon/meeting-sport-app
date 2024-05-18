@@ -1,4 +1,4 @@
-package com.meeting.sport.app.token;
+package com.meeting.sport.app.user.dto;
 
 import com.meeting.sport.app.user.dto.UserDTO;
 

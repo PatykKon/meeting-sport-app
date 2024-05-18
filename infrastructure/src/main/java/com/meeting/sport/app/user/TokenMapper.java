@@ -1,13 +1,11 @@
-package com.meeting.sport.app.token;
+package com.meeting.sport.app.user;
 
-import com.meeting.sport.app.user.Token;
-import com.meeting.sport.app.user.User;
-import com.meeting.sport.app.user.UserMapper;
+import com.meeting.sport.app.user.dto.TokenDTO;
 import com.meeting.sport.app.user.dto.UserDTO;
 
-public class TokenMapper {
+class TokenMapper {
 
-    public static TokenDTO entityToDTO(TokenEntity entity) {
+    static TokenDTO entityToDTO(TokenEntity entity) {
         if (entity == null) {
             return null;
         }
@@ -22,7 +20,20 @@ public class TokenMapper {
 
     }
 
-    public static Token DTOToModel(TokenDTO dto) {
+    static Token entityToModel(TokenEntity entity){
+        if (entity == null) {
+            return null;
+        }
+        User user = UserMapper.entityToModel(entity.getUserEntity());
+        Long id = entity.getId();
+        String token = entity.getToken();
+        boolean revoked = entity.isRevoked();
+        boolean expired = entity.isExpired();
+
+        return new Token(id,token,revoked,expired,user);
+    }
+
+    static Token DTOToModel(TokenDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -39,7 +50,7 @@ public class TokenMapper {
     }
 
 
-    public static TokenEntity modelToEntity(Token token) {
+    static TokenEntity modelToEntity(Token token) {
         if (token == null) {
             return null;
         }

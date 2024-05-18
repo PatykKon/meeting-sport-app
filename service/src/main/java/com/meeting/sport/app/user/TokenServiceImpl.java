@@ -1,6 +1,6 @@
-package com.meeting.sport.app.token;
+package com.meeting.sport.app.user;
 
-import com.meeting.sport.app.user.*;
+import com.meeting.sport.app.user.dto.TokenDTO;
 import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -44,5 +44,15 @@ class TokenServiceImpl implements TokenService {
         return tokenRepository.findByToken(jwt)
                 .map(t -> !t.isExpired() && !t.isRevoked())
                 .orElse(false);
+    }
+
+    public void checkToken(String jwt) {
+        TokenEntity tokenEntity = tokenRepository.findByToken(jwt).orElse(null);
+        Token storedToken = TokenMapper.entityToModel(tokenEntity);
+        if (storedToken != null) {
+            storedToken.changeExpired();
+            storedToken.changeRevoked();
+            tokenRepository.save(TokenMapper.modelToEntity(storedToken));
+        }
     }
 }

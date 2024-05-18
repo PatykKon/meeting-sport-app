@@ -22,29 +22,31 @@ class StatusCreator {
     SportEventStatus selectStatus() {
         LocalDateTime timeNow = LocalDateTime.now();
 
-        if (isSportEventShouldBeCanceled(activePlayers,timeNow)) {
+        if (isSportEventShouldBeCanceled(activePlayers, timeNow)) {
             return SportEventStatus.CANCELED;
         }
-        if(isAfterEvent(timeNow)){
+        if (isAfterEvent(timeNow)) {
             return SportEventStatus.COMPLETED;
         }
-        if(isDuringEvent(timeNow)){
+        if (isDuringEvent(timeNow)) {
             return SportEventStatus.DURING;
         }
         return SportEventStatus.COMING;
     }
 
-    private boolean isSportEventShouldBeCanceled(int currentPlayers,LocalDateTime timeNow){
+    private boolean isSportEventShouldBeCanceled(int currentPlayers, LocalDateTime timeNow) {
         boolean isNumberOfPlayersInRange = currentPlayers < minPlayers;
         boolean isTimeToCheckNumberOfPlayers = timeNow.isAfter(startTimeEvent.minusHours(ONE_HOUR_LEFT));
 
         return isNumberOfPlayersInRange && isTimeToCheckNumberOfPlayers;
 
     }
-    private boolean isAfterEvent(LocalDateTime timeNow){
+
+    private boolean isAfterEvent(LocalDateTime timeNow) {
         return timeNow.isAfter(startTimeEvent.plusHours(gameTime));
     }
-    private boolean isDuringEvent(LocalDateTime timeNow){
+
+    private boolean isDuringEvent(LocalDateTime timeNow) {
         boolean isEventTimeNow = timeNow.isEqual(startTimeEvent);
         boolean isAfterStartEvent = timeNow.isAfter(startTimeEvent);
         boolean isBeforeAndEvent = timeNow.isBefore(startTimeEvent.plusHours(gameTime));

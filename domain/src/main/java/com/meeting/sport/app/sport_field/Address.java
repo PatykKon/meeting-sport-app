@@ -1,7 +1,6 @@
 package com.meeting.sport.app.sport_field;
 
-
-class Address {
+public class Address {
     private final String city;
     private final String street;
     private final String number;
@@ -12,7 +11,7 @@ class Address {
         this.number = number;
     }
 
-   String getCity() {
+    String getCity() {
         return city;
     }
 

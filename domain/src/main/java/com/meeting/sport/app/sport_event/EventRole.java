@@ -1,9 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.user.User;
-
-import java.util.NoSuchElementException;
-
 class EventRole {
 
     private Long id;
@@ -23,8 +19,8 @@ class EventRole {
     static EventRole crateAvailableEventRole(String gameRole, SportEvent sportEvent) {
         return new EventRole(null, GameRole.valueOf(gameRole), sportEvent, true, null);
     }
-    void assignToEvent(User user) {
-        this.userId = user.getId();
+    void assignToEvent(Long userId) {
+        this.userId = userId;
         changeRoleAvailability();
     }
     void leaveEvent(){
@@ -32,9 +28,9 @@ class EventRole {
         changeRoleAvailability();
     }
 
-    void addSportEvent(SportEvent sportEvent) {
-        this.sportEvent = sportEvent;
-    }
+//    void addSportEvent(SportEvent sportEvent) {
+//        this.sportEvent = sportEvent;
+//    }
     private void changeRoleAvailability() {
         this.isAvailable = !isAvailable;
     }

@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Builder
-public class SportFieldEntity {
+class SportFieldEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

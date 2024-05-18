@@ -1,6 +1,6 @@
 package com.meeting.sport.app.sport_field;
 
-enum FieldSpace {
+public enum FieldSpace {
     INSIDE("inside"),
     OUTSIDE("outside");
 

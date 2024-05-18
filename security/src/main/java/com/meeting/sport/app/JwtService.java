@@ -44,7 +44,7 @@ public class JwtService {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    public String generateToken(
+    private String generateToken(
             Map<String, Object> extraClaims,
             UserDTO userDetails
     ) {
@@ -72,9 +72,9 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDTO userDTO) {
+    public boolean isTokenValid(String token, UserDTO user) {
         final String username = extractUsername(token);
-        return (username.equals(userDTO.email())) && !isTokenExpired(token);
+        return (username.equals(user.email())) && !isTokenExpired(token);
     }
 
     public String getEmailFormJwtToken(String jwt){

@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_field;
 
-import com.meeting.sport.app.dto.SportFieldResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +11,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/auth/sport-field")
-class FieldQueryAPI {
+class SportFieldQueryAPI {
 
     private final SportFieldQuery sportFieldQuery;
 

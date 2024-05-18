@@ -4,7 +4,7 @@ package com.meeting.sport.app.sport_event;
 import com.meeting.sport.app.CommandHandler;
 import com.meeting.sport.app.sport_event.command.LeaveEventCommand;
 import com.meeting.sport.app.user.UserFacade;
-import com.meeting.sport.app.user.User;
+import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +20,8 @@ class LeaveEventHandler implements CommandHandler<LeaveEventCommand> {
     @Transactional
     public Long handle(LeaveEventCommand command) {
 
-        User loggedUser = userFacade.getLoggedUser(command.userEmail());
+        UserDTO loggedUser = userFacade.getLoggedUser(command.userEmail());
 
-        return sportEventService.laveEvent(command.eventId(),loggedUser.getId());
+        return sportEventService.laveEvent(command.eventId(),loggedUser.id());
     }
 }

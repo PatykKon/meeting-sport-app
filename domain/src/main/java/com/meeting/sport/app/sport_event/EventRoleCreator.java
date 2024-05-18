@@ -8,9 +8,6 @@ import java.util.stream.IntStream;
 class EventRoleCreator {
 
     public static void createEventRoles(List<EventRoleData> eventRoleDataList, SportEvent sportEvent){
-        if (!sportEvent.getEventRoles().isEmpty()) {
-            throw new RuntimeException("this have already user role list");
-        }
         final int sumGameRole = getSumGameRole(eventRoleDataList);
 
         if (sumGameRole != sportEvent.getTeamSize().getTeamSize()) {

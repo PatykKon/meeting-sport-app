@@ -1,6 +1,5 @@
 package com.meeting.sport.app;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -14,6 +13,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
         System.out.println("Hello world!");
     }
-
-
 }

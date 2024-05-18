@@ -1,5 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
+import java.util.Objects;
+
 class Description {
 
     private final static int MAX_DESCRIPTION = 250;
@@ -20,5 +22,18 @@ class Description {
     }
     String getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Description that = (Description) o;
+        return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }

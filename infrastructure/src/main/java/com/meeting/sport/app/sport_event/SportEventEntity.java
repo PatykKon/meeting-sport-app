@@ -1,11 +1,8 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_field.SportFieldEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.PersistenceConstructor;
 
-import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +31,7 @@ class SportEventEntity {
     private SportEventStatus sportEventStatus;
     @OneToMany(mappedBy = "sportEventEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EventRoleEntity> eventRoleEntities = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "sport_field_id")
-    private SportFieldEntity sportFieldEntity;
+
+    private Long sportFieldId;
 
 }

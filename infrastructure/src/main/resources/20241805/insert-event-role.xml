@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
 
     <changeSet author="konpat" id="1">
 
@@ -12,7 +13,7 @@
             <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
             <column name="is_available" value="true" type="boolean"/>
             <column name="user_id" value="null" type="integer"/>
-            <column name="sport_event_entity_id" value="1" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
         </insert>
         <insert schemaName="public"
                 tableName="event_role">

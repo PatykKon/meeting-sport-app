@@ -1,9 +1,9 @@
-package com.meeting.sport.app.dto;
+package com.meeting.sport.app.sport_field;
 
 import lombok.Builder;
 
 @Builder
-public record SportFieldResponse(
+record SportFieldResponse(
         Long id,
         String fieldType,
         String fieldSpace,

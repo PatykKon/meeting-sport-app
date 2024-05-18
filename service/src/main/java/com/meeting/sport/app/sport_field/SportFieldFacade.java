@@ -1,5 +1,6 @@
 package com.meeting.sport.app.sport_field;
 
+import com.meeting.sport.app.sport_field.dto.SportFieldDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ public class SportFieldFacade {
 
     SportFieldService sportFieldService;
 
-    public SportField getSportFieldById(Long sportFieldId){
+    public SportFieldDTO getSportFieldById(Long sportFieldId){
         return sportFieldService.getSportFieldById(sportFieldId);
     }
 }

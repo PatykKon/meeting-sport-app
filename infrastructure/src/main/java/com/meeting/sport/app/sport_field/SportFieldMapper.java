@@ -1,8 +1,8 @@
 package com.meeting.sport.app.sport_field;
 
-import com.meeting.sport.app.dto.SportFieldResponse;
+import com.meeting.sport.app.sport_field.dto.SportFieldDTO;
 
-public class SportFieldMapper {
+class SportFieldMapper {
 
     public static SportFieldEntity modelToEntity(SportField sportField) {
         if ( sportField == null ) {
@@ -88,5 +88,14 @@ public class SportFieldMapper {
 
         return new Address( city, street, number );
 
+    }
+
+    public static SportFieldDTO modelToDTO(SportField sportField) {
+        return SportFieldDTO.builder()
+                .fieldSpace(sportField.getFieldSpace())
+                .fieldType(sportField.getFieldType())
+                .address(sportField.getAddress())
+                .id(sportField.getId())
+                .build();
     }
 }

@@ -1,4 +1,4 @@
-package com.meeting.sport.app.dto;
+package com.meeting.sport.app.sport_event.dto;
 
 import lombok.Builder;
 

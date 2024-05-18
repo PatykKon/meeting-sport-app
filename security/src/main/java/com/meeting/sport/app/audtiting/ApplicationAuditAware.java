@@ -1,6 +1,7 @@
 package com.meeting.sport.app.audtiting;
 
-import com.meeting.sport.app.user.UserEntity;
+
+import com.meeting.sport.app.user.dto.UserDTO;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -26,7 +27,7 @@ public class ApplicationAuditAware implements AuditorAware<Long> {
             return Optional.empty();
         }
 
-        UserEntity userPrincipal = (UserEntity) authentication.getPrincipal();
-        return Optional.ofNullable(userPrincipal.getId());
+        UserDTO userPrincipal = (UserDTO) authentication.getPrincipal();
+        return Optional.ofNullable(userPrincipal.id());
     }
 }
