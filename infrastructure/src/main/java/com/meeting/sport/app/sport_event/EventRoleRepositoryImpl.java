@@ -14,18 +14,6 @@ class EventRoleRepositoryImpl implements EventRoleRepository {
     }
 
     @Override
-    public Long save(EventRole eventRole) {
-        EventRoleEntity entity = eventRoleRepositoryJPA.save(EventRoleMapper.modelToEntity(eventRole));
-        return entity.getId();
-    }
-
-    @Override
-    public EventRole getEventRoleByUserAndEvent(Long userId,Long eventId) {
-        EventRoleEntity eventRole = eventRoleRepositoryJPA.getEventRoleEntityByUserIdAndSportEventEntityId(userId,eventId);
-        return EventRoleMapper.entityToModel(eventRole);
-    }
-
-    @Override
     public List<EventRole> getEventRoleEntitiesByUserEntityId(Long userId) {
         List<EventRoleEntity> eventRoleEntities = eventRoleRepositoryJPA.getEventRoleEntitiesByUserId(userId);
         return eventRoleEntities.stream().map(EventRoleMapper::entityToModel).toList();

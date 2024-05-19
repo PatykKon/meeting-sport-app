@@ -1,11 +1,13 @@
 package com.meeting.sport.app.sport_event;
 
+import java.util.Objects;
+
 class Description {
 
     private final static int MAX_DESCRIPTION = 250;
     private final String value;
 
-    public Description(String value) {
+    Description(String value) {
         this.value = checkDescription(value);
     }
 
@@ -18,7 +20,20 @@ class Description {
         }
         return description;
     }
-    public String getValue() {
+    String getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Description that = (Description) o;
+        return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }

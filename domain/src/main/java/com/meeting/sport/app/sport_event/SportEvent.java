@@ -1,43 +1,40 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_field.SportField;
-import com.meeting.sport.app.user.User;
+import com.meeting.sport.app.sport_event.exceptions.JoinEventException;
+import com.meeting.sport.app.sport_event.exceptions.NoAvailableRoleException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
-public class SportEvent {
+class SportEvent {
 
     private Long id;
     private Title title;
     private Description description;
-    private TeamSize teamSize;
+    private Team team;
     private RequiredAge requiredAge;
     private EventTime eventTime;
     private Long ownerId;
     private List<EventRole> eventRoles;
-    private SportField sportField;
+    private Long sportFieldId;
     private SportEventStatus sportEventStatus;
 
 
-    public SportEvent(Long id, Title title, Description description, TeamSize teamSize, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId, SportField sportField, SportEventStatus sportEventStatus) {
+    SportEvent(Long id, Title title, Description description, Team team, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId, Long sportFieldId, SportEventStatus sportEventStatus) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.teamSize = teamSize;
+        this.team = team;
         this.requiredAge = requiredAge;
         this.eventRoles = eventRoles;
         this.eventTime = eventTime;
         this.ownerId = ownerId;
-        this.sportField = sportField;
+        this.sportFieldId = sportFieldId;
         this.sportEventStatus = sportEventStatus;
 
     }
 
-    public static SportEvent create(String title,
+    static SportEvent create(String title,
                                     String description,
                                     int players,
                                     int minAge,
@@ -48,45 +45,67 @@ public class SportEvent {
 
         Title gameTitle = new Title(title);
         Description gameDescription = new Description(description);
-        TeamSize gameTeamSize = new TeamSize(players, minPlayers);
+        Team gameTeam = new Team(players, minPlayers);
         RequiredAge requiredAge = new RequiredAge(minAge);
         EventTime eventTime = new EventTime(gameTime, startEvent);
         List<EventRole> eventRoleList = new ArrayList<>();
 
-        return new SportEvent(null, gameTitle, gameDescription, gameTeamSize, requiredAge, eventRoleList, eventTime, ownerId, null, SportEventStatus.COMING);
+        return new SportEvent(null, gameTitle, gameDescription, gameTeam, requiredAge, eventRoleList, eventTime, ownerId, null, SportEventStatus.COMING);
     }
 
-    void leaveEvent(Long userId){
-        EventRole eventRole = eventRoles
-                .stream()
-                .filter(e -> Objects.nonNull(e.getUserId()) && e.getUserId().equals(userId))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Brak użytkownika o danym id:" + userId));
+    void updateEvent(Long userId,String description,String title,Integer minAge,Integer players,Integer minPlayers, Integer gameTime, LocalDateTime startEvent) {
+        verifyOwner(userId);
+        if (description != null) {
+            this.description = new Description(description);
+        }
+        if (title != null) {
+            this.title = new Title(title);
+        }
+        if (minAge != null) {
+            this.requiredAge = new RequiredAge(minAge);
+        }
+        if (players != null && minPlayers != null) {
+            this.team = new Team(players, minPlayers);
+        }
+        if (startEvent != null && gameTime != null) {
+            if (isAllRolesAvailable()) {
+                this.eventTime = new EventTime(gameTime, startEvent);
+            }
+        }
+    }
 
+    void leaveEvent(Long userId) {
+        EventRole eventRole = getUserRole(userId);
         eventRole.leaveEvent();
         changeStatus();
     }
 
     void changeStatus() {
-
         StatusCreator statusCreator = new StatusCreator(this);
         this.sportEventStatus = statusCreator.selectStatus();
+    }
 
+    void joinToEvent(Long userId, String gameRole){
+        EventRole selectedRole = findAvailableRole(gameRole);
+        verifyEventStatus();
+        selectedRole.assignToEvent(userId);
+    }
+
+    void verifyOwner(Long userId) {
+        if (!ownerId.equals(userId)) {
+            throw new RuntimeException("user with: " + userId + " is not owner!");
+        }
     }
 
     void addEventRoles(EventRole eventRole) {
-        if (eventRoles == null) {
-            eventRoles = new ArrayList<>();
-        }
         this.eventRoles.add(eventRole);
-        eventRole.addSportEvent(this);
     }
 
-    void assignSportField(SportField sportField) {
-        this.sportField = sportField;
+    void assignSportField(Long sportFieldId) {
+        this.sportFieldId = sportFieldId;
     }
 
-    protected int getActivePlayers() {
+    int getActivePlayers() {
         int gameRoles = getEventRoles().size();
         int availableGameRoles = getEventRoles().stream()
                 .filter(EventRole::isAvailable)
@@ -95,43 +114,76 @@ public class SportEvent {
         return gameRoles - availableGameRoles;
     }
 
-    public Long getId() {
+
+    void checkTimeDeleteEvent(){
+        if(!eventTime.isEventCanBeDeleted()){
+            throw new RuntimeException("Event can not be deleted less than 4 hours to start");
+        }
+    }
+    private boolean isAllRolesAvailable(){
+        return getEventRoles().stream()
+                .allMatch(EventRole::isAvailable);
+    }
+    private void verifyEventStatus() {
+        if (sportEventStatus != SportEventStatus.COMING) {
+            throw new JoinEventException("Cannot join to event when event status is not coming!");
+        }
+    }
+
+    private EventRole findAvailableRole(String gameRole) {
+        return getEventRoles()
+                .stream()
+                .filter(er -> er.getGameRole().toString().equals(gameRole))
+                .filter(EventRole::isAvailable)
+                .findFirst()
+                .orElseThrow(() -> new NoAvailableRoleException("No available role"));
+    }
+
+    private EventRole getUserRole(Long userId){
+        return  eventRoles
+                .stream()
+                .filter(er -> Objects.nonNull(er.getUserId()) && er.getUserId().equals(userId))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Brak użytkownika o danym id:" + userId));
+    }
+
+
+    Long getId() {
         return id;
     }
 
-    public Title getTitle() {
+    Title getTitle() {
         return title;
     }
 
-    public Description getDescription() {
+    Description getDescription() {
         return description;
     }
 
-    public TeamSize getTeamSize() {
-        return teamSize;
+    Team getTeamSize() {
+        return team;
     }
 
-    public RequiredAge getRequiredAge() {
+    RequiredAge getRequiredAge() {
         return requiredAge;
     }
 
-    public EventTime getEventTime() {
+    EventTime getEventTime() {
         return eventTime;
     }
 
-    public List<EventRole> getEventRoles() {
-        return eventRoles;
+    List<EventRole> getEventRoles() {
+        return Collections.unmodifiableList(eventRoles);
     }
 
-    public Long getOwnerId() {
+    Long getOwnerId() {
         return ownerId;
     }
-
-    public SportField getSportField() {
-        return sportField;
+    Long getSportFieldId() {
+        return sportFieldId;
     }
 
-    public SportEventStatus getSportEventStatus() {
+    SportEventStatus getSportEventStatus() {
         return sportEventStatus;
     }
 }

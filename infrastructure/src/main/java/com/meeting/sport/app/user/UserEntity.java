@@ -1,6 +1,5 @@
 package com.meeting.sport.app.user;
 
-import com.meeting.sport.app.token.TokenEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,7 +16,7 @@ import java.util.List;
 @Builder
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-public class UserEntity implements UserDetails {
+class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

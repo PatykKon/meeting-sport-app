@@ -5,12 +5,14 @@ import com.meeting.sport.app.user.dto.UserDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository {
+interface UserRepository {
 
-    UserDTO findById(long id);
+    User findById(long id);
 
     UserDTO findUserByEmail(String email);
 
-    UserDTO saveUser(User user);
+    User saveUser(User user);
+
+    boolean existByEmail(String email);
 
 }

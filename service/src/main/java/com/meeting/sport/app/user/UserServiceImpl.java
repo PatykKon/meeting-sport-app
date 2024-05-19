@@ -3,7 +3,6 @@ package com.meeting.sport.app.user;
 import com.meeting.sport.app.user.dto.RegisterRequest;
 import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,17 +10,16 @@ import org.springframework.stereotype.Component;
 class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User getLoggedUser(String email) {
+    public UserDTO getLoggedUser(String email) {
 
-        return UserMapper.DTOToModel(userRepository.findUserByEmail(email));
+        return userRepository.findUserByEmail(email);
     }
 
     @Override
     public User getLoggedUser(Long id) {
-        return UserMapper.DTOToModel(userRepository.findById(id));
+        return userRepository.findById(id);
     }
 
     @Override
@@ -29,18 +27,28 @@ class UserServiceImpl implements UserService {
         return userRepository.findUserByEmail(email);
     }
 
-    public UserDTO createUser(RegisterRequest request) {
+    @Override
+    public UserDTO createUser(RegisterRequest request,String encryptedPassword) {
 
-        String encodedPassword = passwordEncoder.encode(request.password());
+        checkEmail(request.email());
 
         User user = User.createUser(
                 request.firstName(),
                 request.lastName(),
                 request.age(),
                 request.email(),
-                encodedPassword
+                encryptedPassword,
+                Role.USER.toString()
         );
 
-        return userRepository.saveUser(user);
+        User savedUser = userRepository.saveUser(user);
+        return UserMapper.modelToDTO(savedUser);
+    }
+    private void checkEmail(String email){
+        boolean emailExist = userRepository.existByEmail(email);
+
+        if(emailExist){
+            throw new RuntimeException("this email: " + email +" is used!");
+        }
     }
 }

@@ -9,7 +9,7 @@ interface SportFieldRepository {
 
     SportField findById(Long sportFieldId);
 
-    SportFieldEntity findEntityById(long sportFieldId);
+    SportFieldEntity findById(long sportFieldId);
 
     List<SportFieldEntity> findAllEntity();
 

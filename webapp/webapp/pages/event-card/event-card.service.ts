@@ -1,6 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import * as events from "events";
 
 const BASIC_URL = "http://localhost:8080/api/auth"
 
@@ -83,6 +84,25 @@ export class EventCardService {
         this.eventSubject.next({...currentState, events});
       }),
 
+      catchError(this.handleError)
+    );
+  }
+
+  leaveEvent(field: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(BASIC_URL + "/sport-event/leave", field, {headers}).pipe(
+      tap((events) => {
+        const currentState = this.eventSubject.value;
+        this.eventSubject.next({...currentState, events});
+      }),
+
+      catchError(this.handleError)
+    );
+  }
+
+  deleteEvent(eventId: number,userId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(`${BASIC_URL}/sport-event/delete/${eventId}/to/${userId}`, { headers }).pipe(
       catchError(this.handleError)
     );
   }

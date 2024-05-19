@@ -1,8 +1,9 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_event.dto.EventRoleData;
-import com.meeting.sport.app.sport_field.SportField;
-import com.meeting.sport.app.user.User;
+import com.meeting.sport.app.sport_event.exceptions.JoinEventException;
+import com.meeting.sport.app.sport_event.exceptions.NoAvailableRoleException;
+import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Component
 @AllArgsConstructor
@@ -20,8 +20,9 @@ class SportEventServiceImpl implements SportEventService {
 
     private final SportEventRepository sportEventRepository;
     private final JoinedValidator joinedValidator;
+    private final DeleteEventValidator deleteEventValidator;
 
-
+    @Override
     public Long laveEvent(Long eventId, Long loggedUserId) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(eventId);
@@ -31,18 +32,25 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
-    public Long joinEvent(Long eventId, String gameRole, User loggedUser) {
+    @Override
+    public Long joinEvent(Long eventId, String gameRole, UserDTO loggedUser) {
+        try {
+            SportEvent sportEvent = sportEventRepository.findModelById(eventId);
 
-        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
+            joinedValidator.validate(sportEvent, loggedUser);
+            sportEvent.joinToEvent(loggedUser.id(), gameRole);
 
-        EventRole availableRole = getAvailableRole(sportEvent);
-
-        joinedValidator.validate(sportEvent, loggedUser);
-
-        availableRole.assignToEvent(loggedUser);
-        return sportEventRepository.save(sportEvent);
+            return sportEventRepository.save(sportEvent);
+        }catch (NoAvailableRoleException | JoinEventException e){
+            logger.error("An error occurred while join to event: "+eventId + e.getMessage());
+            throw e;
+        }catch (RuntimeException e){
+            logger.error("An unexpected error occurred while joining event: " + eventId + ". " + e.getMessage(), e);
+            throw new RuntimeException("Unexpected error occurred while joining event", e);
+        }
     }
 
+    @Override
     public Long createGameRoles(Long eventId, List<EventRoleData> eventRoleDataList) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(eventId);
@@ -52,13 +60,41 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
-    public Long assignFieldToSportEvent(Long sportEventId, SportField sportField) {
+    @Override
+    public Long assignFieldToSportEvent(Long sportEventId, Long sportFieldId) {
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
-        sportEvent.assignSportField(sportField);
+
+        sportEvent.assignSportField(sportFieldId);
 
         return sportEventRepository.save(sportEvent);
     }
 
+    public Long updateEvent(Long sportEventId,
+                            String title,
+                            String description,
+                            Integer players,
+                            Integer minAge,
+                            LocalDateTime startTime,
+                            Integer gameTime,
+                            Long ownerId,
+                            Integer minPlayers) {
+
+        SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
+
+        sportEvent.updateEvent(
+                ownerId,
+                description,
+                title,
+                minAge,
+                gameTime,
+                players,
+                minPlayers,
+                startTime);
+
+        return sportEventRepository.save(sportEvent);
+    }
+
+    @Override
     public Long createSportEvent(String title,
                                  String description,
                                  int players,
@@ -81,26 +117,27 @@ class SportEventServiceImpl implements SportEventService {
         return sportEventRepository.save(sportEvent);
     }
 
+    @Override
     public void deleteSportEvent(Long sportEventId, Long userId) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
 
-        if (!sportEvent.getOwnerId().equals(userId)) {
-            throw new RuntimeException("only owner can delete event");
-        }
+        deleteEventValidator.validate(userId, sportEvent);
 
         sportEventRepository.delete(sportEvent);
 
     }
 
+    @Override
     public void updateStatus() {
         try {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());
 
-            List<SportEvent> sportEvents = sportEventRepository.findAllSportEventByStatus(SportEventStatus.COMING)
-                    .stream()
-                    .filter(e -> e.getEventTime().getStartTime().isBefore(LocalDateTime.now().plusDays(1)))
-                    .toList();
+            List<SportEvent> sportEvents = getSportEventToCheckStatus();
+            if(sportEvents.isEmpty()){
+                logger.info("No Events To check");
+            }
+
             sportEvents.forEach(SportEvent::changeStatus);
             sportEventRepository.saveAll(sportEvents);
 
@@ -111,11 +148,10 @@ class SportEventServiceImpl implements SportEventService {
         }
     }
 
-    private EventRole getAvailableRole(SportEvent sportEvent) {
-        return sportEvent.getEventRoles()
-                .stream()
-                .filter(EventRole::isAvailable)
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Brak dostępnegej Roli"));
+    private List<SportEvent> getSportEventToCheckStatus() {
+
+        final LocalDateTime dateToCheckStatus = LocalDateTime.now().minusHours(SportEventConstants.HOUR_LEFT_TO_CHECK_STATUS);
+
+        return sportEventRepository.findAllSportEventByTime(dateToCheckStatus);
     }
 }

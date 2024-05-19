@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class UpdateSportEventStatus {
+class UpdateSportEventStatus {
 
     private final SportEventFacade sportEventFacade;
     private static final long HALF_HOUR = 1800000;

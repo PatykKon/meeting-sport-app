@@ -1,7 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.dto.EventRoleResponse;
-import com.meeting.sport.app.sport_field.SportField;
+import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,9 +8,6 @@ import java.util.List;
 class EventRoleMapper {
 
     static EventRoleResponse entityToResponse(EventRoleEntity eventRoleEntity) {
-        if (eventRoleEntity == null) {
-            return null;
-        }
 
         EventRoleResponse.EventRoleResponseBuilder eventRoleResponse = EventRoleResponse.builder();
 
@@ -20,7 +16,6 @@ class EventRoleMapper {
         eventRoleResponse.gameRole(eventRoleEntity.getGameRole().toString());
         eventRoleResponse.userId(eventRoleEntity.getUserId());
         eventRoleResponse.sportEventId(eventRoleEntity.sportEventEntity.getId());
-//        eventRoleResponse.sportEventResponse(SportEventMapper1.entityToResponse(eventRoleEntity.getSportEventEntity()));
 
         return eventRoleResponse.build();
     }
@@ -42,124 +37,67 @@ class EventRoleMapper {
     }
 
     static EventRole entityToModel(EventRoleEntity eventRoleEntity) {
-        if (eventRoleEntity == null) {
-            return null;
-        }
 
-        SportEvent sportEvent = null;
-        boolean isAvailable = false;
-        Long id = null;
-        GameRole gameRole = null;
-        Long userId = null;
+        SportEvent sportEvent = sportEventEntityToSportEvent(eventRoleEntity.getSportEventEntity());
+        boolean isAvailable = eventRoleEntity.isAvailable();
+        Long id = eventRoleEntity.getId();
+        GameRole gameRole = eventRoleEntity.getGameRole();
+        Long userId = eventRoleEntity.getUserId();
 
-        sportEvent = sportEventEntityToSportEvent(eventRoleEntity.getSportEventEntity());
-        isAvailable = eventRoleEntity.isAvailable();
-        id = eventRoleEntity.getId();
-        gameRole = eventRoleEntity.getGameRole();
-        userId = eventRoleEntity.getUserId();
-
-        EventRole eventRole = new EventRole(id, gameRole, sportEvent, isAvailable, userId);
-
-        return eventRole;
+        return new EventRole(id, gameRole, sportEvent, isAvailable, userId);
     }
 
     private static String sportEventDescriptionValue(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return null;
-        }
+
         Description description = sportEvent.getDescription();
-        if (description == null) {
-            return null;
-        }
-        String value = description.getValue();
-        if (value == null) {
-            return null;
-        }
-        return value;
+
+        return description.getValue();
+
     }
 
     private static String sportEventTitleValue(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return null;
-        }
+
         Title title = sportEvent.getTitle();
-        if (title == null) {
-            return null;
-        }
-        String value = title.getValue();
-        if (value == null) {
-            return null;
-        }
-        return value;
+
+        return title.getValue();
+
     }
 
     private static int sportEventTeamSizeTeamSize(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return 0;
-        }
-        TeamSize teamSize = sportEvent.getTeamSize();
-        if (teamSize == null) {
-            return 0;
-        }
-        int teamSize1 = teamSize.getTeamSize();
-        return teamSize1;
+
+        Team team = sportEvent.getTeamSize();
+
+        return team.getTeamSize();
     }
 
     private static int sportEventRequiredAgeAge(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return 0;
-        }
+
         RequiredAge requiredAge = sportEvent.getRequiredAge();
-        if (requiredAge == null) {
-            return 0;
-        }
-        int age = requiredAge.getAge();
-        return age;
+
+        return requiredAge.getAge();
+
     }
 
     private static LocalDateTime sportEventEventTimeStartTime(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return null;
-        }
+
         EventTime eventTime = sportEvent.getEventTime();
-        if (eventTime == null) {
-            return null;
-        }
-        LocalDateTime startTime = eventTime.getStartTime();
-        if (startTime == null) {
-            return null;
-        }
-        return startTime;
+
+        return eventTime.getStartTime();
     }
 
     private static LocalDateTime sportEventEventTimeEndTime(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return null;
-        }
+
         EventTime eventTime = sportEvent.getEventTime();
-        if (eventTime == null) {
-            return null;
-        }
-        LocalDateTime endTime = eventTime.getEndTime();
-        if (endTime == null) {
-            return null;
-        }
-        return endTime;
+
+        return eventTime.getEndTime();
     }
 
     private static Integer sportEventEventTimeGameTime(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return null;
-        }
+
         EventTime eventTime = sportEvent.getEventTime();
-        if (eventTime == null) {
-            return null;
-        }
-        Integer gameTime = eventTime.getGameTime();
-        if (gameTime == null) {
-            return null;
-        }
-        return gameTime;
+
+        return eventTime.getGameTime();
+
     }
 
     protected static SportEventEntity sportEventToSportEventEntity(SportEvent sportEvent) {
@@ -183,17 +121,10 @@ class EventRoleMapper {
     }
 
     protected static Description sportEventEntityToDescription(SportEventEntity sportEventEntity) {
-        if (sportEventEntity == null) {
-            return null;
-        }
 
-        String value = null;
+        String value = sportEventEntity.getDescription();
 
-        value = sportEventEntity.getDescription();
-
-        Description description = new Description(value);
-
-        return description;
+        return new Description(value);
     }
 
     protected static Title sportEventEntityToTitle(SportEventEntity sportEventEntity) {
@@ -210,88 +141,46 @@ class EventRoleMapper {
         return title;
     }
 
-    protected static TeamSize sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {
-        if (sportEventEntity == null) {
-            return null;
-        }
+    protected static Team sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {
 
-        int teamSize = 0;
-        int minPlayers = 0;
+        int teamSize = sportEventEntity.getPlayers();
+        int minPlayers = sportEventEntity.getMinPlayers();
 
-        teamSize = sportEventEntity.getPlayers();
-        minPlayers = sportEventEntity.getMinPlayers();
-
-        return new TeamSize(teamSize, minPlayers);
-
-
+        return new Team(teamSize, minPlayers);
     }
 
     protected static RequiredAge sportEventEntityToRequiredAge(SportEventEntity sportEventEntity) {
-        if (sportEventEntity == null) {
-            return null;
-        }
 
-        int age = 0;
+        int age = sportEventEntity.getMinAge();
 
-        age = sportEventEntity.getMinAge();
-
-        RequiredAge requiredAge = new RequiredAge(age);
-
-        return requiredAge;
+        return new RequiredAge(age);
     }
 
     protected static EventTime sportEventEntityToEventTime(SportEventEntity sportEventEntity) {
-        if (sportEventEntity == null) {
-            return null;
-        }
 
-        LocalDateTime startTime = null;
-        Integer gameTime = null;
+        LocalDateTime startTime = sportEventEntity.getStartTime();
+        Integer gameTime = sportEventEntity.getGameTime();
+        LocalDateTime endTime = sportEventEntity.getEndTime();
 
-        startTime = sportEventEntity.getStartTime();
-        gameTime = sportEventEntity.getGameTime();
+        return new EventTime(gameTime, startTime, endTime);
 
-        EventTime eventTime = new EventTime(gameTime, startTime);
-
-        return eventTime;
     }
 
     protected static SportEvent sportEventEntityToSportEvent(SportEventEntity sportEventEntity) {
-        if (sportEventEntity == null) {
-            return null;
-        }
 
-        Description description = null;
-        Title title = null;
-        TeamSize teamSize = null;
-        RequiredAge requiredAge = null;
-        EventTime eventTime = null;
-        Long id = null;
-        Long ownerId = null;
-
-        description = sportEventEntityToDescription(sportEventEntity);
-        title = sportEventEntityToTitle(sportEventEntity);
-        teamSize = sportEventEntityToTeamSize(sportEventEntity);
-        requiredAge = sportEventEntityToRequiredAge(sportEventEntity);
-        eventTime = sportEventEntityToEventTime(sportEventEntity);
-        id = sportEventEntity.getId();
-        ownerId = sportEventEntity.getOwnerId();
+        Description description = sportEventEntityToDescription(sportEventEntity);
+        Title title = sportEventEntityToTitle(sportEventEntity);
+        Team team = sportEventEntityToTeamSize(sportEventEntity);
+        RequiredAge requiredAge = sportEventEntityToRequiredAge(sportEventEntity);
+        EventTime eventTime = sportEventEntityToEventTime(sportEventEntity);
+        Long id = sportEventEntity.getId();
+        Long ownerId = sportEventEntity.getOwnerId();
         SportEventStatus sportEventStatus = sportEventEntity.getSportEventStatus();
 
         List<EventRole> eventRoles = null;
-        SportField sportField = null;
+        Long sportFieldId = null;
 
-        return new SportEvent(id, title, description, teamSize, requiredAge, eventRoles, eventTime, ownerId, sportField, sportEventStatus);
+        return new SportEvent(id, title, description, team, requiredAge, eventRoles, eventTime, ownerId, sportFieldId, sportEventStatus);
 
     }
-
-//    new SportField(
-//            sportEventEntity.getSportFieldEntity().getId(),
-//                sportEventEntity.getSportFieldEntity().getFieldType(),
-//                sportEventEntity.getSportFieldEntity().getSpaceField(),
-//                new Address(
-//            sportEventEntity.getSportFieldEntity().getCity(),
-//                        sportEventEntity.getSportFieldEntity().getStreet(),
-//                        sportEventEntity.getSportFieldEntity().getNumber())
-//            );
 }

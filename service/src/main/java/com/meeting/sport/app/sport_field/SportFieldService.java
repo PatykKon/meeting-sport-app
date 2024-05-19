@@ -1,12 +1,10 @@
 package com.meeting.sport.app.sport_field;
 
-import com.meeting.sport.app.sport_field.SportField;
+import com.meeting.sport.app.sport_field.dto.SportFieldDTO;
 
 interface SportFieldService {
 
-
-
-    SportField getSportFieldById(Long sportFieldId);
+    SportFieldDTO getSportFieldById(Long sportFieldId);
 
     Long createSportField(
             String fieldType,

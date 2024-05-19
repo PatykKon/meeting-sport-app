@@ -1,6 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.user.User;
+import com.meeting.sport.app.sport_event.exceptions.UserExistInOtherEventInThisTime;
+import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,32 +17,35 @@ class JoinedValidator {
 
     private static final Logger logger = LoggerFactory.getLogger(JoinedValidator.class);
 
-    public void validate(SportEvent sportEvent, User loggedUser) {
+    void validate(SportEvent sportEvent, UserDTO loggedUser) {
 
         try {
-            checkUserExistInOtherEventInThisTime(sportEvent, loggedUser);
-            validateUser(sportEvent, loggedUser);
-        } catch (Exception e) {
-            logger.error("Validation failed for user: " + loggedUser.getId() + " and event: " + sportEvent.getId(), e);
-            throw new RuntimeException("Validation failed");
+            checkUserExistInOtherEventInThisTime(sportEvent, loggedUser.id());
+            validateUser(sportEvent, loggedUser.age());
+        } catch (UserExistInOtherEventInThisTime e) {
+            logger.error("Validation failed for user: " + loggedUser.id() + " and event: " + sportEvent.getId(), e);
+            throw e;
+        }catch (Exception e){
+            logger.error("Unexpected validation error for user: " + loggedUser.id() + " and event: " + sportEvent.getId(), e);
+            throw new RuntimeException("Validation failed", e);
         }
     }
 
-    private void checkUserExistInOtherEventInThisTime(SportEvent sportEventToJoin, User loggedUser) {
+    private void checkUserExistInOtherEventInThisTime(SportEvent sportEventToJoin, Long loggedUserId) {
 
-        List<EventRole> eventRoles = eventRoleRepository.getEventRoleEntitiesByUserEntityId(loggedUser.getId());
+        List<EventRole> eventRoles = eventRoleRepository.getEventRoleEntitiesByUserEntityId(loggedUserId);
 
         final boolean isUserExistInOtherEventInThisTime = eventRoles.stream()
                 .map(EventRole::getSportEvent)
                 .anyMatch(sportEvent -> sportEvent.getEventTime().isEventInTheSameTime(sportEventToJoin.getEventTime()));
 
         if (isUserExistInOtherEventInThisTime) {
-            throw new RuntimeException("Użytkownik o id:" + loggedUser.getId() + " bierzę juz udział w tym czasie w innym wydarzeniu!");
+            throw new UserExistInOtherEventInThisTime("Użytkownik o id:" + loggedUserId + " bierzę juz udział w tym czasie w innym wydarzeniu!");
         }
     }
 
-    private void validateUser(SportEvent sportEvent, User loggedUser) {
-        sportEvent.getRequiredAge().validateAge(loggedUser.getAge());
+    private void validateUser(SportEvent sportEvent, int loggedUserAge) {
+        sportEvent.getRequiredAge().validateAge(loggedUserAge);
 
     }
 }

@@ -34,13 +34,21 @@
       <p class="role-title">Game Role: {{ roleSummary.gameRole }}</p>
       <p class="role-info">Wolne miejsca: {{ roleSummary.availableCount }}</p>
       <p class="role-info">Zajęte miejsca: {{ roleSummary.occupiedCount }}</p>
-      <button mat-raised-button (click)="handleJoinEvent(roleSummary.gameRole)">JOIN</button>
+      <ng-container *ngIf="canUserLeaveEvent(roleSummary.gameRole)">
+        <button mat-raised-button (click)="handleLeaveEvent()">LEAVE</button>
+      </ng-container>
+      <ng-container *ngIf="canUserJoinEvent()">
+        <button mat-raised-button (click)="handleJoinEvent(roleSummary.gameRole)">JOIN</button>
+      </ng-container>
     </div>
   </div>
 
   <!-- Przycisk SHARE -->
   <div class="event-actions">
     <button mat-raised-button>SHARE</button>
+    <ng-container *ngIf="canUserDeleteEvent()">
+      <button mat-raised-button (click)="deleteSportEvent()">DELETE</button>
+    </ng-container>
   </div>
 </div>
 

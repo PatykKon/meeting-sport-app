@@ -3,7 +3,7 @@ spring:
     username: "postgres"
     password: "qwerty"
     url: "jdbc:postgresql://127.0.0.1:5432/BookingGame"
-    driver-class: "org.postgresql.Driver"
+    driver-class-name: "org.postgresql.Driver"
 
   jpa:
     show-sql: true
@@ -13,5 +13,11 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+
   liquibase:
     change-log: classpath:changelog-master.xml
+    url: jdbc:postgresql://127.0.0.1:5432/BookingGame
+    user: postgres
+    password: qwerty
+ 
+

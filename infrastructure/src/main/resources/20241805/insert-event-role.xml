@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
+
+    <changeSet author="konpat" id="1">
+
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="100000" type="integer"/>
+            <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="200000" type="integer"/>
+            <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="300000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="400000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="500000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="false" type="boolean"/>
+            <column name="user_id" value="1000" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="600000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="false" type="boolean"/>
+            <column name="user_id" value="2000" type="integer"/>
+            <column name="sport_event_entity_id" value="100000" type="integer"/>
+        </insert>
+
+
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="700000" type="integer"/>
+            <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="800000" type="integer"/>
+            <column name="game_role" value="BRAMKARZ" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="900000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1000000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1100000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1200000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1300000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1400000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1500000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1600000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1700000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="event_role">
+            <column name="id" value="1800000" type="integer"/>
+            <column name="game_role" value="NAPASTNIK" type="varchar(255)"/>
+            <column name="is_available" value="true" type="boolean"/>
+            <column name="user_id" value="null" type="integer"/>
+            <column name="sport_event_entity_id" value="200000" type="integer"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

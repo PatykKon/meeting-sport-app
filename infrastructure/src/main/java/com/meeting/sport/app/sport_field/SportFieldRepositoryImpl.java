@@ -20,7 +20,7 @@ class SportFieldRepositoryImpl implements SportFieldRepository {
         SportFieldEntity entity = sportFieldRepositoryJPA.findById(sportFieldId).orElseThrow();
         return SportFieldMapper.entityToModel(entity);
     }
-    public SportFieldEntity findEntityById(long sportFieldId){
+    public SportFieldEntity findById(long sportFieldId){
         return sportFieldRepositoryJPA.findById(sportFieldId).orElseThrow();
     }
 

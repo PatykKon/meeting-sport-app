@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
+
+    <changeSet id="create_tables" author="konpat">
+        <createTable tableName="SPORT_FIELD">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="SPACE_FIELD" type="VARCHAR(250)"/>
+            <column name="FIELD_TYPE" type="VARCHAR(250)"/>
+            <column name="CITY" type="VARCHAR(250)"/>
+            <column name="STREET" type="VARCHAR(250)"/>
+            <column name="NUMBER" type="VARCHAR(250)"/>
+        </createTable>
+        <createTable tableName="SPORT_EVENT">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(50)"/>
+            <column name="DESCRIPTION" type="VARCHAR(250)"/>
+            <column name="PLAYERS" type="INT"/>
+            <column name="MIN_AGE" type="INT"/>
+            <column name="START_TIME" type="TIMESTAMP"/>
+            <column name="END_TIME" type="TIMESTAMP"/>
+            <column name="GAME_TIME" type="INT"/>
+            <column name="OWNER_ID" type="BIGINT"/>
+            <column name="MIN_PLAYERS" type="INT"/>
+            <column name="SPORT_FIELD_ID" type="BIGINT"/>
+            <column name="SPORT_EVENT_STATUS" type="VARCHAR(250)"/>
+        </createTable>
+        <createTable tableName="EVENT_ROLE">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="GAME_ROLE" type="VARCHAR(250)"/>
+            <column name="IS_AVAILABLE" type="BOOLEAN"/>
+            <column name="USER_ID" type="BIGINT"/>
+            <column name="SPORT_EVENT_ENTITY_ID" type="BIGINT"/>
+        </createTable>
+        <createTable tableName="GAME_USER">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FIRSTNAME" type="VARCHAR(250)"/>
+            <column name="LASTNAME" type="VARCHAR(250)"/>
+            <column name="AGE" type="INT"/>
+            <column name="ROLE" type="VARCHAR(250)"/>
+            <column name="EMAIL" type="VARCHAR(250)"/>
+            <column name="PASSWORD" type="VARCHAR(250)"/>
+        </createTable>
+        <createTable tableName="TOKEN">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TOKEN" type="VARCHAR(250)"/>
+            <column name="TOKEN_TYPE" type="VARCHAR(250)"/>
+            <column name="REVOKED" type="boolean"/>
+            <column name="EXPIRED" type="boolean"/>
+            <column name="USER_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

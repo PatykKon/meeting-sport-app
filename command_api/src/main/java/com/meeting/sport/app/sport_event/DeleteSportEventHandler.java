@@ -1,5 +1,4 @@
 package com.meeting.sport.app.sport_event;
-git
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

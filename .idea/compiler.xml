@@ -8,27 +8,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="query_api" />
-        <module name="database" />
         <module name="security" />
         <module name="application" />
         <module name="configuration" />
         <module name="service" />
+        <module name="infrastructure" />
         <module name="domain" />
         <module name="command_api" />
       </profile>
-      <profile name="Annotation profile for meeting.sport.app" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.4.2.Final/mapstruct-processor-1.4.2.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
-        </processorPath>
-        <module name="infrastructure" />
-      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="database" target="17" />
       <module name="webapp" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -38,9 +28,9 @@
       <module name="command_api" options="-parameters" />
       <module name="configuration" options="-parameters" />
       <module name="database" options="-parameters" />
-      <module name="domain" options="-parameters" />
+      <module name="domain" options="" />
       <module name="infrastructure" options="-parameters" />
-      <module name="meeting-sport-app" options="-parameters" />
+      <module name="meeting-sport-app" options="" />
       <module name="query_api" options="-parameters" />
       <module name="security" options="-parameters" />
       <module name="service" options="-parameters" />

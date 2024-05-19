@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
+
+    <changeSet author="konpat" id="4">
+
+        <insert schemaName="public"
+                tableName="game_user">
+            <column name="id" value="666666" type="integer"/>
+            <column name="firstname" value="Konrad" type="varchar(255)"/>
+            <column name="lastname" value="Patyk" type="varchar(255)"/>
+            <column name="email" value="96konpat@gmail.com" type="varchar(255)"/>
+            <column name="password" value="$2a$10$QqeQefv024AuDvjjhEwL8.ctEbwo8EGHYIAI8veQYPFCtrPPMkGf2" type="varchar(255)"/>
+            <column name="role" value="ADMIN" type="varchar(255)"/>
+            <column name="age" value="28" type="integer"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="game_user">
+            <column name="id" value="2000" type="integer"/>
+            <column name="firstname" value="Maciej" type="varchar(255)"/>
+            <column name="lastname" value="Kot" type="varchar(255)"/>
+            <column name="email" value="kot@gmail.com" type="varchar(255)"/>
+            <column name="password" value="admin" type="varchar(255)"/>
+            <column name="role" value="USER" type="varchar(255)"/>
+            <column name="age" value="18" type="integer"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="game_user">
+            <column name="id" value="3000" type="integer"/>
+            <column name="firstname" value="Jan" type="varchar(255)"/>
+            <column name="lastname" value="Brzechwa" type="varchar(255)"/>
+            <column name="email" value="brzechwa@gmail.com" type="varchar(255)"/>
+            <column name="password" value="admin" type="varchar(255)"/>
+            <column name="role" value="USER" type="varchar(255)"/>
+            <column name="age" value="50" type="integer"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

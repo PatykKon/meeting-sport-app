@@ -1,7 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.dto.EventRoleResponse;
-import com.meeting.sport.app.dto.SportEventResponse;
+import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
 import com.meeting.sport.app.user.dto.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +27,12 @@ class SportEventQueryAPI {
         return sportEventQuery.getEventById(eventId);
     }
 
-    @GetMapping("/users/{eventId}")
+    @GetMapping("/event/{eventId}/users")
     List<UserResponse> getEventUsers(@PathVariable long eventId) {
         return sportEventQuery.getEventUsers(eventId);
     }
 
-    @GetMapping("/event/users/{userId}")
+    @GetMapping("/events/user/{userId}")
     List<EventRoleResponse> getEventForUsers(@PathVariable long userId) {
         return sportEventQuery.getEventsForUser(userId);
     }

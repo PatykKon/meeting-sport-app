@@ -8,13 +8,13 @@ class UserRepositoryImpl implements UserRepository {
 
     private final UserRepositoryJPA userRepositoryJPA;
 
-    public UserRepositoryImpl(UserRepositoryJPA userRepositoryJPA) {
+    UserRepositoryImpl(UserRepositoryJPA userRepositoryJPA) {
         this.userRepositoryJPA = userRepositoryJPA;
     }
 
     @Override
-    public UserDTO findById(long id) {
-        return UserMapper.entityToDTO(userRepositoryJPA.findById(id).orElseThrow());
+    public User findById(long id) {
+        return UserMapper.entityToModel(userRepositoryJPA.findById(id).orElseThrow());
     }
 
     @Override
@@ -23,9 +23,13 @@ class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserDTO saveUser(User user) {
-        UserEntity entity = UserMapper.modelToEntity(user);
-        UserEntity saveUser = userRepositoryJPA.save(entity);
-        return UserMapper.entityToDTO(saveUser);
+    public User saveUser(User user) {
+        UserEntity savedUser = userRepositoryJPA.save(UserMapper.modelToEntity(user));
+        return UserMapper.entityToModel(savedUser);
+    }
+
+    @Override
+    public boolean existByEmail(String email) {
+        return userRepositoryJPA.existsByEmail(email);
     }
 }

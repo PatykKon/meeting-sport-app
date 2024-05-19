@@ -1,9 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.user.User;
-
-import java.util.NoSuchElementException;
-
 class EventRole {
 
     private Long id;
@@ -12,7 +8,7 @@ class EventRole {
     private Long userId;
     private boolean isAvailable;
 
-    public EventRole(Long id, GameRole gameRole, SportEvent sportEvent, boolean isAvailable,Long userId) {
+    EventRole(Long id, GameRole gameRole, SportEvent sportEvent, boolean isAvailable,Long userId) {
         this.id = id;
         this.gameRole = gameRole;
         this.sportEvent = sportEvent;
@@ -20,42 +16,42 @@ class EventRole {
         this.userId = userId;
     }
 
-    public static EventRole crateAvailableEventRole(String gameRole, SportEvent sportEvent) {
+    static EventRole crateAvailableEventRole(String gameRole, SportEvent sportEvent) {
         return new EventRole(null, GameRole.valueOf(gameRole), sportEvent, true, null);
     }
-    public void assignToEvent(User user) {
-        this.userId = user.getId();
+    void assignToEvent(Long userId) {
+        this.userId = userId;
         changeRoleAvailability();
     }
-    public void leaveEvent(){
+    void leaveEvent(){
         this.userId = null;
         changeRoleAvailability();
     }
 
-    void addSportEvent(SportEvent sportEvent) {
-        this.sportEvent = sportEvent;
-    }
+//    void addSportEvent(SportEvent sportEvent) {
+//        this.sportEvent = sportEvent;
+//    }
     private void changeRoleAvailability() {
         this.isAvailable = !isAvailable;
     }
 
-    public Long getId() {
+    Long getId() {
         return id;
     }
 
-    public GameRole getGameRole() {
+    GameRole getGameRole() {
         return gameRole;
     }
 
-    public boolean isAvailable() {
+    boolean isAvailable() {
         return isAvailable;
     }
 
-    public SportEvent getSportEvent() {
+    SportEvent getSportEvent() {
         return sportEvent;
     }
 
-    public Long getUserId() {
+    Long getUserId() {
         return userId;
     }
 }

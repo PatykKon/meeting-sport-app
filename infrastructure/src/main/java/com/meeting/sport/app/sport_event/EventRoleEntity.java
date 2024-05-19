@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

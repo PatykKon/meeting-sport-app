@@ -13,7 +13,7 @@ public class UserFacade {
     private final UserService userService;
     private final QueryUserService queryUserService;
 
-    public User getLoggedUser(String userEmail) {
+    public UserDTO getLoggedUser(String userEmail) {
         return userService.getLoggedUser(userEmail);
     }
 
@@ -26,7 +26,7 @@ public class UserFacade {
     }
 
 
-    public UserDTO createUser(RegisterRequest request){
-        return userService.createUser(request);
+    public UserDTO createUser(RegisterRequest request,String encryptedPassword){
+        return userService.createUser(request,encryptedPassword);
     }
 }

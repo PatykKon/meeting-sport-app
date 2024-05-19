@@ -1,17 +1,17 @@
 package com.meeting.sport.app.user;
 
-public class Token {
+class Token {
 
     private Long id;
     private String token;
 
-    private TokenType tokenType;
+    private final TokenType tokenType;
     private boolean revoked;
     private boolean expired;
 
     private User user;
 
-    public Token(Long id, String token, boolean revoked, boolean expired, User user) {
+    Token(Long id, String token, boolean revoked, boolean expired, User user) {
         this.id = id;
         this.token = token;
         this.tokenType = TokenType.BEARER;
@@ -28,7 +28,7 @@ public class Token {
         this.user = user;
     }
 
-    public static Token createToken(User user, String jwtToken){
+    static Token createToken(User user, String jwtToken){
 
         return new Token(jwtToken,false,false,user);
 
