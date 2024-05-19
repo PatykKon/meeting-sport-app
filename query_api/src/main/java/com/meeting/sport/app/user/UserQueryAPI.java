@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("api/auth/user")
 
-public class UserQueryAPI {
+class UserQueryAPI {
 
     private final UserQuery userQuery;
 

@@ -1,6 +1,8 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_event.dto.EventRoleData;
+import com.meeting.sport.app.sport_event.exceptions.JoinEventException;
+import com.meeting.sport.app.sport_event.exceptions.NoAvailableRoleException;
 import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -32,13 +34,20 @@ class SportEventServiceImpl implements SportEventService {
 
     @Override
     public Long joinEvent(Long eventId, String gameRole, UserDTO loggedUser) {
+        try {
+            SportEvent sportEvent = sportEventRepository.findModelById(eventId);
 
-        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
+            joinedValidator.validate(sportEvent, loggedUser);
+            sportEvent.joinToEvent(loggedUser.id(), gameRole);
 
-        joinedValidator.validate(sportEvent, loggedUser);
-
-        sportEvent.joinToEvent(loggedUser.id(), gameRole);
-        return sportEventRepository.save(sportEvent);
+            return sportEventRepository.save(sportEvent);
+        }catch (NoAvailableRoleException | JoinEventException e){
+            logger.error("An error occurred while join to event: "+eventId + e.getMessage());
+            throw e;
+        }catch (RuntimeException e){
+            logger.error("An unexpected error occurred while joining event: " + eventId + ". " + e.getMessage(), e);
+            throw new RuntimeException("Unexpected error occurred while joining event", e);
+        }
     }
 
     @Override
@@ -54,6 +63,7 @@ class SportEventServiceImpl implements SportEventService {
     @Override
     public Long assignFieldToSportEvent(Long sportEventId, Long sportFieldId) {
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
+
         sportEvent.assignSportField(sportFieldId);
 
         return sportEventRepository.save(sportEvent);
@@ -62,12 +72,12 @@ class SportEventServiceImpl implements SportEventService {
     public Long updateEvent(Long sportEventId,
                             String title,
                             String description,
-                            int players,
-                            int minAge,
+                            Integer players,
+                            Integer minAge,
                             LocalDateTime startTime,
-                            int gameTime,
+                            Integer gameTime,
                             Long ownerId,
-                            int minPlayers) {
+                            Integer minPlayers) {
 
         SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
 
@@ -124,6 +134,9 @@ class SportEventServiceImpl implements SportEventService {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());
 
             List<SportEvent> sportEvents = getSportEventToCheckStatus();
+            if(sportEvents.isEmpty()){
+                logger.info("No Events To check");
+            }
 
             sportEvents.forEach(SportEvent::changeStatus);
             sportEventRepository.saveAll(sportEvents);

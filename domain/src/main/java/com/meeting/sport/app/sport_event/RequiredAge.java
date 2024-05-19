@@ -8,7 +8,7 @@ class RequiredAge {
 
     private final int age;
 
-    RequiredAge(int age) {
+    RequiredAge(Integer age) {
         this.age = checkAge(age);
     }
 

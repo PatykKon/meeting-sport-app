@@ -27,6 +27,6 @@ class DeleteEventValidator {
     }
 
     private void validateOwner(Long userId, SportEvent sportEvent){
-        sportEvent.checkOwner(userId);
+        sportEvent.verifyOwner(userId);
     }
 }

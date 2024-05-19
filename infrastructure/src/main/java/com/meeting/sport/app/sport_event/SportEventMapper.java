@@ -9,9 +9,6 @@ import java.util.List;
 class SportEventMapper {
 
     static SportEventEntity modelToEntity(SportEvent sportEvent) {
-        if (sportEvent == null) {
-            return null;
-        }
 
         SportEventEntity.SportEventEntityBuilder sportEventEntity = SportEventEntity.builder();
 
@@ -33,9 +30,6 @@ class SportEventMapper {
     }
 
     static SportEvent entityToModel(SportEventEntity sportEventEntity) {
-        if (sportEventEntity == null) {
-            return null;
-        }
 
         Title title = sportEventEntityToTitle(sportEventEntity);
         Description description = sportEventEntityToDescription(sportEventEntity);
@@ -54,9 +48,6 @@ class SportEventMapper {
 
 
     static SportEventResponse entityToResponse(SportEventEntity sportEvent) {
-        if (sportEvent == null) {
-            return null;
-        }
 
         SportEventResponse.SportEventResponseBuilder sportEventResponse = SportEventResponse.builder();
 
@@ -75,9 +66,8 @@ class SportEventMapper {
 
     private static String sportEventTitleValue(SportEvent sportEvent) {
 
-        Title title = sportEvent.getTitle();
+        return sportEvent.getTitle().getValue();
 
-        return title.getValue();
     }
 
     private static String sportEventDescriptionValue(SportEvent sportEvent) {
@@ -189,26 +179,15 @@ class SportEventMapper {
 
     protected static List<EventRole> eventRoleEntityListToEventRoleList(List<EventRoleEntity> list) {
 
-        List<EventRole> list1 = new ArrayList<EventRole>(list.size());
-        for (EventRoleEntity eventRoleEntity : list) {
-            list1.add(EventRoleMapper.entityToModel(eventRoleEntity));
-        }
-
-        return list1;
+        return list.stream()
+                .map(EventRoleMapper::entityToModel)
+                .toList();
     }
 
     protected static List<EventRoleResponse> eventRoleEntityListToEventRoleResponseList(List<EventRoleEntity> list) {
-        if (list == null) {
-            return null;
-        }
 
-        List<EventRoleResponse> list1 = new ArrayList<EventRoleResponse>(list.size());
-        for (EventRoleEntity eventRoleEntity : list) {
-            list1.add(EventRoleMapper.entityToResponse(eventRoleEntity));
-        }
-
-        return list1;
+        return list.stream()
+                .map(EventRoleMapper::entityToResponse)
+                .toList();
     }
-
-
 }

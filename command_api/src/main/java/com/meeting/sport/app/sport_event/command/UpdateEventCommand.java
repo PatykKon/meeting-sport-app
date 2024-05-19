@@ -9,10 +9,10 @@ public record UpdateEventCommand(
         String userEmail,
         String title,
         String description,
-        int players,
-        int minAge,
+        Integer players,
+        Integer minAge,
         LocalDateTime startTime,
-        int gameTime,
-        int minPlayers
+        Integer gameTime,
+        Integer minPlayers
 ) implements Command {
 }

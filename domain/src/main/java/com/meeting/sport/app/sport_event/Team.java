@@ -8,7 +8,7 @@ class Team {
     private final int teamSize;
     private final int minPlayers;
 
-    Team(int teamSize, int minPlayers) {
+    Team(Integer teamSize, Integer minPlayers) {
         this.teamSize = checkMaxPlayer(teamSize);
         this.minPlayers = checkMinPlayers(minPlayers, teamSize);
     }

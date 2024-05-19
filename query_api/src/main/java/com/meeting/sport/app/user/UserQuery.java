@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class UserQuery {
+class UserQuery {
 
     private final QueryUserService queryUserService;
 

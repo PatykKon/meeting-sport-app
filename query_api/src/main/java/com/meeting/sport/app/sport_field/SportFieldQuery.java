@@ -7,7 +7,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class SportFieldQuery {
+class SportFieldQuery {
 
     private final SportFieldRepository sportFieldRepository;
 

@@ -12,7 +12,6 @@ import java.util.List;
 class UserMapper {
 
 
-
     static UserDTO entityToDTO(UserEntity userEntity) {
 
         userEntity.getAuthorities();
@@ -49,7 +48,7 @@ class UserMapper {
         return Collections.singletonList(authority);
     }
 
-    static User entityToModel(UserEntity userEntity){
+    static User entityToModel(UserEntity userEntity) {
 
         List<Token> tokens = tokenEntityListToTokenList(userEntity.getTokenEntities());
         Long id = userEntity.getId();
@@ -60,14 +59,10 @@ class UserMapper {
         int age = userEntity.getAge();
         String role = userEntity.getRole().toString();
 
-
-        return new User(id,firstname,lastname,email,password,age,role,tokens);
+        return new User(id, firstname, lastname, email, password, age, role, tokens);
     }
 
     static User DTOToModel(UserDTO dto) {
-        if (dto == null) {
-            return null;
-        }
 
         List<Token> tokens = tokenDTOListToTokenList(dto.tokenDTOS());
         Long id = dto.id();
@@ -78,16 +73,11 @@ class UserMapper {
         int age = dto.age();
         String role = dto.role().toString();
 
-        User user = new User(id, firstname, lastname, email, password, age, role, tokens);
-
-        return user;
+        return new User(id, firstname, lastname, email, password, age, role, tokens);
     }
 
 
     static UserEntity modelToEntity(User user) {
-        if (user == null) {
-            return null;
-        }
 
         UserEntity.UserEntityBuilder userEntity = UserEntity.builder();
 
@@ -103,104 +93,46 @@ class UserMapper {
         return userEntity.build();
     }
 
-
-    static UserResponse entityToResponse(UserEntity userEntity) {
-        if (userEntity == null) {
-            return null;
-        }
-
-        Long   id = userEntity.getId();
-        String firstname = userEntity.getFirstname();
-        String lastname = userEntity.getLastname();
-        int    age = userEntity.getAge();
-
-        return new UserResponse(id, firstname, lastname, age);
-
-
-    }
-
-    static UserResponse DTOToResponse(UserDTO dto) {
-        if (dto == null) {
-            return null;
-        }
-
-         Long   id = dto.id();
-         String firstname = dto.firstname();
-         String lastname = dto.lastname();
-         int    age = dto.age();
-
-        return new UserResponse(id, firstname, lastname, age);
-
-    }
-
     static UserResponse modelToResponse(User user) {
-        if (user == null) {
-            return null;
-        }
 
-        Long   id = user.getId();
+        Long id = user.getId();
         String firstname = user.getFirstname();
         String lastname = user.getLastname();
-        int    age = user.getAge();
+        int age = user.getAge();
 
         return new UserResponse(id, firstname, lastname, age);
 
     }
 
     protected static TokenDTO tokenEntityToTokenDTO(TokenEntity tokenEntity) {
-        if (tokenEntity == null) {
-            return null;
-        }
 
-        Long id = null;
-        String token = null;
-        boolean revoked = false;
-        boolean expired = false;
-
-        id = tokenEntity.getId();
-        token = tokenEntity.getToken();
-        revoked = tokenEntity.isRevoked();
-        expired = tokenEntity.isExpired();
+        Long id = tokenEntity.getId();
+        String token = tokenEntity.getToken();
+        boolean revoked = tokenEntity.isRevoked();
+        boolean expired = tokenEntity.isExpired();
 
         UserDTO userDTO = null;
 
-        TokenDTO tokenDTO = new TokenDTO(id, token, revoked, expired, userDTO);
+        return new TokenDTO(id, token, revoked, expired, userDTO);
 
-        return tokenDTO;
     }
 
     protected static List<TokenDTO> tokenEntityListToTokenDTOList(List<TokenEntity> list) {
-        if (list == null) {
-            return null;
-        }
 
-        List<TokenDTO> list1 = new ArrayList<TokenDTO>(list.size());
-        for (TokenEntity tokenEntity : list) {
-            list1.add(tokenEntityToTokenDTO(tokenEntity));
-        }
-
-        return list1;
+        return list.stream()
+                .map(UserMapper::tokenEntityToTokenDTO)
+                .toList();
     }
 
     private static SimpleGrantedAuthority userEntityRoleAuth(UserEntity userEntity) {
-        if (userEntity == null) {
-            return null;
-        }
+
         Role role = userEntity.getRole();
-        if (role == null) {
-            return null;
-        }
-        SimpleGrantedAuthority auth = role.getAuth();
-        if (auth == null) {
-            return null;
-        }
-        return auth;
+
+        return role.getAuth();
+
     }
 
     protected static Token tokenEntityToToken(TokenEntity tokenEntity) {
-        if (tokenEntity == null) {
-            return null;
-        }
 
         Long id = tokenEntity.getId();
         String token = tokenEntity.getToken();
@@ -213,57 +145,32 @@ class UserMapper {
 
 
     protected static Token tokenDTOToToken(TokenDTO tokenDTO) {
-        if (tokenDTO == null) {
-            return null;
-        }
 
-        Long id = null;
-        String token = null;
-        boolean revoked = false;
-        boolean expired = false;
-
-        id = tokenDTO.id();
-        token = tokenDTO.token();
-        revoked = tokenDTO.revoked();
-        expired = tokenDTO.expired();
+        Long id = tokenDTO.id();
+        String token = tokenDTO.token();
+        boolean revoked = tokenDTO.revoked();
+        boolean expired = tokenDTO.expired();
 
         User user = null;
 
-        Token token1 = new Token(id, token, revoked, expired, user);
-
-        return token1;
+        return new Token(id, token, revoked, expired, user);
     }
 
     protected static List<Token> tokenDTOListToTokenList(List<TokenDTO> list) {
-        if (list == null) {
-            return null;
-        }
 
-        List<Token> list1 = new ArrayList<Token>(list.size());
-        for (TokenDTO tokenDTO : list) {
-            list1.add(tokenDTOToToken(tokenDTO));
-        }
-
-        return list1;
+        return list.stream()
+                .map(UserMapper::tokenDTOToToken)
+                .toList();
     }
 
     protected static List<Token> tokenEntityListToTokenList(List<TokenEntity> list) {
-        if (list == null) {
-            return null;
-        }
 
-        List<Token> list1 = new ArrayList<Token>(list.size());
-        for (TokenEntity tokenEntity : list) {
-            list1.add(tokenEntityToToken(tokenEntity));
-        }
-
-        return list1;
+        return list.stream()
+                .map(UserMapper::tokenEntityToToken)
+                .toList();
     }
 
     protected static TokenEntity tokenToTokenEntity(Token token) {
-        if (token == null) {
-            return null;
-        }
 
         TokenEntity.TokenEntityBuilder tokenEntity = TokenEntity.builder();
 
@@ -276,16 +183,10 @@ class UserMapper {
     }
 
     protected static List<TokenEntity> tokenListToTokenEntityList(List<Token> list) {
-        if (list == null) {
-            return null;
-        }
 
-        List<TokenEntity> list1 = new ArrayList<TokenEntity>(list.size());
-        for (Token token : list) {
-            list1.add(tokenToTokenEntity(token));
-        }
-
-        return list1;
+       return list.stream()
+               .map(UserMapper::tokenToTokenEntity)
+               .toList();
     }
 }
 

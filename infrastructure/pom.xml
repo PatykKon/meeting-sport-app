@@ -61,13 +61,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>${commons-collections4-version}</version>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>${commons-text-version}</version>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4-version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

@@ -24,12 +24,12 @@ interface SportEventService {
     Long updateEvent(Long sportEventId,
                      String title,
                      String description,
-                     int players,
-                     int minAge,
+                     Integer players,
+                     Integer minAge,
                      LocalDateTime startTime,
-                     int gameTime,
+                     Integer gameTime,
                      Long ownerId,
-                     int minPlayers);
+                     Integer minPlayers);
 
     Long createGameRoles(Long eventId, List<EventRoleData> eventRoleDataList);
 

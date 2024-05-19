@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,8 +32,9 @@ class SportEventRepositoryImpl implements SportEventRepository {
         SportEventEntity entity = findEntityById(eventId);
         return SportEventMapper.entityToModel(entity);
     }
+
     @Override
-    public SportEventEntity findEntityById(Long eventId){
+    public SportEventEntity findEntityById(Long eventId) {
         return sportEventRepositoryJPA.findById(eventId).orElseThrow();
     }
 
@@ -57,7 +59,7 @@ class SportEventRepositoryImpl implements SportEventRepository {
     public List<SportEvent> findAllSportEventByStatus(SportEventStatus sportEventStatus) {
         List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAllBySportEventStatus(sportEventStatus);
 
-        if(sportEventEntities == null){
+        if (sportEventEntities == null) {
             return Collections.emptyList();
         }
         return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
@@ -65,11 +67,9 @@ class SportEventRepositoryImpl implements SportEventRepository {
 
     @Override
     public List<SportEvent> findAllSportEventByTime(LocalDateTime time) {
-        List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAllByStartTimeAfter(time);
+        List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAllByStartTimeAfter(time)
+                .orElse(Collections.emptyList());
 
-        if(sportEventEntities == null){
-            return Collections.emptyList();
-        }
         return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
     }
 

@@ -27,12 +27,12 @@ class SportEventQueryAPI {
         return sportEventQuery.getEventById(eventId);
     }
 
-    @GetMapping("/users/{eventId}")
+    @GetMapping("/event/{eventId}/users")
     List<UserResponse> getEventUsers(@PathVariable long eventId) {
         return sportEventQuery.getEventUsers(eventId);
     }
 
-    @GetMapping("/event/users/{userId}")
+    @GetMapping("/events/user/{userId}")
     List<EventRoleResponse> getEventForUsers(@PathVariable long userId) {
         return sportEventQuery.getEventsForUser(userId);
     }
