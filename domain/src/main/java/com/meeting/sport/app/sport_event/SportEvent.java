@@ -1,7 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_event.exceptions.JoinEventException;
-import com.meeting.sport.app.sport_event.exceptions.NoAvailableRoleException;
+import com.meeting.sport.app.sport_event.exceptions.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -87,13 +86,13 @@ class SportEvent {
 
     void joinToEvent(Long userId, String gameRole){
         EventRole selectedRole = findAvailableRole(gameRole);
-        verifyEventStatus();
+        verifyEventStatusToJoin();
         selectedRole.assignToEvent(userId);
     }
 
     void verifyOwner(Long userId) {
         if (!ownerId.equals(userId)) {
-            throw new RuntimeException("user with: " + userId + " is not owner!");
+            throw new NotOwnerException("user with: " + userId + " is not owner!");
         }
     }
 
@@ -117,14 +116,14 @@ class SportEvent {
 
     void checkTimeDeleteEvent(){
         if(!eventTime.isEventCanBeDeleted()){
-            throw new RuntimeException("Event can not be deleted less than 4 hours to start");
+            throw new DeleteEventException("Event can not be deleted less than 4 hours to start");
         }
     }
     private boolean isAllRolesAvailable(){
         return getEventRoles().stream()
                 .allMatch(EventRole::isAvailable);
     }
-    private void verifyEventStatus() {
+    private void verifyEventStatusToJoin() {
         if (sportEventStatus != SportEventStatus.COMING) {
             throw new JoinEventException("Cannot join to event when event status is not coming!");
         }
@@ -136,7 +135,7 @@ class SportEvent {
                 .filter(er -> er.getGameRole().toString().equals(gameRole))
                 .filter(EventRole::isAvailable)
                 .findFirst()
-                .orElseThrow(() -> new NoAvailableRoleException("No available role"));
+                .orElseThrow(() -> new JoinEventException("No available role"));
     }
 
     private EventRole getUserRole(Long userId){
@@ -144,7 +143,7 @@ class SportEvent {
                 .stream()
                 .filter(er -> Objects.nonNull(er.getUserId()) && er.getUserId().equals(userId))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Brak użytkownika o danym id:" + userId));
+                .orElseThrow(() -> new ExistUserException("No user with the given id:" + userId));
     }
 
 

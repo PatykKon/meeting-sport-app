@@ -1,6 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_event.dto.EventRoleData;
+import com.meeting.sport.app.sport_event.exceptions.EventRoleCreationException;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -11,7 +12,7 @@ class EventRoleCreator {
         final int sumGameRole = getSumGameRole(eventRoleDataList);
 
         if (sumGameRole != sportEvent.getTeamSize().getTeamSize()) {
-            throw new RuntimeException("game roles can not be less than declared number of players: " + sportEvent.getTeamSize().getTeamSize());
+        throw new EventRoleCreationException("game roles can not be less than declared number of players: " + sportEvent.getTeamSize().getTeamSize());
         }
 
         List<EventRole> eventRoles = eventRoleDataList.stream()

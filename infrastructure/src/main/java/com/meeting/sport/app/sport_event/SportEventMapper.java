@@ -1,7 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,19 +44,18 @@ class SportEventMapper {
 
     }
 
-
-    static SportEventResponse entityToResponse(SportEventEntity sportEvent) {
+    static SportEventResponse modelToResponse(SportEvent sportEvent) {
 
         SportEventResponse.SportEventResponseBuilder sportEventResponse = SportEventResponse.builder();
 
-        sportEventResponse.eventRoleResponse(eventRoleEntityListToEventRoleResponseList(sportEvent.getEventRoleEntities()));
+        sportEventResponse.eventRoleResponse(eventRoleEntityListToEventRoleResponseList(sportEvent.getEventRoles()));
         sportEventResponse.id(sportEvent.getId());
-        sportEventResponse.title(sportEvent.getTitle());
-        sportEventResponse.description(sportEvent.getDescription());
-        sportEventResponse.startTime(sportEvent.getStartTime());
-        sportEventResponse.endTime(sportEvent.getEndTime());
-        sportEventResponse.gameTime(sportEvent.getGameTime());
-        sportEventResponse.minAge(sportEvent.getMinAge());
+        sportEventResponse.title(sportEvent.getTitle().toString());
+        sportEventResponse.description(sportEvent.getDescription().getValue());
+        sportEventResponse.startTime(sportEvent.getEventTime().getStartTime());
+        sportEventResponse.endTime(sportEvent.getEventTime().getEndTime());
+        sportEventResponse.gameTime(sportEvent.getEventTime().getGameTime());
+        sportEventResponse.minAge(sportEvent.getRequiredAge().getAge());
         sportEventResponse.ownerId(sportEvent.getOwnerId());
 
         return sportEventResponse.build();
@@ -173,8 +170,6 @@ class SportEventMapper {
         LocalDateTime endTime = sportEventEntity.getEndTime();
 
         return new EventTime(gameTime, startTime, endTime);
-
-
     }
 
     protected static List<EventRole> eventRoleEntityListToEventRoleList(List<EventRoleEntity> list) {
@@ -184,10 +179,10 @@ class SportEventMapper {
                 .toList();
     }
 
-    protected static List<EventRoleResponse> eventRoleEntityListToEventRoleResponseList(List<EventRoleEntity> list) {
+    protected static List<EventRoleResponse> eventRoleEntityListToEventRoleResponseList(List<EventRole> list) {
 
         return list.stream()
-                .map(EventRoleMapper::entityToResponse)
+                .map(EventRoleMapper::modelToResponse)
                 .toList();
     }
 }

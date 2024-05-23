@@ -1,5 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
+import com.meeting.sport.app.sport_event.exceptions.EventTimeValidationException;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -37,13 +39,13 @@ class EventTime {
 
     private Integer checkGameTime(Integer gameTime){
         if(startTime.isBefore(LocalDateTime.now().plusHours(MIN_HOUR_TO_CREATE_EVENT))){
-            throw new RuntimeException("!you cannot create events: " + MIN_HOUR_TO_CREATE_EVENT + " hours before they start!");
+            throw new EventTimeValidationException("!you cannot create events: " + MIN_HOUR_TO_CREATE_EVENT + " hours before they start!");
         }
         if (gameTime > MAX_PLAY_HOUR) {
-            throw new RuntimeException("You can't reserve field for more than 2 hours");
+            throw new EventTimeValidationException("You can't reserve field for more than 2 hours");
         }
         if (gameTime == null || gameTime < MIN_PLAY_HOUR) {
-            throw new RuntimeException("time is not correct");
+            throw new EventTimeValidationException("time is not correct");
         }
         return gameTime;
     }

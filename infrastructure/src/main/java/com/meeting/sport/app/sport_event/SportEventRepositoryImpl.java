@@ -39,11 +39,6 @@ class SportEventRepositoryImpl implements SportEventRepository {
     }
 
     @Override
-    public List<SportEventEntity> findAllEntity() {
-        return sportEventRepositoryJPA.findAll();
-    }
-
-    @Override
     public List<SportEvent> findAllSportEvent() {
         List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAll();
         return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
@@ -53,16 +48,6 @@ class SportEventRepositoryImpl implements SportEventRepository {
     public void saveAll(List<SportEvent> sportEvents) {
         List<SportEventEntity> sportEventEntities = sportEvents.stream().map(SportEventMapper::modelToEntity).toList();
         sportEventRepositoryJPA.saveAll(sportEventEntities);
-    }
-
-    @Override
-    public List<SportEvent> findAllSportEventByStatus(SportEventStatus sportEventStatus) {
-        List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAllBySportEventStatus(sportEventStatus);
-
-        if (sportEventEntities == null) {
-            return Collections.emptyList();
-        }
-        return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
     }
 
     @Override

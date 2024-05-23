@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_field;
 
-import com.meeting.sport.app.sport_field.dto.SportFieldDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,12 +8,6 @@ import org.springframework.stereotype.Component;
 class SportFieldServiceImpl implements SportFieldService {
 
     private final SportFieldRepository sportFieldRepository;
-
-    @Override
-    public SportFieldDTO getSportFieldById(Long sportFieldId) {
-        SportField sportField = sportFieldRepository.findById(sportFieldId);
-        return SportFieldMapper.modelToDTO(sportField);
-    }
 
     @Override
     public Long createSportField(String fieldType,
@@ -32,5 +25,10 @@ class SportFieldServiceImpl implements SportFieldService {
                 number);
 
         return sportFieldRepository.save(sportField);
+    }
+
+    @Override
+    public boolean isExist(Long id) {
+        return sportFieldRepository.isExist(id);
     }
 }

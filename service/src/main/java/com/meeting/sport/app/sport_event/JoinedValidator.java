@@ -1,6 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_event.exceptions.UserExistInOtherEventInThisTime;
+import com.meeting.sport.app.sport_event.exceptions.JoinEventException;
 import com.meeting.sport.app.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ class JoinedValidator {
         try {
             checkUserExistInOtherEventInThisTime(sportEvent, loggedUser.id());
             validateUser(sportEvent, loggedUser.age());
-        } catch (UserExistInOtherEventInThisTime e) {
+        } catch (JoinEventException e) {
             logger.error("Validation failed for user: " + loggedUser.id() + " and event: " + sportEvent.getId(), e);
             throw e;
         }catch (Exception e){
@@ -40,7 +40,7 @@ class JoinedValidator {
                 .anyMatch(sportEvent -> sportEvent.getEventTime().isEventInTheSameTime(sportEventToJoin.getEventTime()));
 
         if (isUserExistInOtherEventInThisTime) {
-            throw new UserExistInOtherEventInThisTime("Użytkownik o id:" + loggedUserId + " bierzę juz udział w tym czasie w innym wydarzeniu!");
+            throw new JoinEventException("Użytkownik o id:" + loggedUserId + " bierzę juz udział w tym czasie w innym wydarzeniu!");
         }
     }
 

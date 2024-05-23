@@ -5,7 +5,4 @@ public class NotOwnerException extends RuntimeException {
         super(message);
     }
 
-    public NotOwnerException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

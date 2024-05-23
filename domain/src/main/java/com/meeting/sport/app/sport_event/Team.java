@@ -1,5 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
+import com.meeting.sport.app.sport_event.exceptions.TeamValidationException;
+
 class Team {
 
     private final static int MIN_PLAYERS_IN_GAME = 2;
@@ -15,17 +17,17 @@ class Team {
 
     private int checkMinPlayers(int minPlayers, int teamSize) {
         if (minPlayers > teamSize) {
-            throw new RuntimeException("min players can no be more than teamSize");
+            throw new TeamValidationException("min players can no be more than teamSize");
         }
         if (minPlayers < MIN_PLAYERS_IN_GAME) {
-            throw new RuntimeException("2 is minimum players");
+            throw new TeamValidationException("2 is minimum players");
         }
         return minPlayers;
     }
 
     private int checkMaxPlayer(int players) {
         if (players > MAX_PLAYERS_IN_GAME) {
-            throw new RuntimeException("is too many players ");
+            throw new TeamValidationException("is too many players ");
         }
         return players;
     }

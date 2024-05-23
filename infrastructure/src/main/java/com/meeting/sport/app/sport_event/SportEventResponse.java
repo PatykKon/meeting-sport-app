@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

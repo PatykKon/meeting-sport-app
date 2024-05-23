@@ -1,6 +1,6 @@
 package com.meeting.sport.app.sport_field;
 
-public enum FieldType {
+enum FieldType {
     FOOTBALL("football"),
     BASKETBALL("basketball"),
     VOLLEYBALL("volleyball"),

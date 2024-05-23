@@ -1,7 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,6 +32,20 @@ class EventRoleMapper {
         eventRoleEntity.userId(eventRole.getUserId());
 
         return eventRoleEntity.build();
+    }
+
+    static EventRoleResponse modelToResponse(EventRole eventRole) {
+        if (eventRole == null) {
+            return null;
+        }
+
+        return EventRoleResponse.builder()
+                .id(eventRole.getId())
+                .userId(eventRole.getUserId())
+                .gameRole(eventRole.getGameRole().toString())
+                .isAvailable(eventRole.isAvailable())
+                .sportEventId(eventRole.getId())
+                .build();
     }
 
     static EventRole entityToModel(EventRoleEntity eventRoleEntity) {

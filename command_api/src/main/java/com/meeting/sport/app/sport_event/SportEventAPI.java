@@ -48,9 +48,9 @@ class SportEventAPI {
         return updateSportEventHandler.handle(command);
     }
 
-    @DeleteMapping("/delete/{eventId}/to/{userId}")
-    void deleteEvent(@PathVariable Long eventId,
-                     @PathVariable Long userId) {
+    @DeleteMapping("/delete/{userId}/to/{eventId}")
+    void deleteEvent(@PathVariable Long userId,
+                     @PathVariable Long eventId) {
         deleteSportEventHandler.handle(eventId,userId);
     }
 }

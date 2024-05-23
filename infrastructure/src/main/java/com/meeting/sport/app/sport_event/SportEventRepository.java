@@ -14,13 +14,11 @@ interface SportEventRepository  {
 
     SportEventEntity findEntityById(Long eventId);
 
-    List<SportEventEntity> findAllEntity();
 
     List<SportEvent> findAllSportEvent();
 
     void saveAll(List<SportEvent> sportEvents);
 
-    List<SportEvent> findAllSportEventByStatus(SportEventStatus sportEventStatus);
 
     List<SportEvent> findAllSportEventByTime(LocalDateTime time);
 

@@ -1,5 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
+import com.meeting.sport.app.sport_event.exceptions.TitleValidationException;
+
 import java.util.Objects;
 
 class Title {
@@ -13,10 +15,10 @@ class Title {
 
     private String checkTitle(String title) {
         if (title.length() > MAX_TITLE) {
-            throw new RuntimeException("title is too long");
+            throw new TitleValidationException("title is too long");
         }
         if (title.isEmpty() || title == null) {
-            throw new RuntimeException("title can not bo empty");
+            throw new TitleValidationException("title can not bo empty");
         }
         return title;
     }

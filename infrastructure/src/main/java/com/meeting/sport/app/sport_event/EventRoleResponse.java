@@ -1,15 +1,13 @@
-package com.meeting.sport.app.sport_event.dto;
+package com.meeting.sport.app.sport_event;
 
 import lombok.Builder;
 
 @Builder
-public record EventRoleResponse(
+record EventRoleResponse(
         Long id,
-
         String  gameRole,
         boolean isAvailable,
         Long userId,
-
         Long sportEventId
 ) {
 }

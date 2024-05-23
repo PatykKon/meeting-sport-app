@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-
 import com.meeting.sport.app.CommandHandler;
 import com.meeting.sport.app.sport_event.command.LeaveEventCommand;
 import com.meeting.sport.app.user.UserFacade;
@@ -22,6 +21,6 @@ class LeaveEventHandler implements CommandHandler<LeaveEventCommand> {
 
         UserDTO loggedUser = userFacade.getLoggedUser(command.userEmail());
 
-        return sportEventService.laveEvent(command.eventId(),loggedUser.id());
+        return sportEventService.laveEvent(command.eventId(), loggedUser.id());
     }
 }

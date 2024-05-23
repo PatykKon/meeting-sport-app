@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
 import com.meeting.sport.app.user.UserFacade;
 import com.meeting.sport.app.user.dto.UserResponse;
 import lombok.AllArgsConstructor;
@@ -17,16 +16,16 @@ class QuerySportEventServiceImpl implements QuerySportEventService {
     private final EventRoleRepository eventRoleRepository;
 
     public List<SportEventResponse> getEvents() {
-        return sportEventRepository.findAllEntity()
+        return sportEventRepository.findAllSportEvent()
                 .stream()
-                .map(SportEventMapper::entityToResponse)
+                .map(SportEventMapper::modelToResponse)
                 .toList();
     }
 
     @Override
     public SportEventResponse getEventById(Long eventId) {
-        SportEventEntity eventEntity = sportEventRepository.findEntityById(eventId);
-        return SportEventMapper.entityToResponse(eventEntity);
+        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
+        return SportEventMapper.modelToResponse(sportEvent);
     }
 
     @Override
@@ -41,13 +40,9 @@ class QuerySportEventServiceImpl implements QuerySportEventService {
     @Override
     public List<EventRoleResponse> getEventsForUser(Long userId) {
         List<EventRole> eventRoles = eventRoleRepository.getEventRoleEntitiesByUserEntityId(userId);
-        List<EventRoleEntity> eventRoleEntities = eventRoles
-                .stream()
-                .map(EventRoleMapper::modelToEntity)
-                .toList();
 
-        return eventRoleEntities.stream()
-                .map(EventRoleMapper::entityToResponse)
+        return eventRoles.stream()
+                .map(EventRoleMapper::modelToResponse)
                 .toList();
 
     }

@@ -1,6 +1,5 @@
 package com.meeting.sport.app.sport_event;
 
-import com.meeting.sport.app.sport_event.dto.EventRoleResponse;
 import com.meeting.sport.app.user.dto.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

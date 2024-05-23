@@ -1,5 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
+import com.meeting.sport.app.sport_event.exceptions.DescriptionValidationException;
+
 import java.util.Objects;
 
 class Description {
@@ -13,13 +15,14 @@ class Description {
 
     private String checkDescription(String description) {
         if (description.length() > MAX_DESCRIPTION) {
-            throw new RuntimeException("description is too long");
+            throw new DescriptionValidationException("description is too long");
         }
         if (description.isEmpty() || description == null) {
-            throw new RuntimeException("description can bo empty");
+            throw new DescriptionValidationException("description can bo empty");
         }
         return description;
     }
+
     String getValue() {
         return value;
     }

@@ -8,7 +8,7 @@ class EventRole {
     private Long userId;
     private boolean isAvailable;
 
-    EventRole(Long id, GameRole gameRole, SportEvent sportEvent, boolean isAvailable,Long userId) {
+    EventRole(Long id, GameRole gameRole, SportEvent sportEvent, boolean isAvailable, Long userId) {
         this.id = id;
         this.gameRole = gameRole;
         this.sportEvent = sportEvent;
@@ -19,18 +19,16 @@ class EventRole {
     static EventRole crateAvailableEventRole(String gameRole, SportEvent sportEvent) {
         return new EventRole(null, GameRole.valueOf(gameRole), sportEvent, true, null);
     }
+
     void assignToEvent(Long userId) {
         this.userId = userId;
         changeRoleAvailability();
     }
-    void leaveEvent(){
+
+    void leaveEvent() {
         this.userId = null;
         changeRoleAvailability();
     }
-
-//    void addSportEvent(SportEvent sportEvent) {
-//        this.sportEvent = sportEvent;
-//    }
     private void changeRoleAvailability() {
         this.isAvailable = !isAvailable;
     }

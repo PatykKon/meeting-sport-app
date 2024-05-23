@@ -35,4 +35,9 @@ class SportFieldRepositoryImpl implements SportFieldRepository {
         SportFieldEntity entity = sportFieldRepositoryJPA.save(SportFieldMapper.modelToEntity(sportField));
         return entity.getId();
     }
+
+    @Override
+    public boolean isExist(Long id) {
+        return sportFieldRepositoryJPA.existsById(id);
+    }
 }

@@ -5,7 +5,4 @@ public class JoinEventException extends RuntimeException {
         super(message);
     }
 
-    public JoinEventException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

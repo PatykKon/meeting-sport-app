@@ -5,7 +5,4 @@ public class NoAvailableRoleException extends RuntimeException {
         super(message);
     }
 
-    public NoAvailableRoleException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

@@ -1,5 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
+import com.meeting.sport.app.sport_event.exceptions.RequiredValidationException;
+
 import java.util.Objects;
 
 class RequiredAge {
@@ -14,14 +16,14 @@ class RequiredAge {
 
     private int checkAge(int age) {
         if (age < MIN_AGE) {
-            throw new RuntimeException("age can not be less than 0");
+            throw new RequiredValidationException("age can not be less than 0");
         }
         return age;
     }
 
     void validateAge(int userAge){
         if (age > userAge) {
-            throw new RuntimeException("user is too young to join this sport event");
+            throw new RequiredValidationException("user is too young to join this sport event");
         }
     }
 

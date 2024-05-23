@@ -14,4 +14,6 @@ interface SportFieldRepository {
     List<SportFieldEntity> findAllEntity();
 
     Long save(SportField sportField);
+
+    boolean isExist(Long id);
 }
