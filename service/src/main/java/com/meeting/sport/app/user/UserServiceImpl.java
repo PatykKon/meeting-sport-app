@@ -41,8 +41,7 @@ class UserServiceImpl implements UserService {
                 Role.USER.toString()
         );
 
-        User savedUser = userRepository.saveUser(user);
-        return UserMapper.modelToDTO(savedUser);
+        return UserMapper.modelToDTO(userRepository.saveUser(user));
     }
     private void checkEmail(String email){
         boolean emailExist = userRepository.existByEmail(email);

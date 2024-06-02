@@ -3,6 +3,7 @@ package com.meeting.sport.app.sport_event;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class SportEventMapper {
 
@@ -56,6 +57,8 @@ class SportEventMapper {
         sportEventResponse.endTime(sportEvent.getEventTime().getEndTime());
         sportEventResponse.gameTime(sportEvent.getEventTime().getGameTime());
         sportEventResponse.minAge(sportEvent.getRequiredAge().getAge());
+        sportEventResponse.maxPlayers(sportEvent.getTeamSize().getTeamSize());
+        sportEventResponse.minPlayers(sportEvent.getTeamSize().getMinPlayers());
         sportEventResponse.ownerId(sportEvent.getOwnerId());
 
         return sportEventResponse.build();
@@ -118,7 +121,7 @@ class SportEventMapper {
     protected static List<EventRoleEntity> eventRoleListToEventRoleEntityList(List<EventRole> list) {
 
 
-        List<EventRoleEntity> list1 = new ArrayList<EventRoleEntity>(list.size());
+        List<EventRoleEntity> list1 = new ArrayList<>();
         for (EventRole eventRole : list) {
             list1.add(EventRoleMapper.modelToEntity(eventRole));
         }
@@ -176,7 +179,7 @@ class SportEventMapper {
 
         return list.stream()
                 .map(EventRoleMapper::entityToModel)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     protected static List<EventRoleResponse> eventRoleEntityListToEventRoleResponseList(List<EventRole> list) {

@@ -14,6 +14,7 @@ record SportEventResponse(
         LocalDateTime startTime,
         LocalDateTime endTime,
         Integer gameTime,
+        int minPlayers,
         int maxPlayers,
         int minAge,
         Long ownerId,

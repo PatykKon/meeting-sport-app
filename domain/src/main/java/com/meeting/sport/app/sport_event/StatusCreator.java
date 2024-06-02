@@ -47,10 +47,10 @@ class StatusCreator {
     }
 
     private boolean isDuringEvent(LocalDateTime timeNow) {
-        boolean isEventTimeNow = timeNow.isEqual(startTimeEvent);
-        boolean isAfterStartEvent = timeNow.isAfter(startTimeEvent);
-        boolean isBeforeAndEvent = timeNow.isBefore(startTimeEvent.plusHours(gameTime));
+        LocalDateTime eventEndTime = startTimeEvent.plusHours(gameTime);
+        boolean isEventStarted = !timeNow.isBefore(startTimeEvent);
+        boolean isEventNotEnded = timeNow.isBefore(eventEndTime);
 
-        return isEventTimeNow || isAfterStartEvent && isBeforeAndEvent;
+        return isEventStarted && isEventNotEnded;
     }
 }

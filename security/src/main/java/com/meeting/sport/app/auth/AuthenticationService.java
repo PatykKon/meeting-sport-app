@@ -45,9 +45,9 @@ class AuthenticationService {
                         request.password()
                 )
         );
-        var user = userFacade.getUserByEmail(request.email());
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
+        UserDTO user = userFacade.getUserByEmail(request.email());
+        String jwtToken = jwtService.generateToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
@@ -79,10 +79,10 @@ class AuthenticationService {
         if (userEmail != null) {
             UserDTO user = userFacade.getUserByEmail(userEmail);
             if (jwtService.isTokenValid(refreshToken, user)) {
-                var accessToken = jwtService.generateToken(user);
+                String accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
-                var authResponse = AuthenticationResponse.builder()
+                AuthenticationResponse authResponse = AuthenticationResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();

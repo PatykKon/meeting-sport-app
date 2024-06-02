@@ -2,7 +2,7 @@
 
 ## Project Description
 
-SportEvent Organizer is an application developed in Java 17, using the Spring framework, designed to facilitate the easy and efficient management of local sports events. The goal of the application is to streamline the organization and participation in various sports activities, such as games in a local sports field (e.g., "Orlik").
+SportEvent Organizer is an application developed in Java 21, using the Spring framework, designed to facilitate the easy and efficient management of local sports events. The goal of the application is to streamline the organization and participation in various sports activities, such as games in a local sports field (e.g., "Orlik").
 
 ## Features(to do)
 
@@ -14,6 +14,6 @@ SportEvent Organizer is an application developed in Java 17, using the Spring fr
 
 ## Technical Requirements
 
-- Java 17
+- Java 21
 - Spring Framework
 - Database (PostgreSQL,Liquibase)

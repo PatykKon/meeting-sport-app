@@ -10,10 +10,7 @@ interface SportEventRepository  {
 
     Long save(SportEvent sportEvent);
 
-    SportEvent findModelById(Long eventId);
-
-    SportEventEntity findEntityById(Long eventId);
-
+    SportEvent findById(Long eventId);
 
     List<SportEvent> findAllSportEvent();
 

@@ -7,6 +7,7 @@ import java.util.Objects;
 class Description {
 
     private final static int MAX_DESCRIPTION = 250;
+
     private final String value;
 
     Description(String value) {
@@ -18,7 +19,7 @@ class Description {
             throw new DescriptionValidationException("description is too long");
         }
         if (description.isEmpty() || description == null) {
-            throw new DescriptionValidationException("description can bo empty");
+            throw new DescriptionValidationException("description can not be empty");
         }
         return description;
     }

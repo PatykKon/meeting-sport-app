@@ -1,6 +1,7 @@
 package com.meeting.sport.app.sport_event;
 
 import com.meeting.sport.app.sport_event.dto.EventRoleData;
+import com.meeting.sport.app.sport_event.exceptions.EventRoleCreationException;
 import com.meeting.sport.app.sport_event.exceptions.JoinEventException;
 import com.meeting.sport.app.sport_event.exceptions.NoAvailableRoleException;
 import com.meeting.sport.app.user.dto.UserDTO;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,9 +25,10 @@ class SportEventServiceImpl implements SportEventService {
     private final DeleteEventValidator deleteEventValidator;
 
     @Override
+    @Transactional
     public Long laveEvent(Long eventId, Long loggedUserId) {
 
-        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
+        SportEvent sportEvent = sportEventRepository.findById(eventId);
 
         sportEvent.leaveEvent(loggedUserId);
 
@@ -33,9 +36,10 @@ class SportEventServiceImpl implements SportEventService {
     }
 
     @Override
+    @Transactional
     public Long joinEvent(Long eventId, String gameRole, UserDTO loggedUser) {
         try {
-            SportEvent sportEvent = sportEventRepository.findModelById(eventId);
+            SportEvent sportEvent = sportEventRepository.findById(eventId);
 
             joinedValidator.validate(sportEvent, loggedUser);
             sportEvent.joinToEvent(loggedUser.id(), gameRole);
@@ -51,24 +55,33 @@ class SportEventServiceImpl implements SportEventService {
     }
 
     @Override
+    @Transactional
     public Long createGameRoles(Long eventId, List<EventRoleData> eventRoleDataList) {
 
-        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
-
-        EventRoleCreator.createEventRoles(eventRoleDataList, sportEvent);
-
+        try{
+        SportEvent sportEvent = sportEventRepository.findById(eventId);
+//        List<EventRole> eventRoles = EventRoleCreator.createEventRoles(eventRoleDataList, sportEvent);
+//        sportEvent.addEventRole(eventRoles);
+            sportEvent.addEventRoles(eventRoleDataList);
         return sportEventRepository.save(sportEvent);
+        }catch (EventRoleCreationException e){
+            logger.error("An unexpected error occurred while creating role for event: " + eventId + ". " + e.getMessage(), e);
+            throw new RuntimeException("Unexpected error occurred while creating role for event", e);
+        }
     }
 
     @Override
+    @Transactional
     public Long assignFieldToSportEvent(Long sportEventId, Long sportFieldId) {
-        SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
+        SportEvent sportEvent = sportEventRepository.findById(sportEventId);
 
         sportEvent.assignSportField(sportFieldId);
 
         return sportEventRepository.save(sportEvent);
     }
 
+    @Override
+    @Transactional
     public Long updateEvent(Long sportEventId,
                             String title,
                             String description,
@@ -79,7 +92,7 @@ class SportEventServiceImpl implements SportEventService {
                             Long ownerId,
                             Integer minPlayers) {
 
-        SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
+        SportEvent sportEvent = sportEventRepository.findById(sportEventId);
 
         sportEvent.updateEvent(
                 ownerId,
@@ -95,6 +108,7 @@ class SportEventServiceImpl implements SportEventService {
     }
 
     @Override
+    @Transactional
     public Long createSportEvent(String title,
                                  String description,
                                  int players,
@@ -118,9 +132,10 @@ class SportEventServiceImpl implements SportEventService {
     }
 
     @Override
+    @Transactional
     public void deleteSportEvent(Long sportEventId, Long userId) {
 
-        SportEvent sportEvent = sportEventRepository.findModelById(sportEventId);
+        SportEvent sportEvent = sportEventRepository.findById(sportEventId);
 
         deleteEventValidator.validate(userId, sportEvent);
 
@@ -129,6 +144,7 @@ class SportEventServiceImpl implements SportEventService {
     }
 
     @Override
+    @Transactional
     public void updateStatus() {
         try {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());

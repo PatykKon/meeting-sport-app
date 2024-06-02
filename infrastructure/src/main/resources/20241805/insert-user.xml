@@ -10,9 +10,9 @@
         <insert schemaName="public"
                 tableName="game_user">
             <column name="id" value="666666" type="integer"/>
-            <column name="firstname" value="Konrad" type="varchar(255)"/>
-            <column name="lastname" value="Patyk" type="varchar(255)"/>
-            <column name="email" value="96konpat@gmail.com" type="varchar(255)"/>
+            <column name="firstname" value="Andrzej" type="varchar(255)"/>
+            <column name="lastname" value="Admin" type="varchar(255)"/>
+            <column name="email" value="andrzej@gmail.com" type="varchar(255)"/>
             <column name="password" value="$2a$10$QqeQefv024AuDvjjhEwL8.ctEbwo8EGHYIAI8veQYPFCtrPPMkGf2" type="varchar(255)"/>
             <column name="role" value="ADMIN" type="varchar(255)"/>
             <column name="age" value="28" type="integer"/>

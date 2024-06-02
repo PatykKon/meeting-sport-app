@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 class SportEventRepositoryImpl implements SportEventRepository {
@@ -27,15 +27,10 @@ class SportEventRepositoryImpl implements SportEventRepository {
     }
 
     @Override
-    public SportEvent findModelById(Long eventId) {
+    public SportEvent findById(Long eventId) {
 
-        SportEventEntity entity = findEntityById(eventId);
+        SportEventEntity entity = sportEventRepositoryJPA.findById(eventId).orElseThrow(() -> new NoSuchElementException("No event with the given id:" + eventId));
         return SportEventMapper.entityToModel(entity);
-    }
-
-    @Override
-    public SportEventEntity findEntityById(Long eventId) {
-        return sportEventRepositoryJPA.findById(eventId).orElseThrow();
     }
 
     @Override

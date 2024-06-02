@@ -1,5 +1,6 @@
 package com.meeting.sport.app.sport_event;
 
+import com.meeting.sport.app.sport_event.dto.EventRoleData;
 import com.meeting.sport.app.sport_event.exceptions.*;
 
 import java.time.LocalDateTime;
@@ -90,14 +91,9 @@ class SportEvent {
         selectedRole.assignToEvent(userId);
     }
 
-    void verifyOwner(Long userId) {
-        if (!ownerId.equals(userId)) {
-            throw new NotOwnerException("user with: " + userId + " is not owner!");
-        }
-    }
-
-    void addEventRoles(EventRole eventRole) {
-        this.eventRoles.add(eventRole);
+    void addEventRoles(List<EventRoleData> eventRoleDataList){
+        List<EventRole> eventRoles = EventRoleCreator.createEventRoles(eventRoleDataList, this);
+        eventRoles.forEach(this::addEventRole);
     }
 
     void assignSportField(Long sportFieldId) {
@@ -113,12 +109,21 @@ class SportEvent {
         return gameRoles - availableGameRoles;
     }
 
-
     void checkTimeDeleteEvent(){
         if(!eventTime.isEventCanBeDeleted()){
             throw new DeleteEventException("Event can not be deleted less than 4 hours to start");
         }
     }
+
+    void verifyOwner(Long userId) {
+        if (!ownerId.equals(userId)) {
+            throw new NotOwnerException("user with: " + userId + " is not owner!");
+        }
+    }
+    protected void addEventRole(EventRole eventRole) {
+        this.eventRoles.add(eventRole);
+    }
+
     private boolean isAllRolesAvailable(){
         return getEventRoles().stream()
                 .allMatch(EventRole::isAvailable);
@@ -172,7 +177,7 @@ class SportEvent {
     }
 
     List<EventRole> getEventRoles() {
-        return Collections.unmodifiableList(eventRoles);
+        return eventRoles;
     }
 
     Long getOwnerId() {

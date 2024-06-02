@@ -8,19 +8,17 @@ import java.util.stream.IntStream;
 
 class EventRoleCreator {
 
-    public static void createEventRoles(List<EventRoleData> eventRoleDataList, SportEvent sportEvent){
+    public static List<EventRole> createEventRoles(List<EventRoleData> eventRoleDataList, SportEvent sportEvent){
         final int sumGameRole = getSumGameRole(eventRoleDataList);
 
         if (sumGameRole != sportEvent.getTeamSize().getTeamSize()) {
         throw new EventRoleCreationException("game roles can not be less than declared number of players: " + sportEvent.getTeamSize().getTeamSize());
         }
 
-        List<EventRole> eventRoles = eventRoleDataList.stream()
+        return eventRoleDataList.stream()
                 .flatMap(eventRoleData -> IntStream.range(0, eventRoleData.numberOfPlayers())
-                        .mapToObj(i -> EventRole.crateAvailableEventRole(eventRoleData.gameRole(), sportEvent)))
+                        .mapToObj(e -> EventRole.crateAvailableEventRole(eventRoleData.gameRole(), sportEvent)))
                 .toList();
-
-        eventRoles.forEach(sportEvent::addEventRoles);
     }
 
     private static int getSumGameRole(List<EventRoleData> eventRoleDataList) {

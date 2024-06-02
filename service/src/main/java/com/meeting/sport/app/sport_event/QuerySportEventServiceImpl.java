@@ -24,13 +24,13 @@ class QuerySportEventServiceImpl implements QuerySportEventService {
 
     @Override
     public SportEventResponse getEventById(Long eventId) {
-        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
+        SportEvent sportEvent = sportEventRepository.findById(eventId);
         return SportEventMapper.modelToResponse(sportEvent);
     }
 
     @Override
     public List<UserResponse> getEventUsers(Long eventId) {
-        SportEvent sportEvent = sportEventRepository.findModelById(eventId);
+        SportEvent sportEvent = sportEventRepository.findById(eventId);
         return sportEvent.getEventRoles().stream()
                 .filter(er -> er.getUserId() != null)
                 .map(eventRole -> userFacade.getUserResponse(eventRole.getUserId()))
