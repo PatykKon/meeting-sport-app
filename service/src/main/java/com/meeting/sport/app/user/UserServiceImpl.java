@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final EmailValidator emailValidator;
 
     @Override
     public UserDTO getLoggedUser(String email) {
@@ -30,7 +31,7 @@ class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(RegisterRequest request,String encryptedPassword) {
 
-        checkEmail(request.email());
+        emailValidator.validate(request.email());
 
         User user = User.createUser(
                 request.firstName(),
@@ -43,11 +44,5 @@ class UserServiceImpl implements UserService {
 
         return UserMapper.modelToDTO(userRepository.saveUser(user));
     }
-    private void checkEmail(String email){
-        boolean emailExist = userRepository.existByEmail(email);
 
-        if(emailExist){
-            throw new RuntimeException("this email: " + email +" is used!");
-        }
-    }
 }

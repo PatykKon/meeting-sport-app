@@ -7,8 +7,12 @@ class Team {
     private final static int MIN_PLAYERS_IN_GAME = 2;
     private final static int MAX_PLAYERS_IN_GAME = 100;
 
-    private final int teamSize;
-    private final int minPlayers;
+    private int teamSize;
+    private int minPlayers;
+
+    private Team(){
+
+    }
 
     Team(Integer teamSize, Integer minPlayers) {
         this.teamSize = checkMaxPlayer(teamSize);

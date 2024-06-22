@@ -8,6 +8,9 @@ class EventRole {
     private Long userId;
     private boolean isAvailable;
 
+    private EventRole() {
+    }
+
     EventRole(Long id, GameRole gameRole, SportEvent sportEvent, boolean isAvailable, Long userId) {
         this.id = id;
         this.gameRole = gameRole;

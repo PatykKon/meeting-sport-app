@@ -6,10 +6,14 @@ class StatusCreator {
 
     private static final Integer ONE_HOUR_LEFT = 1;
 
-    private final LocalDateTime startTimeEvent;
-    private final int gameTime;
-    private final int minPlayers;
-    private final int activePlayers;
+    private LocalDateTime startTimeEvent;
+    private int gameTime;
+    private int minPlayers;
+    private int activePlayers;
+
+    private StatusCreator(){
+
+    }
 
     StatusCreator(SportEvent sportEvent) {
         this.startTimeEvent = sportEvent.getEventTime().getStartTime();

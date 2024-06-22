@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 class SportEventServiceImpl implements SportEventService {
 
-    private static final Logger logger = LogManager.getLogger(SportEventRepositoryImpl.class);
+    private static final Logger logger = LogManager.getLogger(SportEventServiceImpl.class);
 
     private final SportEventRepository sportEventRepository;
     private final JoinedValidator joinedValidator;
@@ -45,10 +45,10 @@ class SportEventServiceImpl implements SportEventService {
             sportEvent.joinToEvent(loggedUser.id(), gameRole);
 
             return sportEventRepository.save(sportEvent);
-        }catch (NoAvailableRoleException | JoinEventException e){
-            logger.error("An error occurred while join to event: "+eventId + e.getMessage());
+        } catch (NoAvailableRoleException | JoinEventException e) {
+            logger.error("An error occurred while join to event: " + eventId + e.getMessage());
             throw e;
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             logger.error("An unexpected error occurred while joining event: " + eventId + ". " + e.getMessage(), e);
             throw new RuntimeException("Unexpected error occurred while joining event", e);
         }
@@ -58,13 +58,11 @@ class SportEventServiceImpl implements SportEventService {
     @Transactional
     public Long createGameRoles(Long eventId, List<EventRoleData> eventRoleDataList) {
 
-        try{
-        SportEvent sportEvent = sportEventRepository.findById(eventId);
-//        List<EventRole> eventRoles = EventRoleCreator.createEventRoles(eventRoleDataList, sportEvent);
-//        sportEvent.addEventRole(eventRoles);
+        try {
+            SportEvent sportEvent = sportEventRepository.findById(eventId);
             sportEvent.addEventRoles(eventRoleDataList);
-        return sportEventRepository.save(sportEvent);
-        }catch (EventRoleCreationException e){
+            return sportEventRepository.save(sportEvent);
+        } catch (EventRoleCreationException e) {
             logger.error("An unexpected error occurred while creating role for event: " + eventId + ". " + e.getMessage(), e);
             throw new RuntimeException("Unexpected error occurred while creating role for event", e);
         }
@@ -150,8 +148,9 @@ class SportEventServiceImpl implements SportEventService {
             logger.info("The updateEventStatus method was called" + LocalDateTime.now());
 
             List<SportEvent> sportEvents = getSportEventToCheckStatus();
-            if(sportEvents.isEmpty()){
+            if (sportEvents.isEmpty()) {
                 logger.info("No Events To check");
+                return;
             }
 
             sportEvents.forEach(SportEvent::changeStatus);

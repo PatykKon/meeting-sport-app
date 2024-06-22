@@ -8,7 +8,10 @@ class Description {
 
     private final static int MAX_DESCRIPTION = 250;
 
-    private final String value;
+    private String value;
+
+    private Description() {
+    }
 
     Description(String value) {
         this.value = checkDescription(value);

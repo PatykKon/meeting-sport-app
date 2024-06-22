@@ -19,6 +19,9 @@ class SportEvent {
     private Long sportFieldId;
     private SportEventStatus sportEventStatus;
 
+    private SportEvent(){
+
+    }
 
     SportEvent(Long id, Title title, Description description, Team team, RequiredAge requiredAge, List<EventRole> eventRoles, EventTime eventTime, Long ownerId, Long sportFieldId, SportEventStatus sportEventStatus) {
         this.id = id;
@@ -43,14 +46,18 @@ class SportEvent {
                                     Long ownerId,
                                     int minPlayers) {
 
-        Title gameTitle = new Title(title);
-        Description gameDescription = new Description(description);
-        Team gameTeam = new Team(players, minPlayers);
-        RequiredAge requiredAge = new RequiredAge(minAge);
-        EventTime eventTime = new EventTime(gameTime, startEvent);
-        List<EventRole> eventRoleList = new ArrayList<>();
-
-        return new SportEvent(null, gameTitle, gameDescription, gameTeam, requiredAge, eventRoleList, eventTime, ownerId, null, SportEventStatus.COMING);
+        return new SportEvent(
+                null,
+                new Title(title),
+                new Description(description),
+                new Team(players,minPlayers),
+                new RequiredAge(minAge),
+                new ArrayList<>(),
+                new EventTime(gameTime,startEvent),
+                ownerId,
+                null,
+                SportEventStatus.COMING
+        );
     }
 
     void updateEvent(Long userId,String description,String title,Integer minAge,Integer players,Integer minPlayers, Integer gameTime, LocalDateTime startEvent) {
@@ -177,7 +184,8 @@ class SportEvent {
     }
 
     List<EventRole> getEventRoles() {
-        return eventRoles;
+        return eventRoles.stream()
+                .toList();
     }
 
     Long getOwnerId() {
@@ -190,4 +198,6 @@ class SportEvent {
     SportEventStatus getSportEventStatus() {
         return sportEventStatus;
     }
+
+
 }

@@ -8,7 +8,11 @@ class Title {
 
     private final static int MAX_TITLE = 60;
 
-    private final String value;
+    private String value;
+
+    private Title(){
+
+    }
 
     Title(String value) {
         this.value = checkTitle(value);

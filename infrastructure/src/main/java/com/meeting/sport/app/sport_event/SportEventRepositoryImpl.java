@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Repository
 class SportEventRepositoryImpl implements SportEventRepository {
@@ -50,7 +51,9 @@ class SportEventRepositoryImpl implements SportEventRepository {
         List<SportEventEntity> sportEventEntities = sportEventRepositoryJPA.findAllByStartTimeAfter(time)
                 .orElse(Collections.emptyList());
 
-        return sportEventEntities.stream().map(SportEventMapper::entityToModel).toList();
+        return sportEventEntities.stream()
+                .map(SportEventMapper::entityToModel)
+                .collect(Collectors.toList());
     }
 
     @Override

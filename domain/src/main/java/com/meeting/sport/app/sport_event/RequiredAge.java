@@ -8,7 +8,11 @@ class RequiredAge {
 
     private final static int MIN_AGE = 0;
 
-    private final int age;
+    private int age;
+
+    private RequiredAge(){
+
+    }
 
     RequiredAge(Integer age) {
         this.age = checkAge(age);

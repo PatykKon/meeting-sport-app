@@ -8,6 +8,9 @@ import java.util.stream.IntStream;
 
 class EventRoleCreator {
 
+    private EventRoleCreator(){
+    }
+
     public static List<EventRole> createEventRoles(List<EventRoleData> eventRoleDataList, SportEvent sportEvent){
         final int sumGameRole = getSumGameRole(eventRoleDataList);
 

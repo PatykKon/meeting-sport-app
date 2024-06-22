@@ -144,13 +144,9 @@ class EventRoleMapper {
             return null;
         }
 
-        String value = null;
+        String value = sportEventEntity.getTitle();
 
-        value = sportEventEntity.getTitle();
-
-        Title title = new Title(value);
-
-        return title;
+        return new Title(value);
     }
 
     protected static Team sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {

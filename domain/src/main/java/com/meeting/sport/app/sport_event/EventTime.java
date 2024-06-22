@@ -12,9 +12,12 @@ class EventTime {
     private static final int MIN_HOUR_BEFORE_START_TO_DELETE_EVENT = 4;
     private static final int MIN_HOUR_TO_CREATE_EVENT = 3;
 
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
-    private final Integer gameTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private Integer gameTime;
+
+    private EventTime(){
+    }
 
     EventTime(Integer gameTime,LocalDateTime startTime) {
         this.startTime = startTime;

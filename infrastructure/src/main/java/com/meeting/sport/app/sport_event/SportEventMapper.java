@@ -132,6 +132,7 @@ class SportEventMapper {
     protected static Title sportEventEntityToTitle(SportEventEntity sportEventEntity) {
 
 
+
         String value = sportEventEntity.getTitle();
 
         return new Title(value);
@@ -147,17 +148,13 @@ class SportEventMapper {
 
     protected static Team sportEventEntityToTeamSize(SportEventEntity sportEventEntity) {
 
-        int teamSize = 0;
-        int minPlayers = 0;
-
-        teamSize = sportEventEntity.getPlayers();
-        minPlayers = sportEventEntity.getMinPlayers();
+        int teamSize =  sportEventEntity.getPlayers();
+        int minPlayers = sportEventEntity.getMinPlayers();
 
         return new Team(teamSize, minPlayers);
     }
 
     protected static RequiredAge sportEventEntityToRequiredAge(SportEventEntity sportEventEntity) {
-
 
         int age = sportEventEntity.getMinAge();
 
